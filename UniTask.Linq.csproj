@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1FA14D8D-1191-AADC-689A-612841341E1E}</ProjectGuid>
+    <ProjectGuid>{34D3B554-7E7F-9C60-2D05-7B98FFDC11BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>UniTask.Linq</AssemblyName>
@@ -1179,7 +1179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UniTask.csproj">
-      <Project>{4C59E2A0-274D-5BA0-38A6-38750407FD91}</Project>
+      <Project>{CA6A158F-ABAD-4727-E5D8-73844FB1F348}</Project>
       <Name>UniTask</Name>
     </ProjectReference>
   </ItemGroup>

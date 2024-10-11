@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{415E8A17-0F9A-9C2B-592E-FEA06B8AE892}</ProjectGuid>
+    <ProjectGuid>{9277A27D-A8F1-E546-2927-7F3EFD3A7CD8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>VRC.ClientSim.Editor</AssemblyName>
@@ -1136,15 +1136,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="VRC.ClientSim.csproj">
-      <Project>{32B9D49C-2348-0AE7-46D2-3F9961142A37}</Project>
+      <Project>{C7998374-B7D6-39FC-8136-446845D052AE}</Project>
       <Name>VRC.ClientSim</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.Udon.csproj">
-      <Project>{0D177146-B4B8-650A-68AE-0F90E8CF0205}</Project>
+      <Project>{F50D537B-F000-BB8E-3999-C1647936A8B4}</Project>
       <Name>VRC.Udon</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.Udon.Editor.csproj">
-      <Project>{29190C7A-A79D-8F22-7800-5620067BBE39}</Project>
+      <Project>{3522680A-C543-456C-A258-7CBAB48C9443}</Project>
       <Name>VRC.Udon.Editor</Name>
     </ProjectReference>
   </ItemGroup>

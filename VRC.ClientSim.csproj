@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{32B9D49C-2348-0AE7-46D2-3F9961142A37}</ProjectGuid>
+    <ProjectGuid>{C7998374-B7D6-39FC-8136-446845D052AE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>VRC.ClientSim</AssemblyName>
@@ -1235,15 +1235,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="VRC.Udon.csproj">
-      <Project>{0D177146-B4B8-650A-68AE-0F90E8CF0205}</Project>
+      <Project>{F50D537B-F000-BB8E-3999-C1647936A8B4}</Project>
       <Name>VRC.Udon</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.SDKBase.csproj">
-      <Project>{14315B19-D0B8-6395-E03B-2635114CE6C2}</Project>
+      <Project>{6D7F5DA8-D85C-3C0E-3E52-F8F00EDC4F63}</Project>
       <Name>VRC.SDKBase</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.csproj">
-      <Project>{4C59E2A0-274D-5BA0-38A6-38750407FD91}</Project>
+      <Project>{CA6A158F-ABAD-4727-E5D8-73844FB1F348}</Project>
       <Name>UniTask</Name>
     </ProjectReference>
   </ItemGroup>

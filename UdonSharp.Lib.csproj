@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1D17A37B-2CFA-C97D-AD95-CBA770B7D84F}</ProjectGuid>
+    <ProjectGuid>{45A5C9A1-952C-0DEF-AB5C-DB2AC13C06A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>UdonSharp.Lib</AssemblyName>
@@ -1111,11 +1111,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="VRC.Udon.csproj">
-      <Project>{0D177146-B4B8-650A-68AE-0F90E8CF0205}</Project>
+      <Project>{F50D537B-F000-BB8E-3999-C1647936A8B4}</Project>
       <Name>VRC.Udon</Name>
     </ProjectReference>
     <ProjectReference Include="UdonSharp.Runtime.csproj">
-      <Project>{31F63AF3-068C-88C1-8AE9-B66D09E177CD}</Project>
+      <Project>{E32E114D-5AB3-8111-D691-02E9A9241E9B}</Project>
       <Name>UdonSharp.Runtime</Name>
     </ProjectReference>
   </ItemGroup>

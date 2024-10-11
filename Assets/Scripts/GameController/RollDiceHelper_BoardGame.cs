@@ -28,24 +28,31 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             {
                 gameVariables.CurrentRoll = randomRoll;
             }
-            int finalLandingSpace = gameController.CalculateLandingSpace(randomRoll);
+            int finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+            Debug.Log("Final Landing Space Initial: " + finalLandingSpace.ToString());
             bool movementHasEnded = false;
+            SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
+            int numberOfMovements = 0;
             while (!movementHasEnded)
             {
-                SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
                 bool sendBackToStart = gameController.ProcessSendBackToStart(spaceSetting);
                 int moveForwardBackwards = gameController.ProcessLandedSpaceMovement(spaceSetting);
                 int swapPlayer = (int)gameController.ProcessSwapWithPlayer(spaceSetting);
                 if (sendBackToStart)
                 {
+                    //send back to start takes full movement priority.
                     finalLandingSpace = 0;
                 }
                 else if(moveForwardBackwards != 0)
                 {
-                    finalLandingSpace = finalLandingSpace + moveForwardBackwards;
+                    //moving forwards/backwards takes next priority, moving forwards is before backwards.
+                    Debug.Log("Move Forward Backwards: " + moveForwardBackwards.ToString());
+                    finalLandingSpace = gameController.CalculateLandingSpace(moveForwardBackwards, finalLandingSpace);
+                    Debug.Log("New Final Landing Space: " + finalLandingSpace.ToString());
                 }
                 else if(swapPlayer != 0)
                 {
+                    //last priority is swapping player, if they aren't going back to start, and if they aren't moving forwards or backwards, and they land on swap, they will then swap.
                     gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
                     int playerToSwapIndex = gameController.ProcessSwapPlayer((SwapWithPlayer)swapPlayer, gameVariables.CurrentPlayerIndex);
                     if (playerToSwapIndex == gameVariables.CurrentPlayerIndex)
@@ -62,19 +69,40 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                 }
                 else
                 {
+                    //if none of these things are true, we know that their possible movement manipulations have completed.
                     movementHasEnded = true;
                 }
+                numberOfMovements++;
+                if(numberOfMovements > 10)
+                {
+                    Debug.Log("What the fuck are you doing with this much movement manipulation off one space? Cancelled dumbass.");
+                    break;
+                }
+                spaceSetting = gameController.GetSpace(finalLandingSpace);
             }
+            numberOfMovements = 0;
             gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
-            gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
-            if (gameVariables.CurrentPlayerIndex == playerLists.playersInGameDataList.Count - 1)
+            if (!gameController.ProcessRollAgain(spaceSetting))
             {
-                gameVariables.CurrentPlayerIndex = 0;
+                gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
+                if (gameVariables.CurrentPlayerIndex == playerLists.playersInGameDataList.Count - 1)
+                {
+                    gameVariables.CurrentPlayerIndex = 0;
+                }
+                else
+                {
+                    gameVariables.CurrentPlayerIndex++;
+                }
             }
             else
             {
-                gameVariables.CurrentPlayerIndex++;
+                if (gameVariables.PreviousPlayerIndex == -1)
+                {
+                    gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
+                }
+                gameVariables.SamePlayer++;
             }
+            
             updateSpaces.UpdateOutlineSpaces();
             gameVariables.RequestSerialization();
         }

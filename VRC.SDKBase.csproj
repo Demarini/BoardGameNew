@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{14315B19-D0B8-6395-E03B-2635114CE6C2}</ProjectGuid>
+    <ProjectGuid>{6D7F5DA8-D85C-3C0E-3E52-F8F00EDC4F63}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>VRC.SDKBase</AssemblyName>
