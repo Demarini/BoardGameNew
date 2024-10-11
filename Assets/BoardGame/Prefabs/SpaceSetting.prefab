@@ -56,7 +56,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 5527491994011091397}
   RollAgain: 1
-  DrinkXTimes: 2
+  DrinkXTimes: 0
   SendBackToStart: 0
   EveryoneDrinkXTimes: 0
   MoveBackXSpaces: 0

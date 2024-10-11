@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9F5DD89B-7808-1483-317C-52ACF016E476}</ProjectGuid>
+    <ProjectGuid>{83EC7CF7-9238-B91F-F1BC-CCEABA8CC8CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>VRC.Udon.Serialization.OdinSerializer</AssemblyName>

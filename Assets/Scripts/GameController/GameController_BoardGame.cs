@@ -11,7 +11,6 @@ public class GameController_BoardGame : UdonSharpBehaviour
     [SerializeField] GameVariables_BoardGame gameVariables;
     [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
     [SerializeField] UpdateSpaces updateSpaces;
-    public GameObject boardGameSpaces;
     public GameObject boardGameSpaceSettings;
 
     public GameObject diceObjectInteract;
@@ -38,6 +37,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 gameVariables.GameStarted = true;
                 gameVariables.CurrentPlayerIndex = 0;
                 playerLists.GetSelfIndex();
+                gameVariables.PlayerUpdateBoard++;
                 playerLists.RequestSerialization();
                 gameVariables.RequestSerialization();
             }
@@ -99,7 +99,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.RollAgain)
         {
-            Debug.Log("RollAgain");
+            Debug.Log("------------------------RollAgain------------------------");
             return true;
         }
         else
@@ -107,11 +107,11 @@ public class GameController_BoardGame : UdonSharpBehaviour
             return false;
         }
     }
-    public int CalculateLandingSpace(int roll)
+    public int CalculateLandingSpace(int roll, int space)
     {
         int totalSpaces = boardGameSpaceSettings.transform.childCount - 1;
         int currentSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
-        if (gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int + roll > totalSpaces)
+        if (space + roll > totalSpaces)
         {
             Debug.Log("Over Max");
             Debug.Log("Total Spaces: " + totalSpaces.ToString());
@@ -119,9 +119,14 @@ public class GameController_BoardGame : UdonSharpBehaviour
             Debug.Log("Roll: " + roll.ToString());
             return totalSpaces - (roll - (totalSpaces - currentSpace));
         }
+        else if(space + roll < 0)
+        {
+            Debug.Log("Under Min? Are you dumb?");
+            return 0;
+        }
         else
         {
-            return roll + gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+            return roll + space;
         }
     }
     private int FindFirstPlacePlayerIndex(int currentPlayerIndex)
@@ -150,6 +155,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     }
     public int ProcessSwapPlayer(SwapWithPlayer swapWithPlayer, int currentPlayerIndex)
     {
+        
         if(swapWithPlayer == SwapWithPlayer.SwapWithFirst)
         {
             return FindFirstPlacePlayerIndex(currentPlayerIndex);
@@ -160,6 +166,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         }
         else
         {
+            Debug.Log("------------------------Can't swap with self------------------------");
             return currentPlayerIndex;
         }
     }
@@ -167,12 +174,12 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.SwapWithFirst)
         {
-            Debug.Log("SwapWithFirst");
+            Debug.Log("------------------------SwapWithFirst------------------------");
             return SwapWithPlayer.SwapWithFirst;
         }
         if (spaceSetting.SwapWithLast)
         {
-            Debug.Log("SwapWithLast");
+            Debug.Log("------------------------SwapWithLast------------------------");
             return SwapWithPlayer.SwapWithLast;
         }
         return SwapWithPlayer.DontSwap;
@@ -181,7 +188,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.SendBackToStart)
         {
-            Debug.Log("SendBackToStart");
+            Debug.Log("------------------------SendBackToStart------------------------");
             return true;
         }
         else
@@ -193,12 +200,14 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.MoveForwardXSpaces > 0)
         {
-            Debug.Log("MoveForwardXSpaces");
+            Debug.Log("------------------------MoveForwardXSpaces------------------------");
+            Debug.Log(spaceSetting.MoveForwardXSpaces.ToString() + " Spaces");
             return spaceSetting.MoveForwardXSpaces;
         }
         if (spaceSetting.MoveBackXSpaces > 0)
         {
-            Debug.Log("MoveBackXSpaces");
+            Debug.Log("------------------------MoveBackXSpaces------------------------");
+            Debug.Log(spaceSetting.MoveBackXSpaces.ToString() + " Spaces");
             return spaceSetting.MoveBackXSpaces * -1;
         }
         return 0;

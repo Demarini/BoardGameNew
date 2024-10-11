@@ -13,7 +13,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     [SerializeField] RunDiceTimer runDiceTimer;
 
     public bool ReceivedGameStartedValues;
-    public int selfIndex;
+    public int selfIndex = -1;
 
     [UdonSynced, FieldChangeCallback(nameof(Shuffled))]
     public bool shuffled;
@@ -108,7 +108,10 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         {
             Debug.Log("Game Started and Received Player Variables For First Time");
             ReceivedGameStartedValues = true;
-            GetSelfIndex();
+            if(selfIndex != -1)
+            {
+                GetSelfIndex();
+            }
             if (ReceivedGameStartedValues && gameVariables.ReceivedGameStartedValues)
             {
                 Debug.Log("Received All Variables, Ready For Dice Check");

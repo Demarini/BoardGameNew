@@ -45,7 +45,6 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => currentPlayerIndex;
     }
-    int tmpPreviousPlayerIndex = -1;
     [UdonSynced, FieldChangeCallback(nameof(PreviousPlayerIndex))]
     public int previousPlayerIndex = -1;
     public int PreviousPlayerIndex
@@ -59,6 +58,40 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             Debug.Log(previousPlayerIndex);
         }
         get => previousPlayerIndex;
+    }
+    [UdonSynced, FieldChangeCallback(nameof(SamePlayer))]
+    public int samePlayer = 0;
+    public int SamePlayer
+    {
+        set
+        {
+            samePlayer = value;
+            if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
+            {
+                runDiceTimer.RunTimer = true;
+            }
+            Debug.Log("Same Player Updated");
+            Debug.Log(samePlayer);
+        }
+        get => samePlayer;
+    }
+    int tmpPlayerUpdateBoard = 0;
+    [UdonSynced, FieldChangeCallback(nameof(PlayerUpdateBoard))]
+    public int playerUpdateBoard = 0;
+    public int PlayerUpdateBoard
+    {
+        set
+        {
+            playerUpdateBoard = value;
+            if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues && Networking.LocalPlayer.isMaster)
+            {
+                Debug.Log("Updating Board");
+                updateSpaces.UpdateOutlineSpaces();
+            }
+            Debug.Log("Player Update Board Updated");
+            Debug.Log(playerUpdateBoard);
+        }
+        get => playerUpdateBoard;
     }
 
     [UdonSynced, FieldChangeCallback(nameof(CurrentRoll))]
@@ -127,10 +160,11 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         missedTurnDataList = helperFunctions.DeserializeDataList(MissedTurnJson, missedTurnDataList);
         playerSpaceDataList = helperFunctions.DeserializeDataList(PlayerSpaceJson, playerSpaceDataList);
         Debug.Log("Current Player Index: " + currentPlayerIndex.ToString());
-        if(tmpPreviousPlayerIndex != PreviousPlayerIndex)
+        Debug.Log("Previous Player Index: " + PreviousPlayerIndex.ToString());
+        if(PlayerUpdateBoard != tmpPlayerUpdateBoard)
         {
+            Debug.Log("Update Board");
             updateSpaces.UpdateOutlineSpaces();
-            tmpPreviousPlayerIndex = PreviousPlayerIndex;
         }
         CheckForGameStartedValueSync();
     }

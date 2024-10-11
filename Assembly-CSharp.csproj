@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0B084582-3832-C62D-1C0A-530696346E9D}</ProjectGuid>
+    <ProjectGuid>{0FB508A5-1998-5CBF-5F00-FC683744A3B3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -1179,79 +1179,79 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UdonSharp.Editor.csproj">
-      <Project>{413E95BA-1D7D-CFAD-2C29-C526A0CBCBA1}</Project>
+      <Project>{68E1529F-4B13-7AF3-A6F5-96A9115B88CF}</Project>
       <Name>UdonSharp.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.SDKBase.Editor.BuildPipeline.csproj">
-      <Project>{706F0CAD-C742-9F67-782F-84BCCF991683}</Project>
+      <Project>{2CA04FC6-C19B-2E85-E4AD-2012A8851B8F}</Project>
       <Name>VRC.SDKBase.Editor.BuildPipeline</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.Udon.Serialization.OdinSerializer.csproj">
-      <Project>{9F5DD89B-7808-1483-317C-52ACF016E476}</Project>
+      <Project>{83EC7CF7-9238-B91F-F1BC-CCEABA8CC8CC}</Project>
       <Name>VRC.Udon.Serialization.OdinSerializer</Name>
     </ProjectReference>
     <ProjectReference Include="com.vrchat.core.vpm-resolver.Editor.csproj">
-      <Project>{86829F67-311A-F80B-9C8F-9DA45A410702}</Project>
+      <Project>{3995764F-95E2-1B97-D60F-7A602274B458}</Project>
       <Name>com.vrchat.core.vpm-resolver.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.SDKBase.Editor.csproj">
-      <Project>{0ADB35D9-EB14-AD96-F1E9-EBA97E06C408}</Project>
+      <Project>{35A151C7-C3EA-9992-9203-53C90A12DCA5}</Project>
       <Name>VRC.SDKBase.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.Udon.csproj">
-      <Project>{0D177146-B4B8-650A-68AE-0F90E8CF0205}</Project>
+      <Project>{F50D537B-F000-BB8E-3999-C1647936A8B4}</Project>
       <Name>VRC.Udon</Name>
     </ProjectReference>
     <ProjectReference Include="UdonSharp.Runtime.csproj">
-      <Project>{31F63AF3-068C-88C1-8AE9-B66D09E177CD}</Project>
+      <Project>{E32E114D-5AB3-8111-D691-02E9A9241E9B}</Project>
       <Name>UdonSharp.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.Udon.Editor.csproj">
-      <Project>{29190C7A-A79D-8F22-7800-5620067BBE39}</Project>
+      <Project>{3522680A-C543-456C-A258-7CBAB48C9443}</Project>
       <Name>VRC.Udon.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.ClientSim.Editor.csproj">
-      <Project>{415E8A17-0F9A-9C2B-592E-FEA06B8AE892}</Project>
+      <Project>{9277A27D-A8F1-E546-2927-7F3EFD3A7CD8}</Project>
       <Name>VRC.ClientSim.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.DOTween.csproj">
-      <Project>{3F6A2DF0-E7DF-2F4D-2B15-951CD326D552}</Project>
+      <Project>{E26E0DB2-B833-D9E1-2D17-4BE252001AA3}</Project>
       <Name>UniTask.DOTween</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.csproj">
-      <Project>{4C59E2A0-274D-5BA0-38A6-38750407FD91}</Project>
+      <Project>{CA6A158F-ABAD-4727-E5D8-73844FB1F348}</Project>
       <Name>UniTask</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.SDK3.csproj">
-      <Project>{F2F8BBDB-E7C0-0747-6890-4F1A39E152A0}</Project>
+      <Project>{5F611F36-7A1A-F3A4-6566-8F2AE42B9450}</Project>
       <Name>VRC.SDK3</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.SDKBase.Editor.ShaderStripping.csproj">
-      <Project>{503B1FE7-F50A-85E2-9332-FA2416C432A2}</Project>
+      <Project>{F62E3E78-2B2C-36DB-5D06-2A05826D19DF}</Project>
       <Name>VRC.SDKBase.Editor.ShaderStripping</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.SDKBase.csproj">
-      <Project>{14315B19-D0B8-6395-E03B-2635114CE6C2}</Project>
+      <Project>{6D7F5DA8-D85C-3C0E-3E52-F8F00EDC4F63}</Project>
       <Name>VRC.SDKBase</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.Linq.csproj">
-      <Project>{1FA14D8D-1191-AADC-689A-612841341E1E}</Project>
+      <Project>{34D3B554-7E7F-9C60-2D05-7B98FFDC11BF}</Project>
       <Name>UniTask.Linq</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.TextMeshPro.csproj">
-      <Project>{C0C3F60E-1D49-0E5B-BFF0-9BB42249E8E7}</Project>
+      <Project>{30D06FE0-B13C-3699-D204-F5900CDED4CC}</Project>
       <Name>UniTask.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.Addressables.csproj">
-      <Project>{A666AD72-36B8-C09D-C8BB-414A91EC0A2E}</Project>
+      <Project>{47E70E80-73D8-3258-D687-9069A1CD6667}</Project>
       <Name>UniTask.Addressables</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.ClientSim.csproj">
-      <Project>{32B9D49C-2348-0AE7-46D2-3F9961142A37}</Project>
+      <Project>{C7998374-B7D6-39FC-8136-446845D052AE}</Project>
       <Name>VRC.ClientSim</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.SDK3.Editor.csproj">
-      <Project>{5FCE56C1-C558-EDFA-102F-E020B69D2BE3}</Project>
+      <Project>{D9ED3C6F-2700-2BB6-4DB4-AD673AF51151}</Project>
       <Name>VRC.SDK3.Editor</Name>
     </ProjectReference>
   </ItemGroup>

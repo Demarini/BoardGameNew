@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{413E95BA-1D7D-CFAD-2C29-C526A0CBCBA1}</ProjectGuid>
+    <ProjectGuid>{68E1529F-4B13-7AF3-A6F5-96A9115B88CF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>UdonSharp.Editor</AssemblyName>
@@ -1123,23 +1123,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="VRC.Udon.csproj">
-      <Project>{0D177146-B4B8-650A-68AE-0F90E8CF0205}</Project>
+      <Project>{F50D537B-F000-BB8E-3999-C1647936A8B4}</Project>
       <Name>VRC.Udon</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.Udon.Editor.csproj">
-      <Project>{29190C7A-A79D-8F22-7800-5620067BBE39}</Project>
+      <Project>{3522680A-C543-456C-A258-7CBAB48C9443}</Project>
       <Name>VRC.Udon.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="VRC.Udon.Serialization.OdinSerializer.csproj">
-      <Project>{9F5DD89B-7808-1483-317C-52ACF016E476}</Project>
+      <Project>{83EC7CF7-9238-B91F-F1BC-CCEABA8CC8CC}</Project>
       <Name>VRC.Udon.Serialization.OdinSerializer</Name>
     </ProjectReference>
     <ProjectReference Include="UdonSharp.Runtime.csproj">
-      <Project>{31F63AF3-068C-88C1-8AE9-B66D09E177CD}</Project>
+      <Project>{E32E114D-5AB3-8111-D691-02E9A9241E9B}</Project>
       <Name>UdonSharp.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="UdonSharp.Lib.csproj">
-      <Project>{1D17A37B-2CFA-C97D-AD95-CBA770B7D84F}</Project>
+      <Project>{45A5C9A1-952C-0DEF-AB5C-DB2AC13C06A1}</Project>
       <Name>UdonSharp.Lib</Name>
     </ProjectReference>
   </ItemGroup>
