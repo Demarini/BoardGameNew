@@ -16,4 +16,12 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
     public void StartGameClicked() => gameController.StartGame();
 
     public void RollDiceClicked() => gameController.RollDice();
+    public void NextPlayer()
+    {
+        gameController.NextPlayer();
+    }
+    public void PreviousPlayer()
+    {
+
+    }
 }

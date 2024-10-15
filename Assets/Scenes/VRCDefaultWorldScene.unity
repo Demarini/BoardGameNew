@@ -216,6 +216,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
@@ -504,7 +509,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -859,7 +864,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -948,7 +953,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9951ef8585b78a2438946095c6bfe76c, type: 2}
+      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -983,6 +988,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 363635303}
     m_Modifications:
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -1272,6 +1282,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 363635303}
     m_Modifications:
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -1674,7 +1689,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8857d38052427024eb52f262328ede6e, type: 2}
+      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -2110,13 +2125,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: MoveForwardXSpaces
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -2299,7 +2329,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -2502,6 +2532,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: SwapWithFirst
       value: 0
       objectReference: {fileID: 0}
@@ -2655,7 +2690,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -2744,7 +2779,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 571c77fdccf76b042a02f284d9fdde6e, type: 2}
+      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -2814,6 +2849,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 363635303}
     m_Modifications:
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -2959,7 +2999,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -3048,7 +3088,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 742cee09a04f7314fb02b6a4b8015f32, type: 2}
+      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -3253,7 +3293,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
+      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -3438,7 +3478,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -3559,7 +3599,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -3928,7 +3968,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -4080,13 +4120,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: SendBackToStart
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -4181,13 +4236,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: SwapWithLast
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -4371,13 +4441,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: DrinkWithHost
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -4524,7 +4604,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d6b2a09a8f7b8ff46aebaa17418232a9, type: 2}
+      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -4600,6 +4680,16 @@ PrefabInstance:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: RollAgain
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
@@ -4695,6 +4785,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
@@ -4786,13 +4881,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: MoveBackXSpaces
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -5007,7 +5117,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
+      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -5183,13 +5293,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: ChooseSomeoneToDrink
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -5336,7 +5456,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9951ef8585b78a2438946095c6bfe76c, type: 2}
+      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -5373,13 +5493,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: SendBackToStart
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -5526,7 +5661,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -5563,8 +5698,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: MoveBackXSpaces
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -5769,6 +5909,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
@@ -5860,8 +6005,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: MoveBackXSpaces
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -6008,7 +6158,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -6472,7 +6622,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 835913c959ba40145ab26c1b551f2a8b, type: 2}
+      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -6509,13 +6659,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: DrinkWithHost
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: SwapWithFirst
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -6662,7 +6827,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8857d38052427024eb52f262328ede6e, type: 2}
+      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -6810,7 +6975,22 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
@@ -6906,6 +7086,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
@@ -6997,13 +7182,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: MissTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: RollAgain
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
+      propertyPath: DrinkWithHost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
       propertyPath: DrinkWhatYouRoll
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: ChooseSomeoneToDrink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
@@ -7096,6 +7296,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 363635303}
     m_Modifications:
+    - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
+        type: 3}
+      propertyPath: RollAgain
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 73977861401692806, guid: 9e05004d99ea988459518e795e7b1d56,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -7241,7 +7446,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+      objectReference: {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -7722,7 +7927,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a7330bae1a70ce345b45c0a0c7d343ba, type: 2}
+      objectReference: {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
     - target: {fileID: 4725475228725233765, guid: 73aa90bd58c2e754f8445f3349fb5c00,
         type: 3}
       propertyPath: m_Name
@@ -8218,22 +8423,17 @@ MonoBehaviour:
   DynamicPrefabs: []
   DynamicMaterials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: 9951ef8585b78a2438946095c6bfe76c, type: 2}
-  - {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
-  - {fileID: 2100000, guid: 571c77fdccf76b042a02f284d9fdde6e, type: 2}
-  - {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
-  - {fileID: 2100000, guid: d808404f25f66e04c98c9e140e3e1112, type: 2}
-  - {fileID: 2100000, guid: 9315d89955c4c6c41a6cb686016f54ee, type: 2}
-  - {fileID: 2100000, guid: 835913c959ba40145ab26c1b551f2a8b, type: 2}
-  - {fileID: 2100000, guid: 8857d38052427024eb52f262328ede6e, type: 2}
-  - {fileID: 2100000, guid: 742cee09a04f7314fb02b6a4b8015f32, type: 2}
-  - {fileID: 2100000, guid: eb99b8ee1fc45d648b1edd7bd7acb0e3, type: 2}
-  - {fileID: 2100000, guid: c44231d755fd5dc48bfd8fb242328fdf, type: 2}
   - {fileID: 2100000, guid: 21f9544d2915b4ac5a9341977c48d6d5, type: 3}
   - {fileID: 2100002, guid: 21f9544d2915b4ac5a9341977c48d6d5, type: 3}
-  - {fileID: 2100000, guid: d6b2a09a8f7b8ff46aebaa17418232a9, type: 2}
   - {fileID: 2100000, guid: 3dc2fd11945d17445812a292f56689ae, type: 2}
-  - {fileID: 2100000, guid: a7330bae1a70ce345b45c0a0c7d343ba, type: 2}
+  - {fileID: 2100000, guid: da59c71130b65e240b30cbbe87f585e1, type: 2}
+  - {fileID: 2100000, guid: bd53d384dc512594eaaa8d2f74521025, type: 2}
+  - {fileID: 2100000, guid: eb99b8ee1fc45d648b1edd7bd7acb0e3, type: 2}
+  - {fileID: 2100000, guid: d808404f25f66e04c98c9e140e3e1112, type: 2}
+  - {fileID: 2100000, guid: 9315d89955c4c6c41a6cb686016f54ee, type: 2}
+  - {fileID: 2100000, guid: c44231d755fd5dc48bfd8fb242328fdf, type: 2}
+  - {fileID: 2100000, guid: 9951ef8585b78a2438946095c6bfe76c, type: 2}
+  - {fileID: 2100000, guid: d6b2a09a8f7b8ff46aebaa17418232a9, type: 2}
   - {fileID: 2100000, guid: 3da0310868667d94ba768976ba84ebe3, type: 2}
   LightMapsNear: []
   LightMapsFar: []

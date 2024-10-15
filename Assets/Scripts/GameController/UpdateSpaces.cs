@@ -24,7 +24,7 @@ public class UpdateSpaces : UdonSharpBehaviour
         }
         int previousPlayerSpace = (gameVariables.PreviousPlayerIndex == -1 ? 0 : Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString()));
         int selfPlayerSpace = (playerLists.selfIndex != -1 ? Convert.ToInt32(gameVariables.playerSpaceDataList[playerLists.selfIndex].ToString()) : -1);
-        for (int i = 0;i < spaceObjects.transform.childCount - 1; i++)
+        for (int i = 0;i < spaceObjects.transform.childCount; i++)
         {
             spaceObjects.transform.GetChild(i).GetChild(7).gameObject.SetActive(false);
             spaceObjects.transform.GetChild(i).GetChild(8).gameObject.SetActive(false);
