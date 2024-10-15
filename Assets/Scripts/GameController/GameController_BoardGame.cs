@@ -43,6 +43,57 @@ public class GameController_BoardGame : UdonSharpBehaviour
             }
         }
     }
+    public void DetectPlayerForIncrement()
+    {
+        if (gameVariables.CurrentPlayerIndex == playerLists.playersInGameDataList.Count - 1)
+        {
+            gameVariables.CurrentPlayerIndex = 0;
+        }
+        else
+        {
+            gameVariables.CurrentPlayerIndex++;
+        }
+    }
+    public void SamePlayerRollAgain()
+    {
+        if (gameVariables.PreviousPlayerIndex == -1)
+        {
+            gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
+        }
+        if (gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex].Boolean)
+        {
+            Debug.Log("Current Player Missed Turn While On Roll Again, Kind of Wilddsd: " + gameVariables.CurrentPlayerIndex.ToString());
+            gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = false;
+            NextPlayer();
+        }
+        else
+        {
+            gameVariables.SamePlayer++;
+        }
+        gameVariables.RequestSerialization();
+    }
+    public void NextPlayer()
+    {
+        //increment player
+        gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
+        DetectPlayerForIncrement();
+        //loop until we find a player that isn't missing a turn
+        while (gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex].Boolean)
+        {
+            Debug.Log("Current Player Missed Turn: " + gameVariables.CurrentPlayerIndex.ToString());
+            gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = false;
+            DetectPlayerForIncrement();
+        }
+        if(gameVariables.CurrentPlayerIndex == gameVariables.PreviousPlayerIndex)
+        {
+            //enough players in a row missed a turn to loop back to original roller
+            SamePlayerRollAgain();
+        }
+        else
+        {
+            gameVariables.RequestSerialization();
+        }
+    }
     public void RollDice()
     {
         if(Networking.LocalPlayer.playerId == playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex])
@@ -110,14 +161,13 @@ public class GameController_BoardGame : UdonSharpBehaviour
     public int CalculateLandingSpace(int roll, int space)
     {
         int totalSpaces = boardGameSpaceSettings.transform.childCount - 1;
-        int currentSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
         if (space + roll > totalSpaces)
         {
             Debug.Log("Over Max");
             Debug.Log("Total Spaces: " + totalSpaces.ToString());
-            Debug.Log("Current Space: " + currentSpace.ToString());
+            Debug.Log("Current Space: " + space.ToString());
             Debug.Log("Roll: " + roll.ToString());
-            return totalSpaces - (roll - (totalSpaces - currentSpace));
+            return totalSpaces - (roll - (totalSpaces - space));
         }
         else if(space + roll < 0)
         {
@@ -152,6 +202,14 @@ public class GameController_BoardGame : UdonSharpBehaviour
             }
         }
         return minIndex;
+    }
+    public void ProcessMissedTurn(SpaceSettings spaceSetting)
+    {
+        if (spaceSetting.MissTurn)
+        {
+            Debug.Log("Found Miss Turn, Updating List");
+            gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = true;
+        }
     }
     public int ProcessSwapPlayer(SwapWithPlayer swapWithPlayer, int currentPlayerIndex)
     {

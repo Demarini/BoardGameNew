@@ -72,39 +72,27 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                     //if none of these things are true, we know that their possible movement manipulations have completed.
                     movementHasEnded = true;
                 }
+                spaceSetting = gameController.GetSpace(finalLandingSpace);
                 numberOfMovements++;
                 if(numberOfMovements > 10)
                 {
                     Debug.Log("What the fuck are you doing with this much movement manipulation off one space? Cancelled dumbass.");
                     break;
                 }
-                spaceSetting = gameController.GetSpace(finalLandingSpace);
             }
             numberOfMovements = 0;
+            gameController.ProcessMissedTurn(spaceSetting);
             gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
             if (!gameController.ProcessRollAgain(spaceSetting))
             {
-                gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
-                if (gameVariables.CurrentPlayerIndex == playerLists.playersInGameDataList.Count - 1)
-                {
-                    gameVariables.CurrentPlayerIndex = 0;
-                }
-                else
-                {
-                    gameVariables.CurrentPlayerIndex++;
-                }
+                gameController.NextPlayer();
             }
             else
             {
-                if (gameVariables.PreviousPlayerIndex == -1)
-                {
-                    gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
-                }
-                gameVariables.SamePlayer++;
+                gameController.SamePlayerRollAgain();
             }
-            
             updateSpaces.UpdateOutlineSpaces();
-            gameVariables.RequestSerialization();
+            //possibly need to request serialization on game variables, but the roll should do it
         }
     }
     private int GetRandomRoll()
