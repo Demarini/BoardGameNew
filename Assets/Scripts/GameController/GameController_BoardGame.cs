@@ -11,6 +11,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     [SerializeField] GameVariables_BoardGame gameVariables;
     [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
     [SerializeField] UpdateSpaces updateSpaces;
+    [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     public GameObject boardGameSpaceSettings;
 
     public GameObject diceObjectInteract;
@@ -38,6 +39,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 gameVariables.CurrentPlayerIndex = 0;
                 playerLists.GetSelfIndex();
                 gameVariables.PlayerUpdateBoard++;
+                gameVariables.TakePicture++;
+                updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
                 playerLists.RequestSerialization();
                 gameVariables.RequestSerialization();
             }
@@ -62,7 +65,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         }
         if (gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex].Boolean)
         {
-            Debug.Log("Current Player Missed Turn While On Roll Again, Kind of Wilddsd: " + gameVariables.CurrentPlayerIndex.ToString());
+            Debug.Log("Current Player Missed Turn While On Roll Again, Kind of Wild: " + gameVariables.CurrentPlayerIndex.ToString());
             gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = false;
             NextPlayer();
         }
@@ -70,6 +73,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         {
             gameVariables.SamePlayer++;
         }
+        gameVariables.PlayerUpdateBoard++;
         gameVariables.RequestSerialization();
     }
     public void NextPlayer()
@@ -77,6 +81,11 @@ public class GameController_BoardGame : UdonSharpBehaviour
         //increment player
         gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
         DetectPlayerForIncrement();
+        while (playerLists.playerStatusInGameDataList[gameVariables.CurrentPlayerIndex].Int > 0)
+        {
+            Debug.Log("Current Player is Disconnected Or Left Game: " + gameVariables.CurrentPlayerIndex.ToString());
+            DetectPlayerForIncrement();
+        }
         //loop until we find a player that isn't missing a turn
         while (gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex].Boolean)
         {
@@ -91,6 +100,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         }
         else
         {
+            gameVariables.PlayerUpdateBoard++;
             gameVariables.RequestSerialization();
         }
     }

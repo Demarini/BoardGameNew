@@ -26,17 +26,17 @@ public class UpdateSpaces : UdonSharpBehaviour
         int selfPlayerSpace = (playerLists.selfIndex != -1 ? Convert.ToInt32(gameVariables.playerSpaceDataList[playerLists.selfIndex].ToString()) : -1);
         for (int i = 0;i < spaceObjects.transform.childCount; i++)
         {
-            spaceObjects.transform.GetChild(i).GetChild(7).gameObject.SetActive(false);
             spaceObjects.transform.GetChild(i).GetChild(8).gameObject.SetActive(false);
             spaceObjects.transform.GetChild(i).GetChild(9).gameObject.SetActive(false);
             spaceObjects.transform.GetChild(i).GetChild(10).gameObject.SetActive(false);
+            spaceObjects.transform.GetChild(i).GetChild(11).gameObject.SetActive(false);
         }
         if(gameVariables.PreviousPlayerIndex == -1)
         {
             if(selfPlayerSpace != -1)
             {
-                spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(9).gameObject.SetActive(true);
                 spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(10).gameObject.SetActive(true);
+                spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(11).gameObject.SetActive(true);
             }
             else
             {
@@ -50,8 +50,9 @@ public class UpdateSpaces : UdonSharpBehaviour
                 //previous player is self, remove red outline, only outline remaining is ours.
                 if (selfPlayerSpace != -1)
                 {
-                    spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(9).gameObject.SetActive(true);
+                    Debug.Log("Previous player is self, removing red outline.");
                     spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(10).gameObject.SetActive(true);
+                    spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(11).gameObject.SetActive(true);
                 }
                 else
                 {
@@ -61,18 +62,20 @@ public class UpdateSpaces : UdonSharpBehaviour
             else if (gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex] == (playerLists.selfIndex != -1 ? gameVariables.playerSpaceDataList[playerLists.selfIndex] : -1))
             {
                 //The previous player is NOT us, but their space is the same as our space. check to see if self has an index(in game), if they do we can compare, if not, then this isn't getting hit anyways.
+                Debug.Log("Previous player is not us but they are on the same space, red + blue.");
+                spaceObjects.transform.GetChild(previousPlayerSpace).GetChild(10).gameObject.SetActive(true);
                 spaceObjects.transform.GetChild(previousPlayerSpace).GetChild(9).gameObject.SetActive(true);
-                spaceObjects.transform.GetChild(previousPlayerSpace).GetChild(8).gameObject.SetActive(true);
             }
             else
             {
                 //this is if players are on different spaces than we update. check to see if player has index for blue space.
-                spaceObjects.transform.GetChild(previousPlayerSpace).GetChild(7).gameObject.SetActive(true);
+                Debug.Log("Player is on a different space. Update previous player red space and current player blue space.");
                 spaceObjects.transform.GetChild(previousPlayerSpace).GetChild(8).gameObject.SetActive(true);
+                spaceObjects.transform.GetChild(previousPlayerSpace).GetChild(9).gameObject.SetActive(true);
                 if (selfPlayerSpace != -1)
                 {
-                    spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(9).gameObject.SetActive(true);
                     spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(10).gameObject.SetActive(true);
+                    spaceObjects.transform.GetChild(selfPlayerSpace).GetChild(11).gameObject.SetActive(true);
                 }
                 else
                 {

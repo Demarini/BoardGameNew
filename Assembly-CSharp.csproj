@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\GameVariables_BoardGame.cs" />
     <Compile Include="Assets\Scripts\UIScripts\GameFunctions_BoardGame.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerList_BoardGame.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\CameraFollowHead.cs" />
     <Compile Include="Assets\Scripts\CustomBoardScripts\ImageSettings.cs" />
     <Compile Include="Assets\UdonSharp\UtilityScripts\Synced\MasterToggleObject.cs" />
     <Compile Include="Assets\Scripts\CustomBoardScripts\SpaceSettings.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\Scripts\CustomBoardScripts\TextSettings.cs" />
     <Compile Include="Assets\Scripts\GameController\GameController_BoardGame.cs" />
     <Compile Include="Assets\Scripts\GameController\UpdateSpaces.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\UpdatePlayerCamerasOnSpace_BoardGame.cs" />
     <Compile Include="Assets\UdonSharp\UtilityScripts\TrackingDataFollower.cs" />
     <Compile Include="Assets\Scripts\HelperFunctions_BoardGame.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerFunctions_BoardGame.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Assets\UdonSharp\UtilityScripts\Synced\GlobalToggleObject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\UdonSharp\UtilityScripts\ExampleUtilityTemplate.txt" />
     <None Include="Assets\Examples and Samples Have Moved.txt" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
@@ -12,7 +13,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     //[SerializeField] GameController_BoardGame gameController;
     [SerializeField] PlayerList_BoardGame playerLists;
     [SerializeField] UpdateSpaces updateSpaces;
-
+    [SerializeField] CameraFollowHead cameraFollowHead;
+    [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     public bool ReceivedGameStartedValues;
 
     [UdonSynced, FieldChangeCallback(nameof(GameStarted))]
@@ -27,7 +29,20 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => gameStarted;
     }
-
+    [UdonSynced, FieldChangeCallback(nameof(TakePicture))]
+    public int takePicture = 0;
+    public int TakePicture
+    {
+        set
+        {
+            takePicture = value;
+            cameraFollowHead.TakePicture();
+            //gameController.CheckToUpdateDiceClickerInteract();
+            Debug.Log("Take Picture Updated");
+            Debug.Log(takePicture);
+        }
+        get => takePicture;
+    }
     [UdonSynced, FieldChangeCallback(nameof(CurrentPlayerIndex))]
     public int currentPlayerIndex = -1;
     public int CurrentPlayerIndex
@@ -35,11 +50,14 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         set
         {
             currentPlayerIndex = value;
-            if(gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
+            if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
-                runDiceTimer.RunTimer = true;
+                if (Networking.LocalPlayer.isMaster)
+                {
+                    //PostRollUpdates();
+                }
             }
-           //gameController.CheckToUpdateDiceClickerInteract();
+            //gameController.CheckToUpdateDiceClickerInteract();
             Debug.Log("Current Player Updated");
             Debug.Log(currentPlayerIndex);
         }
@@ -68,7 +86,10 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             samePlayer = value;
             if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
-                runDiceTimer.RunTimer = true;
+                if (Networking.LocalPlayer.isMaster)
+                {
+                    //PostRollUpdates();
+                }
             }
             Debug.Log("Same Player Updated");
             Debug.Log(samePlayer);
@@ -86,7 +107,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues && Networking.LocalPlayer.isMaster)
             {
                 Debug.Log("Updating Board");
-                updateSpaces.UpdateOutlineSpaces();
+                PostRollUpdates();
             }
             Debug.Log("Player Update Board Updated");
             Debug.Log(playerUpdateBoard);
@@ -161,12 +182,24 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         playerSpaceDataList = helperFunctions.DeserializeDataList(PlayerSpaceJson, playerSpaceDataList);
         Debug.Log("Current Player Index: " + currentPlayerIndex.ToString());
         Debug.Log("Previous Player Index: " + PreviousPlayerIndex.ToString());
-        if(PlayerUpdateBoard != tmpPlayerUpdateBoard)
+        if (PlayerUpdateBoard != tmpPlayerUpdateBoard)
         {
             Debug.Log("Update Board");
-            updateSpaces.UpdateOutlineSpaces();
+            PostRollUpdates();
+            tmpPlayerUpdateBoard = PlayerUpdateBoard;
         }
         CheckForGameStartedValueSync();
+    }
+    void PostRollUpdates()
+    {
+        updateSpaces.UpdateOutlineSpaces();
+        updatePlayerCamerasOnSpace.UpdateDisplayPanelCameras();
+        updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
+        updatePlayerCamerasOnSpace.previousSpaceToDisable = Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].Double);
+        updatePlayerCamerasOnSpace.previousPlayerToDisable = CurrentPlayerIndex;
+        Debug.Log("Previous Space to Disable: " + updatePlayerCamerasOnSpace.previousSpaceToDisable.ToString());
+        Debug.Log("Previous Player to Disable: " + updatePlayerCamerasOnSpace.previousPlayerToDisable.ToString());
+        runDiceTimer.RunTimer = true;
     }
     void CheckForGameStartedValueSync()
     {
@@ -177,6 +210,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             if (ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
                 Debug.Log("Received All Variables, Ready For Dice Check");
+                updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
                 runDiceTimer.RunTimer = true;
             }
             else
