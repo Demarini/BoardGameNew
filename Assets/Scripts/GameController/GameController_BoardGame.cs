@@ -73,6 +73,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         {
             gameVariables.SamePlayer++;
         }
+        gameVariables.PlayerUpdateBoard++;
         gameVariables.RequestSerialization();
     }
     public void NextPlayer()
@@ -99,6 +100,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         }
         else
         {
+            gameVariables.PlayerUpdateBoard++;
             gameVariables.RequestSerialization();
         }
     }

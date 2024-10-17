@@ -93,10 +93,10 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         playerStatusInGameDataList = helperFunctions.DeserializeDataList(PlayerStatusInGameJson, playerStatusInGameDataList);
 
         playerNamesInGameDataList = helperFunctions.DeserializeDataList(PlayerNamesInGameJson, playerNamesInGameDataList);
-        if (gameVariables.GameStarted)
-        {
-            int indexToUpdate = updatePlayerCamerasOnSpace.GetIndexToUpdate();
-        }
+        //if (gameVariables.GameStarted)
+        //{
+        //    int indexToUpdate = updatePlayerCamerasOnSpace.GetIndexToUpdate();
+        //}
 
         CheckForGameStartedValueSync();
     }

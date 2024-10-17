@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
@@ -49,12 +50,14 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         set
         {
             currentPlayerIndex = value;
-            if(gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
+            if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
-                updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
-                runDiceTimer.RunTimer = true;
+                if (Networking.LocalPlayer.isMaster)
+                {
+                    //PostRollUpdates();
+                }
             }
-           //gameController.CheckToUpdateDiceClickerInteract();
+            //gameController.CheckToUpdateDiceClickerInteract();
             Debug.Log("Current Player Updated");
             Debug.Log(currentPlayerIndex);
         }
@@ -83,8 +86,10 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             samePlayer = value;
             if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
-                updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
-                runDiceTimer.RunTimer = true;
+                if (Networking.LocalPlayer.isMaster)
+                {
+                    //PostRollUpdates();
+                }
             }
             Debug.Log("Same Player Updated");
             Debug.Log(samePlayer);
@@ -102,7 +107,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues && Networking.LocalPlayer.isMaster)
             {
                 Debug.Log("Updating Board");
-                updateSpaces.UpdateOutlineSpaces();
+                PostRollUpdates();
             }
             Debug.Log("Player Update Board Updated");
             Debug.Log(playerUpdateBoard);
@@ -177,12 +182,24 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         playerSpaceDataList = helperFunctions.DeserializeDataList(PlayerSpaceJson, playerSpaceDataList);
         Debug.Log("Current Player Index: " + currentPlayerIndex.ToString());
         Debug.Log("Previous Player Index: " + PreviousPlayerIndex.ToString());
-        if(PlayerUpdateBoard != tmpPlayerUpdateBoard)
+        if (PlayerUpdateBoard != tmpPlayerUpdateBoard)
         {
             Debug.Log("Update Board");
-            updateSpaces.UpdateOutlineSpaces();
+            PostRollUpdates();
+            tmpPlayerUpdateBoard = PlayerUpdateBoard;
         }
         CheckForGameStartedValueSync();
+    }
+    void PostRollUpdates()
+    {
+        updateSpaces.UpdateOutlineSpaces();
+        updatePlayerCamerasOnSpace.UpdateDisplayPanelCameras();
+        updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
+        updatePlayerCamerasOnSpace.previousSpaceToDisable = Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].Double);
+        updatePlayerCamerasOnSpace.previousPlayerToDisable = CurrentPlayerIndex;
+        Debug.Log("Previous Space to Disable: " + updatePlayerCamerasOnSpace.previousSpaceToDisable.ToString());
+        Debug.Log("Previous Player to Disable: " + updatePlayerCamerasOnSpace.previousPlayerToDisable.ToString());
+        runDiceTimer.RunTimer = true;
     }
     void CheckForGameStartedValueSync()
     {
