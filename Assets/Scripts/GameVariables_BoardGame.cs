@@ -12,7 +12,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     //[SerializeField] GameController_BoardGame gameController;
     [SerializeField] PlayerList_BoardGame playerLists;
     [SerializeField] UpdateSpaces updateSpaces;
-
+    [SerializeField] CameraFollowHead cameraFollowHead;
+    [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     public bool ReceivedGameStartedValues;
 
     [UdonSynced, FieldChangeCallback(nameof(GameStarted))]
@@ -27,7 +28,20 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => gameStarted;
     }
-
+    [UdonSynced, FieldChangeCallback(nameof(TakePicture))]
+    public int takePicture = 0;
+    public int TakePicture
+    {
+        set
+        {
+            takePicture = value;
+            cameraFollowHead.TakePicture();
+            //gameController.CheckToUpdateDiceClickerInteract();
+            Debug.Log("Take Picture Updated");
+            Debug.Log(takePicture);
+        }
+        get => takePicture;
+    }
     [UdonSynced, FieldChangeCallback(nameof(CurrentPlayerIndex))]
     public int currentPlayerIndex = -1;
     public int CurrentPlayerIndex
@@ -37,6 +51,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             currentPlayerIndex = value;
             if(gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
+                updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
                 runDiceTimer.RunTimer = true;
             }
            //gameController.CheckToUpdateDiceClickerInteract();
@@ -68,6 +83,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             samePlayer = value;
             if (gameStarted && ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
+                updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
                 runDiceTimer.RunTimer = true;
             }
             Debug.Log("Same Player Updated");
@@ -177,6 +193,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             if (ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
                 Debug.Log("Received All Variables, Ready For Dice Check");
+                updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
                 runDiceTimer.RunTimer = true;
             }
             else

@@ -11,10 +11,10 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     [SerializeField] GameVariables_BoardGame gameVariables;
     [SerializeField] GameController_BoardGame gameController;
     [SerializeField] RunDiceTimer runDiceTimer;
-
+    [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     public bool ReceivedGameStartedValues;
     public int selfIndex = -1;
-
+    int previousPlayerCount = 0;
     [UdonSynced, FieldChangeCallback(nameof(Shuffled))]
     public bool shuffled;
     public bool Shuffled
@@ -84,10 +84,19 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     {
         Debug.Log("Deserialization Player Lists");
         playersInGameDataList = helperFunctions.DeserializeDataList(PlayersInGameJson, playersInGameDataList);
+        if(previousPlayerCount != playersInGameDataList.Count)
+        {
+            updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
+        }
+        previousPlayerCount = playersInGameDataList.Count;
 
         playerStatusInGameDataList = helperFunctions.DeserializeDataList(PlayerStatusInGameJson, playerStatusInGameDataList);
 
         playerNamesInGameDataList = helperFunctions.DeserializeDataList(PlayerNamesInGameJson, playerNamesInGameDataList);
+        if (gameVariables.GameStarted)
+        {
+            int indexToUpdate = updatePlayerCamerasOnSpace.GetIndexToUpdate();
+        }
 
         CheckForGameStartedValueSync();
     }
@@ -115,6 +124,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
             if (ReceivedGameStartedValues && gameVariables.ReceivedGameStartedValues)
             {
                 Debug.Log("Received All Variables, Ready For Dice Check");
+                updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
                 runDiceTimer.RunTimer = true;
             }
             else

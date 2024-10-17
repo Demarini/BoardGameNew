@@ -9,6 +9,7 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
     GameVariables_BoardGame gameVariables;
     [SerializeField]
     PlayerList_BoardGame playerLists;
+    [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
 
     public void AddPlayer(int playerIdToAdd)
     {
@@ -21,6 +22,7 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
                 playerLists.playerNamesInGameDataList.Add(VRCPlayerApi.GetPlayerById(playerIdToAdd).displayName);
                 gameVariables.missedTurnDataList.Add(false);
                 gameVariables.playerSpaceDataList.Add(0);
+                updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
             }
             gameVariables.RequestSerialization();
             playerLists.RequestSerialization();
