@@ -16,7 +16,13 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     [SerializeField] UpdateSpaces updateSpaces;
     [SerializeField] CameraFollowHead cameraFollowHead;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
+    [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
+    public Animator rollDiceAnim;
     public Text playersInGameText;
+    bool rollAnimationStart = false;
+    float rollTimer = 0;
+    bool sameRollDelay = false;
+    float sameRollDelayTimer = 0;
     public bool ReceivedGameStartedValues;
 
     [UdonSynced, FieldChangeCallback(nameof(GameStarted))]
@@ -118,12 +124,13 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     }
 
     [UdonSynced, FieldChangeCallback(nameof(CurrentRoll))]
-    public int currentRoll;
+    public int currentRoll = 0;
     public int CurrentRoll
     {
         set
         {
             currentRoll = value;
+            TurnAnimsOff();
             Debug.Log("Current Roll Updated");
             Debug.Log(currentRoll);
         }
@@ -137,6 +144,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         set
         {
             sameRoll = value;
+            TurnAnimsOff();
             Debug.Log("Same Roll Updated");
             Debug.Log(sameRoll);
         }
@@ -171,11 +179,42 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     }
     public DataList playerSpaceDataList = new DataList();
 
+    public void Update()
+    {
+        if (rollAnimationStart)
+        {
+            if (rollTimer > 2)
+            {
+                Debug.Log("Roll Timer Greater Than 2");
+                rollDiceHelper.CalculateRoll();
+                rollAnimationStart = false;
+                rollTimer = 0;
+            }
+            else
+            {
+                rollTimer = rollTimer + Time.deltaTime;
+            }
+        }
+        if (sameRollDelay)
+        {
+            if(sameRollDelayTimer > .1)
+            {
+                RollTheDiceAnim();
+                sameRollDelay = false;
+                sameRollDelayTimer = 0;
+            }
+            else
+            {
+                sameRollDelayTimer = sameRollDelayTimer + Time.deltaTime;
+            }
+        }
+    }
     public override void OnPreSerialization()
     {
         Debug.Log("Preserialization Game Variables");
         MissedTurnJson = helperFunctions.SerializeDataList(missedTurnDataList, MissedTurnJson);
         PlayerSpaceJson = helperFunctions.SerializeDataList(playerSpaceDataList, PlayerSpaceJson);
+        playerLists.UpdatePlayersInGameText();
     }
     public override void OnDeserialization()
     {
@@ -190,7 +229,49 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             PostRollUpdates();
             tmpPlayerUpdateBoard = PlayerUpdateBoard;
         }
+        playerLists.UpdatePlayersInGameText();
         CheckForGameStartedValueSync();
+    }
+    void RollTheDiceAnim()
+    {
+        Debug.Log("Starting Roll Dice Anim");
+        Debug.Log("Turning Anim On: " + CurrentRoll.ToString());
+        TurnCorrectAnimOn(CurrentRoll);
+        rollAnimationStart = true;
+    }
+    void TurnAnimsOff()
+    {
+        rollDiceAnim.SetBool("RollOne", false);
+        rollDiceAnim.SetBool("RollTwo", false);
+        rollDiceAnim.SetBool("RollThree", false);
+        rollDiceAnim.SetBool("RollFour", false);
+        rollDiceAnim.SetBool("RollFive", false);
+        rollDiceAnim.SetBool("RollSix", false);
+        sameRollDelay = true;
+    }
+    void TurnCorrectAnimOn(int diceRoll)
+    {
+        switch (diceRoll)
+        {
+            case 1:
+                rollDiceAnim.SetBool("RollOne", true);
+                break;
+            case 2:
+                rollDiceAnim.SetBool("RollTwo", true);
+                break;
+            case 3:
+                rollDiceAnim.SetBool("RollThree", true);
+                break;
+            case 4:
+                rollDiceAnim.SetBool("RollFour", true);
+                break;
+            case 5:
+                rollDiceAnim.SetBool("RollFive", true);
+                break;
+            case 6:
+                rollDiceAnim.SetBool("RollSix", true);
+                break;
+        }
     }
     void PostRollUpdates()
     {

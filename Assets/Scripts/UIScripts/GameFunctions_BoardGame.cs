@@ -14,11 +14,27 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
 
     public void LeaveClicked() { PlayClick(); playerFunctions.SendPlayerToMasterRemove(Networking.LocalPlayer.playerId); }
 
-    public void StartGameClicked() { PlayClick(); gameController.StartGame(); }
+    public void StartGameClicked()
+    {
+        if (!Networking.LocalPlayer.isMaster)
+        {
+            return;
+        }
+        PlayClick();
+        gameController.StartGame();
+    }
 
     public void RollDiceClicked() { PlayClick(); gameController.RollDice(); }
 
-    public void NextPlayerClicked() { PlayClick(); gameController.NextPlayer(); }
+    public void NextPlayerClicked()
+    {
+        if (!Networking.LocalPlayer.isMaster)
+        {
+            return;
+        }
+        PlayClick();
+        gameController.NextPlayer();
+    }
 
     public void UpdatePicturesClicked() { PlayClick(); cameraFollowHead.TakePicture(); }
 

@@ -10,7 +10,8 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     [SerializeField] PlayerList_BoardGame playerLists;
     [SerializeField] GameController_BoardGame gameController;
     [SerializeField] UpdateSpaces updateSpaces;
-    void Start()
+    
+    void Update()
     {
         
     }
@@ -22,78 +23,88 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             Debug.Log("Player Rolled: " + randomRoll.ToString());
             if(randomRoll == gameVariables.CurrentRoll)
             {
+                Debug.Log("Same Roll: " + gameVariables.CurrentRoll);
                 gameVariables.SameRoll++;
             }
             else
             {
+                Debug.Log("Random Roll: " + randomRoll.ToString());
                 gameVariables.CurrentRoll = randomRoll;
             }
-            int finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
-            Debug.Log("Final Landing Space Initial: " + finalLandingSpace.ToString());
-            bool movementHasEnded = false;
-            SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
-            int numberOfMovements = 0;
-            while (!movementHasEnded)
+            gameVariables.RequestSerialization();
+        }
+    }
+    public void CalculateRoll()
+    {
+        if (!Networking.LocalPlayer.isMaster)
+        {
+            return;
+        }
+        int finalLandingSpace = gameController.CalculateLandingSpace(gameVariables.CurrentRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+        Debug.Log("Final Landing Space Initial: " + finalLandingSpace.ToString());
+        bool movementHasEnded = false;
+        SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
+        int numberOfMovements = 0;
+        while (!movementHasEnded)
+        {
+            bool sendBackToStart = gameController.ProcessSendBackToStart(spaceSetting);
+            int moveForwardBackwards = gameController.ProcessLandedSpaceMovement(spaceSetting);
+            int swapPlayer = (int)gameController.ProcessSwapWithPlayer(spaceSetting);
+            if (sendBackToStart)
             {
-                bool sendBackToStart = gameController.ProcessSendBackToStart(spaceSetting);
-                int moveForwardBackwards = gameController.ProcessLandedSpaceMovement(spaceSetting);
-                int swapPlayer = (int)gameController.ProcessSwapWithPlayer(spaceSetting);
-                if (sendBackToStart)
+                //send back to start takes full movement priority.
+                finalLandingSpace = 0;
+            }
+            else if (moveForwardBackwards != 0)
+            {
+                //moving forwards/backwards takes next priority, moving forwards is before backwards.
+                Debug.Log("Move Forward Backwards: " + moveForwardBackwards.ToString());
+                finalLandingSpace = gameController.CalculateLandingSpace(moveForwardBackwards, finalLandingSpace);
+                Debug.Log("New Final Landing Space: " + finalLandingSpace.ToString());
+            }
+            else if (swapPlayer != 0)
+            {
+                //last priority is swapping player, if they aren't going back to start, and if they aren't moving forwards or backwards, and they land on swap, they will then swap.
+                gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
+                int playerToSwapIndex = gameController.ProcessSwapPlayer((SwapWithPlayer)swapPlayer, gameVariables.CurrentPlayerIndex);
+                if (playerToSwapIndex == gameVariables.CurrentPlayerIndex)
                 {
-                    //send back to start takes full movement priority.
-                    finalLandingSpace = 0;
-                }
-                else if(moveForwardBackwards != 0)
-                {
-                    //moving forwards/backwards takes next priority, moving forwards is before backwards.
-                    Debug.Log("Move Forward Backwards: " + moveForwardBackwards.ToString());
-                    finalLandingSpace = gameController.CalculateLandingSpace(moveForwardBackwards, finalLandingSpace);
-                    Debug.Log("New Final Landing Space: " + finalLandingSpace.ToString());
-                }
-                else if(swapPlayer != 0)
-                {
-                    //last priority is swapping player, if they aren't going back to start, and if they aren't moving forwards or backwards, and they land on swap, they will then swap.
-                    gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
-                    int playerToSwapIndex = gameController.ProcessSwapPlayer((SwapWithPlayer)swapPlayer, gameVariables.CurrentPlayerIndex);
-                    if (playerToSwapIndex == gameVariables.CurrentPlayerIndex)
-                    {
-                        movementHasEnded = true;
-                    }
-                    else
-                    {
-                        int tempCurrentIndexSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
-                        gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = gameVariables.playerSpaceDataList[playerToSwapIndex];
-                        gameVariables.playerSpaceDataList[playerToSwapIndex] = tempCurrentIndexSpace;
-                        finalLandingSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
-                    }
+                    movementHasEnded = true;
                 }
                 else
                 {
-                    //if none of these things are true, we know that their possible movement manipulations have completed.
-                    movementHasEnded = true;
+                    int tempCurrentIndexSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+                    gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = gameVariables.playerSpaceDataList[playerToSwapIndex];
+                    gameVariables.playerSpaceDataList[playerToSwapIndex] = tempCurrentIndexSpace;
+                    finalLandingSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
                 }
-                spaceSetting = gameController.GetSpace(finalLandingSpace);
-                numberOfMovements++;
-                if(numberOfMovements > 10)
-                {
-                    Debug.Log("What the fuck are you doing with this much movement manipulation off one space? Cancelled dumbass.");
-                    break;
-                }
-            }
-            numberOfMovements = 0;
-            gameController.ProcessMissedTurn(spaceSetting);
-            gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
-            if (!gameController.ProcessRollAgain(spaceSetting))
-            {
-                gameController.NextPlayer();
             }
             else
             {
-                gameController.SamePlayerRollAgain();
+                //if none of these things are true, we know that their possible movement manipulations have completed.
+                movementHasEnded = true;
             }
-            updateSpaces.UpdateOutlineSpaces();
-            //possibly need to request serialization on game variables, but the roll should do it
+            spaceSetting = gameController.GetSpace(finalLandingSpace);
+            numberOfMovements++;
+            if (numberOfMovements > 10)
+            {
+                Debug.Log("What the fuck are you doing with this much movement manipulation off one space? Cancelled dumbass.");
+                break;
+            }
         }
+        numberOfMovements = 0;
+        gameController.ProcessMissedTurn(spaceSetting);
+        gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
+        if (!gameController.ProcessRollAgain(spaceSetting))
+        {
+            gameController.NextPlayer();
+        }
+        else
+        {
+            gameController.SamePlayerRollAgain();
+        }
+        updateSpaces.UpdateOutlineSpaces();
+        //possibly need to request serialization on game variables, but the roll should do it
     }
     private int GetRandomRoll()
     {

@@ -159,8 +159,8 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
                         break;
                 }
             }
-            string textToAdd = VRCPlayerApi.GetPlayerById(Convert.ToInt32(playersInGameDataList[i].Double)).displayName;
-            playersInGameText.text = playersInGameText.text + textToAdd + ((gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? " [" + playerStatus + "]" : "") + "\n";
+            string textToAdd = (gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? playerNamesInGameDataList[i].ToString() : VRCPlayerApi.GetPlayerById(Convert.ToInt32(playersInGameDataList[i].ToString())).displayName;
+            playersInGameText.text = playersInGameText.text + textToAdd + ((gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? "[" + gameVariables.playerSpaceDataList[i].ToString() + "] [" + playerStatus + "]" : "") + "\n";
             playerStatus = "";
         }
     }
@@ -197,7 +197,6 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
                     if (player.playerId == playersInGameDataList[i])
                     {
                         playerStatusInGameDataList[i] = (int)PlayerInGameStatus.Disconnected;
-                        playersInGameDataList[i] = -1;
                         RequestSerialization();
                     }
                 }
