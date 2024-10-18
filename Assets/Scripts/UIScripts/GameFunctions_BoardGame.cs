@@ -8,18 +8,26 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
 {
     [SerializeField] GameController_BoardGame gameController;
     [SerializeField] PlayerFunctions_BoardGame playerFunctions;
-    
-    public void JoinClicked() => playerFunctions.SendPlayerToMasterAdd(Networking.LocalPlayer.playerId);
+    [SerializeField] CameraFollowHead cameraFollowHead;
+    [SerializeField] GameObject clickAudio;
+    public void JoinClicked() { PlayClick(); playerFunctions.SendPlayerToMasterAdd(Networking.LocalPlayer.playerId); }
 
-    public void LeaveClicked() => playerFunctions.SendPlayerToMasterRemove(Networking.LocalPlayer.playerId);
+    public void LeaveClicked() { PlayClick(); playerFunctions.SendPlayerToMasterRemove(Networking.LocalPlayer.playerId); }
 
-    public void StartGameClicked() => gameController.StartGame();
+    public void StartGameClicked() { PlayClick(); gameController.StartGame(); }
 
-    public void RollDiceClicked() => gameController.RollDice();
-    public void NextPlayer()
+    public void RollDiceClicked() { PlayClick(); gameController.RollDice(); }
+
+    public void NextPlayerClicked() { PlayClick(); gameController.NextPlayer(); }
+
+    public void UpdatePicturesClicked() { PlayClick(); cameraFollowHead.TakePicture(); }
+
+    void PlayClick()
     {
-        gameController.NextPlayer();
+        clickAudio.SetActive(false);
+        clickAudio.SetActive(true);
     }
+
     public void PreviousPlayer()
     {
 

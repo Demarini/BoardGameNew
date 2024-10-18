@@ -2,6 +2,7 @@
 using System;
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.UI;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 using VRC.Udon;
@@ -15,6 +16,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     [SerializeField] UpdateSpaces updateSpaces;
     [SerializeField] CameraFollowHead cameraFollowHead;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
+    public Text playersInGameText;
     public bool ReceivedGameStartedValues;
 
     [UdonSynced, FieldChangeCallback(nameof(GameStarted))]

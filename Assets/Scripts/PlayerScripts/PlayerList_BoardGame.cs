@@ -1,6 +1,8 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.UI;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 using VRC.Udon;
@@ -15,6 +17,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     public bool ReceivedGameStartedValues;
     public int selfIndex = -1;
     int previousPlayerCount = 0;
+    public Text playersInGameText;
     [UdonSynced, FieldChangeCallback(nameof(Shuffled))]
     public bool shuffled;
     public bool Shuffled
@@ -79,6 +82,8 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         PlayerStatusInGameJson = helperFunctions.SerializeDataList(playerStatusInGameDataList, PlayerStatusInGameJson);
 
         PlayerNamesInGameJson = helperFunctions.SerializeDataList(playerNamesInGameDataList, PlayerNamesInGameJson);
+        
+        UpdatePlayersInGameText();
     }
     public override void OnDeserialization()
     {
@@ -97,7 +102,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         //{
         //    int indexToUpdate = updatePlayerCamerasOnSpace.GetIndexToUpdate();
         //}
-
+        UpdatePlayersInGameText();
         CheckForGameStartedValueSync();
     }
     public void GetSelfIndex()
@@ -131,6 +136,32 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
             {
                 Debug.Log("Still Waiting For Game Variables");
             }
+        }
+    }
+    public void UpdatePlayersInGameText()
+    {
+        playersInGameText.text = "";
+        for (int i = 0; i < playersInGameDataList.Count; i++)
+        {
+            string playerStatus = "";
+            if (gameVariables.gameStarted && playerStatusInGameDataList.Count > 0)
+            {
+                switch (Convert.ToInt32(playerStatusInGameDataList[i].ToString()))
+                {
+                    case (int)PlayerInGameStatus.Connected:
+                        playerStatus = "Connected";
+                        break;
+                    case (int)PlayerInGameStatus.LeftGame:
+                        playerStatus = "Left Game";
+                        break;
+                    case (int)PlayerInGameStatus.Disconnected:
+                        playerStatus = "Disconnected";
+                        break;
+                }
+            }
+            string textToAdd = VRCPlayerApi.GetPlayerById(Convert.ToInt32(playersInGameDataList[i].Double)).displayName;
+            playersInGameText.text = playersInGameText.text + textToAdd + ((gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? " [" + playerStatus + "]" : "") + "\n";
+            playerStatus = "";
         }
     }
     public override void OnPlayerJoined(VRCPlayerApi player)
