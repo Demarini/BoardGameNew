@@ -66,7 +66,18 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
         //}
         Debug.Log("Previous Space to Disable in Update: " + previousSpaceToDisable.ToString());
         Debug.Log("Previous Player to Disable in Update: " + previousPlayerToDisable.ToString());
-        boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).GetChild(previousPlayerToDisable).gameObject.SetActive(false);
+        for(int k = 0;k < boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).childCount; k++)
+        {
+            boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
+        }
+        Debug.Log("THIS VALUE IS BREAKING THINGS: " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString());
+        if(gameVariables.PreviousPlayerIndex != -1)
+        {
+            for (int k = 0; k < boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString())].transform.GetChild(indexToUpdate).childCount; k++)
+            {
+                boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
+            }
+        }
         for (int i = 0;i < gameVariables.playerSpaceDataList.Count; i++)
         {
             boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[i].Double)].transform.GetChild(indexToUpdate).GetChild(i).gameObject.SetActive(true);

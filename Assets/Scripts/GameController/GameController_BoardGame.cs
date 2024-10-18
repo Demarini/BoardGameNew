@@ -168,6 +168,10 @@ public class GameController_BoardGame : UdonSharpBehaviour
             return false;
         }
     }
+    public bool IsEnd(int space)
+    {
+        return boardGameSpaceSettings.transform.childCount - 1 == space;
+    }
     public int CalculateLandingSpace(int roll, int space)
     {
         int totalSpaces = boardGameSpaceSettings.transform.childCount - 1;
