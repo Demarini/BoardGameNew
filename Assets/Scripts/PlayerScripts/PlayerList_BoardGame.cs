@@ -14,6 +14,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     [SerializeField] GameController_BoardGame gameController;
     [SerializeField] RunDiceTimer runDiceTimer;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
+    [SerializeField] CameraFollowHead cameraFollowHead;
     public bool ReceivedGameStartedValues;
     public int selfIndex = -1;
     int previousPlayerCount = 0;
@@ -25,8 +26,8 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         set
         {
             shuffled = value;
-            Debug.Log("Shuffled Updated");
-            Debug.Log(shuffled);
+            //Debug.Log("Shuffled Updated");
+            //Debug.Log(shuffled);
         }
         get => shuffled;
     }
@@ -38,8 +39,8 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         set
         {
             playersInGameJson = value;
-            Debug.Log("Players Updated");
-            Debug.Log(playersInGameJson);
+            //Debug.Log("Players Updated");
+            //Debug.Log(playersInGameJson);
         }
         get => playersInGameJson;
     }
@@ -52,8 +53,8 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         set
         {
             playerStatusInGameJson = value;
-            Debug.Log("Player Status Updated");
-            Debug.Log(playerStatusInGameJson);
+            //Debug.Log("Player Status Updated");
+            //Debug.Log(playerStatusInGameJson);
         }
         get => playerStatusInGameJson;
     }
@@ -66,8 +67,8 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         set
         {
             playerNamesInGameJson = value;
-            Debug.Log("Player Names Updated");
-            Debug.Log(playerNamesInGameJson);
+            //Debug.Log("Player Names Updated");
+            //Debug.Log(playerNamesInGameJson);
         }
         get => playerNamesInGameJson;
     }
@@ -76,7 +77,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
 
     public override void OnPreSerialization()
     {
-        Debug.Log("Preserialization Player Lists");
+        //Debug.Log("Preserialization Player Lists");
         PlayersInGameJson = helperFunctions.SerializeDataList(playersInGameDataList, PlayersInGameJson);
 
         PlayerStatusInGameJson = helperFunctions.SerializeDataList(playerStatusInGameDataList, PlayerStatusInGameJson);
@@ -87,7 +88,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     }
     public override void OnDeserialization()
     {
-        Debug.Log("Deserialization Player Lists");
+        //Debug.Log("Deserialization Player Lists");
         playersInGameDataList = helperFunctions.DeserializeDataList(PlayersInGameJson, playersInGameDataList);
         if(previousPlayerCount != playersInGameDataList.Count)
         {
@@ -102,8 +103,18 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         //{
         //    int indexToUpdate = updatePlayerCamerasOnSpace.GetIndexToUpdate();
         //}
-        UpdatePlayersInGameText();
+        
         CheckForGameStartedValueSync();
+
+        UpdatePlayersInGameText();
+        
+        if (gameVariables.AwaitingPicture)
+        {
+            Debug.Log("Was awaiting picture, taking pictures now");
+            cameraFollowHead.TakePicture();
+            gameVariables.AwaitingPicture = false;
+        }
+        GetSelfIndex();
     }
     public void GetSelfIndex()
     {
@@ -120,7 +131,7 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     {
         if (Shuffled && !ReceivedGameStartedValues)
         {
-            Debug.Log("Game Started and Received Player Variables For First Time");
+            //Debug.Log("Game Started and Received Player Variables For First Time");
             ReceivedGameStartedValues = true;
             if(selfIndex != -1)
             {
@@ -128,13 +139,14 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
             }
             if (ReceivedGameStartedValues && gameVariables.ReceivedGameStartedValues)
             {
-                Debug.Log("Received All Variables, Ready For Dice Check");
+                //Debug.Log("Received All Variables, Ready For Dice Check");
                 updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
                 runDiceTimer.RunTimer = true;
+                gameVariables.ReceivedAllVariables = true;
             }
             else
             {
-                Debug.Log("Still Waiting For Game Variables");
+                //Debug.Log("Still Waiting For Game Variables");
             }
         }
     }
@@ -159,8 +171,19 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
                         break;
                 }
             }
-            string textToAdd = (gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? playerNamesInGameDataList[i].ToString() : VRCPlayerApi.GetPlayerById(Convert.ToInt32(playersInGameDataList[i].ToString())).displayName;
-            playersInGameText.text = playersInGameText.text + textToAdd + ((gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? "[" + gameVariables.playerSpaceDataList[i].ToString() + "] [" + playerStatus + "]" : "") + "\n";
+            VRCPlayerApi player = VRCPlayerApi.GetPlayerById(Convert.ToInt32(playersInGameDataList[i].ToString()));
+            string displayName = player == null ? "" : player.displayName;
+            string textToAdd = (gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? playerNamesInGameDataList[i].ToString() : displayName;
+            if (gameVariables.playerSpaceDataList.Count > 0)
+            {
+                
+                textToAdd = textToAdd + ((gameVariables.gameStarted && playerStatusInGameDataList.Count > 0) ? " [" + gameVariables.playerSpaceDataList[i].ToString() + "] [" + playerStatus + "]" : "") + "\n";
+            }
+            else
+            {
+                textToAdd = textToAdd + "\n";
+            }
+            playersInGameText.text = playersInGameText.text + textToAdd;
             playerStatus = "";
         }
     }
@@ -173,8 +196,9 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
                 //check to see if player exists in the game already and update their place in the game to be in the game
                 for(int i = 0;i < playerNamesInGameDataList.Count; i++)
                 {
-                    if(player.displayName == playerNamesInGameDataList[i])
+                    if(player.displayName == playerNamesInGameDataList[i] && playerStatusInGameDataList[i] == (int)PlayerInGameStatus.Disconnected)
                     {
+                        //Debug.Log("Found Disconnected Player At Index: " + i.ToString());
                         playerStatusInGameDataList[i] = (int)PlayerInGameStatus.Connected;
                         playersInGameDataList[i] = playersInGameDataList[i] == -1 ? player.playerId : playersInGameDataList[i];
                         RequestSerialization();
@@ -187,18 +211,31 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
     {
         if (Networking.LocalPlayer.isMaster)
         {
-            Debug.Log("Is Master");
+            //Debug.Log("Is Master");
             if (gameVariables.GameStarted)
             {
-                Debug.Log("Game Started");
+                //Debug.Log("Game Started");
                 //check to see if player exists in the game already and update their place in the game to be a left status
                 for (int i = 0; i < playersInGameDataList.Count; i++)
                 {
                     if (player.playerId == playersInGameDataList[i])
                     {
+                        playersInGameDataList[i] = -1;
                         playerStatusInGameDataList[i] = (int)PlayerInGameStatus.Disconnected;
                         RequestSerialization();
+                        if (i == gameVariables.CurrentPlayerIndex)
+                        {
+                            gameController.NextPlayer();
+                        }
                     }
+                }
+            }
+            else
+            {
+                if (playersInGameDataList.Contains(player.playerId))
+                {
+                    playersInGameDataList.Remove(player.playerId);
+                    RequestSerialization();
                 }
             }
         }

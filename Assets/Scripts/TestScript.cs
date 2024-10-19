@@ -22,10 +22,10 @@ public class TestScript : UdonSharpBehaviour
             {
                 objectsToToggle[i].transform.GetChild(k).gameObject.SetActive(toggle);
                 count++;
-                Debug.Log(count);
+                //Debug.Log(count);
             }
         }
-        Debug.Log("Total Time Ran: " + (Time.realtimeSinceStartup - timer).ToString());
+        //Debug.Log("Total Time Ran: " + (Time.realtimeSinceStartup - timer).ToString());
     }
     [SerializeField] Player[] players;
     [UdonSynced, FieldChangeCallback(nameof(PlayerJson))]
@@ -47,13 +47,13 @@ public class TestScript : UdonSharpBehaviour
         }
         if (VRCJson.TrySerializeToJson(playersDataList, JsonExportType.Minify, out DataToken result))
         {
-            Debug.Log("TEST SERIALIZE PLAYER LIST");
+            //Debug.Log("TEST SERIALIZE PLAYER LIST");
             PlayerJson = result.String;
-            Debug.Log(PlayerJson);
+            //Debug.Log(PlayerJson);
         }
         else
         {
-            Debug.LogError(result.ToString());
+            //Debug.LogError(result.ToString());
         }
     }
     private void SerializeDataToken(DataToken token)

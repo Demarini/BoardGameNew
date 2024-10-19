@@ -17,6 +17,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     [SerializeField] CameraFollowHead cameraFollowHead;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
+    public bool ReceivedAllVariables;
+    public bool AwaitingPicture;
     public Animator rollDiceAnim;
     public Text playersInGameText;
     bool rollAnimationStart = false;
@@ -32,11 +34,12 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         set
         {
             gameStarted = value;
-            Debug.Log("Game Started Updated");
-            Debug.Log(gameStarted);
+            //Debug.Log("Game Started Updated");
+            //Debug.Log(gameStarted);
         }
         get => gameStarted;
     }
+    int tmpTakePicture = 0;
     [UdonSynced, FieldChangeCallback(nameof(TakePicture))]
     public int takePicture = 0;
     public int TakePicture
@@ -46,8 +49,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             takePicture = value;
             cameraFollowHead.TakePicture();
             //gameController.CheckToUpdateDiceClickerInteract();
-            Debug.Log("Take Picture Updated");
-            Debug.Log(takePicture);
+            //Debug.Log("Take Picture Updated");
+            //Debug.Log(takePicture);
         }
         get => takePicture;
     }
@@ -66,8 +69,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
                 }
             }
             //gameController.CheckToUpdateDiceClickerInteract();
-            Debug.Log("Current Player Updated");
-            Debug.Log(currentPlayerIndex);
+            //Debug.Log("Current Player Updated");
+            //Debug.Log(currentPlayerIndex);
         }
         get => currentPlayerIndex;
     }
@@ -80,8 +83,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             previousPlayerIndex = value;
             //runDiceTimer.RunTimer = true;
             //gameController.CheckToUpdateDiceClickerInteract();
-            Debug.Log("Previous Player Updated");
-            Debug.Log(previousPlayerIndex);
+            //Debug.Log("Previous Player Updated");
+            //Debug.Log(previousPlayerIndex);
         }
         get => previousPlayerIndex;
     }
@@ -99,8 +102,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
                     //PostRollUpdates();
                 }
             }
-            Debug.Log("Same Player Updated");
-            Debug.Log(samePlayer);
+            //Debug.Log("Same Player Updated");
+            //Debug.Log(samePlayer);
         }
         get => samePlayer;
     }
@@ -117,8 +120,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
                 Debug.Log("Updating Board");
                 PostRollUpdates();
             }
-            Debug.Log("Player Update Board Updated");
-            Debug.Log(playerUpdateBoard);
+            //Debug.Log("Player Update Board Updated");
+            //Debug.Log(playerUpdateBoard);
         }
         get => playerUpdateBoard;
     }
@@ -131,8 +134,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         {
             currentRoll = value;
             TurnAnimsOff();
-            Debug.Log("Current Roll Updated");
-            Debug.Log(currentRoll);
+            //Debug.Log("Current Roll Updated");
+            //Debug.Log(currentRoll);
         }
         get => currentRoll;
     }
@@ -145,8 +148,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         {
             sameRoll = value;
             TurnAnimsOff();
-            Debug.Log("Same Roll Updated");
-            Debug.Log(sameRoll);
+            //Debug.Log("Same Roll Updated");
+            //Debug.Log(sameRoll);
         }
         get => sameRoll;
     }
@@ -158,8 +161,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         set
         {
             missedTurnJson = value;
-            Debug.Log("Missed Turns Updated");
-            Debug.Log(missedTurnJson);
+            //Debug.Log("Missed Turns Updated");
+            //Debug.Log(missedTurnJson);
         }
         get => missedTurnJson;
     }
@@ -172,8 +175,8 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         set
         {
             playerSpaceJson = value;
-            Debug.Log("Player Space Updated");
-            Debug.Log(playerSpaceJson);
+            //Debug.Log("Player Space Updated");
+            //Debug.Log(playerSpaceJson);
         }
         get => playerSpaceJson;
     }
@@ -185,7 +188,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         {
             if (rollTimer > 2)
             {
-                Debug.Log("Roll Timer Greater Than 2");
+                //Debug.Log("Roll Timer Greater Than 2");
                 rollDiceHelper.CalculateRoll();
                 rollAnimationStart = false;
                 rollTimer = 0;
@@ -211,31 +214,44 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     }
     public override void OnPreSerialization()
     {
-        Debug.Log("Preserialization Game Variables");
+        //Debug.Log("Preserialization Game Variables");
         MissedTurnJson = helperFunctions.SerializeDataList(missedTurnDataList, MissedTurnJson);
         PlayerSpaceJson = helperFunctions.SerializeDataList(playerSpaceDataList, PlayerSpaceJson);
         playerLists.UpdatePlayersInGameText();
+        cameraFollowHead.TakePicture();
     }
     public override void OnDeserialization()
     {
-        Debug.Log("Deserialization Game Variables");
+        //Debug.Log("Deserialization Game Variables");
         missedTurnDataList = helperFunctions.DeserializeDataList(MissedTurnJson, missedTurnDataList);
         playerSpaceDataList = helperFunctions.DeserializeDataList(PlayerSpaceJson, playerSpaceDataList);
-        Debug.Log("Current Player Index: " + currentPlayerIndex.ToString());
-        Debug.Log("Previous Player Index: " + PreviousPlayerIndex.ToString());
+        //Debug.Log("Current Player Index: " + currentPlayerIndex.ToString());
+        //Debug.Log("Previous Player Index: " + PreviousPlayerIndex.ToString());
         if (PlayerUpdateBoard != tmpPlayerUpdateBoard)
         {
-            Debug.Log("Update Board");
+            //Debug.Log("Update Board");
             PostRollUpdates();
             tmpPlayerUpdateBoard = PlayerUpdateBoard;
         }
-        playerLists.UpdatePlayersInGameText();
         CheckForGameStartedValueSync();
+
+        playerLists.UpdatePlayersInGameText();
+
+        if (ReceivedAllVariables)
+        {
+            Debug.Log("Player Joined, game variables take picture");
+            cameraFollowHead.TakePicture();
+        }
+        else
+        {
+            Debug.Log("Player Joined and is awaiting picture");
+            AwaitingPicture = true;
+        }
     }
     void RollTheDiceAnim()
     {
-        Debug.Log("Starting Roll Dice Anim");
-        Debug.Log("Turning Anim On: " + CurrentRoll.ToString());
+        //Debug.Log("Starting Roll Dice Anim");
+        //Debug.Log("Turning Anim On: " + CurrentRoll.ToString());
         TurnCorrectAnimOn(CurrentRoll);
         rollAnimationStart = true;
     }
@@ -275,30 +291,32 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     }
     void PostRollUpdates()
     {
+        Debug.Log("Post Roll Updates");
         updateSpaces.UpdateOutlineSpaces();
         updatePlayerCamerasOnSpace.UpdateDisplayPanelCameras();
         updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
         updatePlayerCamerasOnSpace.previousSpaceToDisable = Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].Double);
         updatePlayerCamerasOnSpace.previousPlayerToDisable = CurrentPlayerIndex;
-        Debug.Log("Previous Space to Disable: " + updatePlayerCamerasOnSpace.previousSpaceToDisable.ToString());
-        Debug.Log("Previous Player to Disable: " + updatePlayerCamerasOnSpace.previousPlayerToDisable.ToString());
+        //Debug.Log("Previous Space to Disable: " + updatePlayerCamerasOnSpace.previousSpaceToDisable.ToString());
+        //Debug.Log("Previous Player to Disable: " + updatePlayerCamerasOnSpace.previousPlayerToDisable.ToString());
         runDiceTimer.RunTimer = true;
     }
     void CheckForGameStartedValueSync()
     {
         if (GameStarted && !ReceivedGameStartedValues)
         {
-            Debug.Log("Game Started and Received Game Variables For First Time");
+            //Debug.Log("Game Started and Received Game Variables For First Time");
             ReceivedGameStartedValues = true;
             if (ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
             {
-                Debug.Log("Received All Variables, Ready For Dice Check");
+                //Debug.Log("Received All Variables, Ready For Dice Check");
                 updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
                 runDiceTimer.RunTimer = true;
+                ReceivedAllVariables = true;
             }
             else
             {
-                Debug.Log("Still Waiting For Player Variables");
+                //Debug.Log("Still Waiting For Player Variables");
             }
         }
     }

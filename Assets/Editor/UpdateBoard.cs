@@ -243,7 +243,7 @@ public class UpdateBoard : MonoBehaviour
         {
             returnMat = imageSettings.DrinkXTimesMat;
         }
-        Debug.Log(returnMat.name);
+        //Debug.Log(returnMat.name);
         return returnMat;
     }
 
@@ -260,7 +260,7 @@ public class UpdateBoard : MonoBehaviour
         {
             for (int j = 0; j < 10; j++)
             {
-                Debug.Log("Board Settings");
+                //Debug.Log("Board Settings");
                 board.transform.GetChild(i).transform.GetChild(j).gameObject.SetActive(false);
                 board.transform.GetChild(i).transform.GetChild(j).localPosition = new Vector3(0, 0, 0);
             }
@@ -281,7 +281,7 @@ public class UpdateBoard : MonoBehaviour
                     {
                         board.transform.GetChild(i).transform.GetChild(j).localPosition = board.transform.GetChild(i).transform.GetChild(j).localPosition + new Vector3((2.5f * j) + ((squareGap / squareScale) * j), 0);
                     }
-                    Debug.Log(board.transform.GetChild(i).transform.GetChild(j).name);
+                    //Debug.Log(board.transform.GetChild(i).transform.GetChild(j).name);
                     spaceNum++;
                 }
             }
@@ -295,7 +295,7 @@ public class UpdateBoard : MonoBehaviour
                     {
                         board.transform.GetChild(i).transform.GetChild(j).localPosition = board.transform.GetChild(i).transform.GetChild(j).localPosition + new Vector3((2.5f * j) + ((squareGap / squareScale) * j), 0);
                     }
-                    Debug.Log(board.transform.GetChild(i).transform.GetChild(j).name);
+                    //Debug.Log(board.transform.GetChild(i).transform.GetChild(j).name);
                     spaceNum++;
                 }
             }
@@ -318,10 +318,10 @@ public class UpdateBoard : MonoBehaviour
         //{
         //    for (int j = 0; j < 10; j++)
         //    {
-        //        Debug.Log("Board Settings");
+        //        //Debug.Log("Board Settings");
         //        if (boardSettings == null)
         //        {
-        //            Debug.Log("null");
+        //            //Debug.Log("null");
         //        }
         //        board.transform.GetChild(i).transform.GetChild(j).gameObject.SetActive(false);
         //        board.transform.GetChild(i).transform.GetChild(j).localPosition = new Vector3(0, 0, 0);

@@ -10,7 +10,7 @@ public class RollDiceInteract_BoardGame : UdonSharpBehaviour
     public GameObject diceInteract;
     public override void Interact()
     {
-        Debug.Log("Dice Interact Clicked");
+        //Debug.Log("Dice Interact Clicked");
         diceInteract.SetActive(false);
         gameFunctions.RollDiceClicked();
     }

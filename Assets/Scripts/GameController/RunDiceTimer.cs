@@ -19,7 +19,7 @@ public class RunDiceTimer : UdonSharpBehaviour
             timeRan = timeRan += Time.deltaTime;
             if(timeRan > 7)
             {
-                Debug.Log("Timer Up: Check Interact");
+                //Debug.Log("Timer Up: Check Interact");
                 RunTimer = false;
                 timeRan = 0;
                 timerObject.SetActive(false);

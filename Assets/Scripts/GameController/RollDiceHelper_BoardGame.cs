@@ -20,15 +20,15 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         if (Networking.LocalPlayer.isMaster)
         {
             int randomRoll = GetRandomRoll();
-            Debug.Log("Player Rolled: " + randomRoll.ToString());
+            //Debug.Log("Player Rolled: " + randomRoll.ToString());
             if(randomRoll == gameVariables.CurrentRoll)
             {
-                Debug.Log("Same Roll: " + gameVariables.CurrentRoll);
+                //Debug.Log("Same Roll: " + gameVariables.CurrentRoll);
                 gameVariables.SameRoll++;
             }
             else
             {
-                Debug.Log("Random Roll: " + randomRoll.ToString());
+                //Debug.Log("Random Roll: " + randomRoll.ToString());
                 gameVariables.CurrentRoll = randomRoll;
             }
             gameVariables.RequestSerialization();
@@ -41,7 +41,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             return;
         }
         int finalLandingSpace = gameController.CalculateLandingSpace(gameVariables.CurrentRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
-        Debug.Log("Final Landing Space Initial: " + finalLandingSpace.ToString());
+        //Debug.Log("Final Landing Space Initial: " + finalLandingSpace.ToString());
         bool movementHasEnded = false;
         SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
         int numberOfMovements = 0;
@@ -62,9 +62,9 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                 else if (moveForwardBackwards != 0)
                 {
                     //moving forwards/backwards takes next priority, moving forwards is before backwards.
-                    Debug.Log("Move Forward Backwards: " + moveForwardBackwards.ToString());
+                    //Debug.Log("Move Forward Backwards: " + moveForwardBackwards.ToString());
                     finalLandingSpace = gameController.CalculateLandingSpace(moveForwardBackwards, finalLandingSpace);
-                    Debug.Log("New Final Landing Space: " + finalLandingSpace.ToString());
+                    //Debug.Log("New Final Landing Space: " + finalLandingSpace.ToString());
                 }
                 else if (swapPlayer != 0)
                 {
@@ -92,7 +92,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                 numberOfMovements++;
                 if (numberOfMovements > 10)
                 {
-                    Debug.Log("What the fuck are you doing with this much movement manipulation off one space? Cancelled dumbass.");
+                    //Debug.Log("What the fuck are you doing with this much movement manipulation off one space? Cancelled dumbass.");
                     break;
                 }
             }
@@ -110,14 +110,14 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         }
         else if(finalLandingSpace == 0)
         {
-            Debug.Log("Player is at start, no manipulation.");
+            //Debug.Log("Player is at start, no manipulation.");
             numberOfMovements = 0;
             gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
             gameController.NextPlayer();
         }
         else if (gameController.IsEnd(finalLandingSpace))
         {
-            Debug.Log("GAME OVER!!!");
+            //Debug.Log("GAME OVER!!!");
         }
         updateSpaces.UpdateOutlineSpaces();
         //possibly need to request serialization on game variables, but the roll should do it

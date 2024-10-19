@@ -39,7 +39,7 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
     public void UpdatePicturesClicked() { PlayClick(); cameraFollowHead.TakePicture(); }
 
     void PlayClick()
-    {
+    {   
         clickAudio.SetActive(false);
         clickAudio.SetActive(true);
     }

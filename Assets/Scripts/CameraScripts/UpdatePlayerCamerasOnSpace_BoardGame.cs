@@ -36,7 +36,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
         Debug.Log("Index to enable: " + indexToEnable.ToString());
         for(int i = 0;i < boardGameSpaces.Length; i++)
         {
-            Debug.Log("Updating camera object on space " + i.ToString());
+            //Debug.Log("Updating camera object on space " + i.ToString());
             for(int k = 0; k < 7; k++)
             {
                 if(k != indexToEnable)
@@ -56,26 +56,46 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
 
         //if(gameVariables.PreviousPlayerIndex != -1)
         //{
-        //    Debug.Log("Disabling Previous Index of " + gameVariables.PreviousPlayerIndex.ToString() + " on space " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex]);
+        //    //Debug.Log("Disabling Previous Index of " + gameVariables.PreviousPlayerIndex.ToString() + " on space " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex]);
         //    boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(gameVariables.PreviousPlayerIndex).gameObject.SetActive(false);
         //}
         //if (gameVariables.CurrentPlayerIndex != -1)
         //{
-        //    Debug.Log("Disabling Current Index of " + gameVariables.CurrentPlayerIndex.ToString() + " on space " + gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex]);
+        //    //Debug.Log("Disabling Current Index of " + gameVariables.CurrentPlayerIndex.ToString() + " on space " + gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex]);
         //    boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(gameVariables.CurrentPlayerIndex).gameObject.SetActive(false);
         //}
-        Debug.Log("Previous Space to Disable in Update: " + previousSpaceToDisable.ToString());
-        Debug.Log("Previous Player to Disable in Update: " + previousPlayerToDisable.ToString());
-        for(int k = 0;k < boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).childCount; k++)
+        //Debug.Log("Previous Space to Disable in Update: " + previousSpaceToDisable.ToString());
+        //Debug.Log("Previous Player to Disable in Update: " + previousPlayerToDisable.ToString());
+
+        //for(int k = 0;k < boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).childCount; k++)
+        //{
+        //    boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
+        //}
+        ////Debug.Log("THIS VALUE IS BREAKING THINGS: " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString());
+        //if(gameVariables.PreviousPlayerIndex != -1)
+        //{
+        //    for (int k = 0; k < boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString())].transform.GetChild(indexToUpdate).childCount; k++)
+        //    {
+        //        boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
+        //    }
+        //}
+        for (int i = 0; i < boardGameSpaces.Length; i++)
         {
-            boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
-        }
-        Debug.Log("THIS VALUE IS BREAKING THINGS: " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString());
-        if(gameVariables.PreviousPlayerIndex != -1)
-        {
-            for (int k = 0; k < boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString())].transform.GetChild(indexToUpdate).childCount; k++)
+            //Debug.Log("Updating camera object on space " + i.ToString());
+            for (int k = 0; k < 7; k++)
             {
-                boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
+                if (k != indexToUpdate)
+                {
+                    boardGameSpaces[i].transform.GetChild(k).gameObject.SetActive(false);
+                }
+                else
+                {
+                    boardGameSpaces[i].transform.GetChild(k).gameObject.SetActive(true);
+                    for (int j = 0; j < boardGameSpaces[i].transform.GetChild(k).childCount; j++)
+                    {
+                        boardGameSpaces[i].transform.GetChild(k).GetChild(j).gameObject.SetActive(false);
+                    }
+                }
             }
         }
         for (int i = 0;i < gameVariables.playerSpaceDataList.Count; i++)
