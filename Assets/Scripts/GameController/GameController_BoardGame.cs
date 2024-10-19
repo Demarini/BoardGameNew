@@ -15,7 +15,27 @@ public class GameController_BoardGame : UdonSharpBehaviour
     public GameObject boardGameSpaceSettings;
 
     public GameObject diceObjectInteract;
-
+    public void EndGame()
+    {
+        gameVariables.GameStarted = false;
+        gameVariables.GameEnded = true;
+        playerLists.playersInGameDataList.Clear();
+        playerLists.playerStatusInGameDataList.Clear();
+        playerLists.playerNamesInGameDataList.Clear();
+        gameVariables.missedTurnDataList.Clear();
+        gameVariables.playerSpaceDataList.Clear();
+        gameVariables.ReceivedGameStartedValues = false;
+        playerLists.ReceivedGameStartedValues = false;
+        gameVariables.ReceivedAllVariables = false;
+        playerLists.Shuffled = false;
+        gameVariables.GameStarted = false;
+        gameVariables.CurrentPlayerIndex = -1;
+        diceObjectInteract.SetActive(false);
+        //updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
+        updateSpaces.ClearOutlineSpaces();
+        gameVariables.RequestSerialization();
+        playerLists.RequestSerialization();
+    }
     public void StartGame()
     {
         //Debug.Log("Start Game");
@@ -37,6 +57,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 gameVariables.ReceivedAllVariables = true;
                 playerLists.Shuffled = true;
                 gameVariables.GameStarted = true;
+                gameVariables.GameEnded = false;
                 gameVariables.CurrentPlayerIndex = 0;
                 playerLists.GetSelfIndex();
                 gameVariables.PlayerUpdateBoard++;
@@ -165,6 +186,33 @@ public class GameController_BoardGame : UdonSharpBehaviour
     public SpaceSettings GetSpace(int space)
     {
         return boardGameSpaceSettings.transform.GetChild(space).gameObject.GetComponent<SpaceSettings>();
+    }
+    public void ProcessAudio(SpaceSettings spaceSetting)
+    {
+        if(spaceSetting.EveryoneDrinkXTimes > 0)
+        {
+            gameVariables.ToggleEveryoneDrink++;
+        }
+        else if(spaceSetting.GirlsDrink)
+        {
+            gameVariables.ToggleGirlsDrink++;
+        }
+        else if (spaceSetting.GuysDrink)
+        {
+            gameVariables.ToggleGuysDrink++;
+        }
+        else if (spaceSetting.DrinkWithHost)
+        {
+            gameVariables.ToggleDrinkWithHost++;
+        }
+        else if (spaceSetting.ChooseSomeoneToDrink)
+        {
+            gameVariables.ToggleChooseSomeoneToDrink++;
+        }
+        else if (spaceSetting.DrinkXTimes > 0)
+        {
+            gameVariables.ToggleDrink++;
+        }
     }
     public bool ProcessRollAgain(SpaceSettings spaceSetting)
     {

@@ -1,4 +1,5 @@
-﻿using UdonSharp;
+﻿using System;
+using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
@@ -8,6 +9,8 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
 {
     [SerializeField] GameController_BoardGame gameController;
     [SerializeField] PlayerFunctions_BoardGame playerFunctions;
+    [SerializeField] GameVariables_BoardGame gameVariables;
+    [SerializeField] PlayerList_BoardGame playerLists;
     [SerializeField] CameraFollowHead cameraFollowHead;
     [SerializeField] GameObject clickAudio;
     public void JoinClicked() { PlayClick(); playerFunctions.SendPlayerToMasterAdd(Networking.LocalPlayer.playerId); }
@@ -22,6 +25,15 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
         }
         PlayClick();
         gameController.StartGame();
+    }
+    public void EndGameClicked()
+    {
+        if (!Networking.LocalPlayer.isMaster)
+        {
+            return;
+        }
+        PlayClick();
+        gameController.EndGame();
     }
 
     public void RollDiceClicked() { PlayClick(); gameController.RollDice(); }
@@ -44,8 +56,12 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
         clickAudio.SetActive(true);
     }
 
-    public void PreviousPlayer()
+    public void ForceRemovePlayer()
     {
-
+        if (Networking.LocalPlayer.isMaster)
+        {
+            PlayClick();
+            playerFunctions.RemovePlayer(Convert.ToInt32(playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex].ToString()), true);
+        }
     }
 }

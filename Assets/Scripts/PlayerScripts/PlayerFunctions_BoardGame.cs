@@ -42,12 +42,13 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
             }
         }
     }
-    public void RemovePlayer(int playerIdToRemove)
+    public void RemovePlayer(int playerIdToRemove, bool forcePlayer = false)
     {
         //Debug.Log("Remove Player: " + playerIdToRemove.ToString());
         bool requireIncrement = false;
         if (playerLists.playersInGameDataList.Contains(playerIdToRemove))
         {
+            Debug.Log("Contains Player");
             if (gameVariables.GameStarted)
             {
                 //Debug.Log("Game Is Started");
@@ -68,7 +69,10 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
             }
             else
             {
-                playerLists.playersInGameDataList.Remove(playerIdToRemove);
+                if (!forcePlayer)
+                {
+                    playerLists.playersInGameDataList.Remove(playerIdToRemove);
+                }
             }
             playerLists.RequestSerialization();
             if (requireIncrement)
