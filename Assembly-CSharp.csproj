@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\CameraScripts\CameraFollowHead.cs" />
     <Compile Include="Assets\Scripts\CustomBoardScripts\ImageSettings.cs" />
     <Compile Include="Assets\UdonSharp\UtilityScripts\Synced\MasterToggleObject.cs" />
+    <Compile Include="Assets\Scripts\AudioScripts\ToggleGameAudio_BoardGame.cs" />
     <Compile Include="Assets\Scripts\CustomBoardScripts\SpaceSettings.cs" />
     <Compile Include="Assets\UdonSharp\UtilityScripts\PlayerModSetter.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />

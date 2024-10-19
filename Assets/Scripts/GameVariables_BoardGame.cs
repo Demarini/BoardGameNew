@@ -9,6 +9,7 @@ using VRC.Udon;
 
 public class GameVariables_BoardGame : UdonSharpBehaviour
 {
+    [SerializeField] ToggleGameAudio_BoardGame toggleGameAudio;
     [SerializeField] HelperFunctions_BoardGame helperFunctions;
     [SerializeField] RunDiceTimer runDiceTimer;
     //[SerializeField] GameController_BoardGame gameController;
@@ -26,6 +27,80 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     bool sameRollDelay = false;
     float sameRollDelayTimer = 0;
     public bool ReceivedGameStartedValues;
+
+    public int tmpToggleChooseSomeoneToDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleChooseSomeoneToDrink))]
+    public int toggleChooseSomeoneToDrink = 0;
+    public int ToggleChooseSomeoneToDrink
+    {
+        set
+        {
+            toggleChooseSomeoneToDrink = value;
+        }
+        get => toggleChooseSomeoneToDrink;
+    }
+
+    public int tmpToggleDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleDrink))]
+    public int toggleDrink = 0;
+    public int ToggleDrink
+    {
+        set
+        {
+            toggleDrink = value;
+        }
+        get => toggleDrink;
+    }
+
+    public int tmpToggleDrinkWithHost = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleDrinkWithHost))]
+    public int toggleDrinkWithHost = 0;
+    public int ToggleDrinkWithHost
+    {
+        set
+        {
+            toggleDrinkWithHost = value;
+        }
+        get => toggleDrinkWithHost;
+    }
+
+    public int tmpToggleEveryoneDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleEveryoneDrink))]
+    public int toggleEveryoneDrink = 0;
+    public int ToggleEveryoneDrink
+    {
+        set
+        {
+            toggleEveryoneDrink = value;
+        }
+        get => toggleEveryoneDrink;
+    }
+
+    public int tmpToggleGirlsDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleGirlsDrink))]
+    public int toggleGirlsDrink = 0;
+    public int ToggleGirlsDrink
+    {
+        set
+        {
+            toggleGirlsDrink = value;
+        }
+        get => toggleGirlsDrink;
+    }
+
+    public int tmpToggleGuysDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleGuysDrink))]
+    public int toggleGuysDrink = 0;
+    public int ToggleGuysDrink
+    {
+        set
+        {
+            toggleGuysDrink = value;
+        }
+        get => toggleGuysDrink;
+    }
+
+    public bool hasLoadedForFirstTime;
 
     [UdonSynced, FieldChangeCallback(nameof(GameStarted))]
     public bool gameStarted;
@@ -247,6 +322,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             Debug.Log("Player Joined and is awaiting picture");
             AwaitingPicture = true;
         }
+        toggleGameAudio.ToggleAudio();
     }
     void RollTheDiceAnim()
     {
