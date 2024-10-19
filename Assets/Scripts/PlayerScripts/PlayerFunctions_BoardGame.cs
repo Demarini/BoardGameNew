@@ -10,7 +10,7 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
     [SerializeField]
     PlayerList_BoardGame playerLists;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
-
+    [SerializeField] GameController_BoardGame gameController;
     public void AddPlayer(int playerIdToAdd)
     {
         if (!playerLists.playersInGameDataList.Contains(playerIdToAdd))
@@ -33,7 +33,7 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
             {
                 for (int i = 0; i < playerLists.playersInGameDataList.Count; i++)
                 {
-                    if (playerIdToAdd == playerLists.playersInGameDataList[i])
+                    if (playerIdToAdd == playerLists.playersInGameDataList[i] && playerLists.playerStatusInGameDataList[i] == (int)PlayerInGameStatus.LeftGame)
                     {
                         playerLists.playerStatusInGameDataList[i] = (int)PlayerInGameStatus.Connected;
                         playerLists.RequestSerialization();
@@ -44,19 +44,25 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
     }
     public void RemovePlayer(int playerIdToRemove)
     {
-        Debug.Log("Remove Player: " + playerIdToRemove.ToString());
+        //Debug.Log("Remove Player: " + playerIdToRemove.ToString());
+        bool requireIncrement = false;
         if (playerLists.playersInGameDataList.Contains(playerIdToRemove))
         {
             if (gameVariables.GameStarted)
             {
-                Debug.Log("Game Is Started");
+                //Debug.Log("Game Is Started");
                 //check to see if player exists in the game already and update their place in the game to be a left status
                 for (int i = 0; i < playerLists.playersInGameDataList.Count; i++)
                 {
-                    Debug.Log("Player ID in List: " + playerLists.playersInGameDataList[i].ToString());
+                    //Debug.Log("Player ID in List: " + playerLists.playersInGameDataList[i].ToString());
                     if (playerIdToRemove == playerLists.playersInGameDataList[i])
                     {
                         playerLists.playerStatusInGameDataList[i] = (int)PlayerInGameStatus.LeftGame;
+                        if(i == gameVariables.CurrentPlayerIndex)
+                        {
+                            gameController.NextPlayer();
+                            requireIncrement = true;
+                        }
                     }
                 }
             }
@@ -65,16 +71,20 @@ public class PlayerFunctions_BoardGame : UdonSharpBehaviour
                 playerLists.playersInGameDataList.Remove(playerIdToRemove);
             }
             playerLists.RequestSerialization();
+            if (requireIncrement)
+            {
+                
+            }
         }
     }
     public void SendPlayerToMasterAdd(int i)
     {
-        Debug.Log("Sending event - " + "SendPlayer" + i.ToString() + "ToMasterAdd");
+        //Debug.Log("Sending event - " + "SendPlayer" + i.ToString() + "ToMasterAdd");
         SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.Owner, "SendPlayer" + i.ToString() + "ToMasterAdd");
     }
     public void SendPlayerToMasterRemove(int i)
     {
-        Debug.Log("Sending event - " + "SendPlayer" + i.ToString() + "ToMasterRemove");
+        //Debug.Log("Sending event - " + "SendPlayer" + i.ToString() + "ToMasterRemove");
         SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.Owner, "SendPlayer" + i.ToString() + "ToMasterRemove");
     }
     public void SendPlayer1ToMasterAdd()

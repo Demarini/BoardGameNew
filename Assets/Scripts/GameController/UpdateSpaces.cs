@@ -17,10 +17,10 @@ public class UpdateSpaces : UdonSharpBehaviour
         Debug.Log("Previous Player Index: " + gameVariables.PreviousPlayerIndex.ToString());
         Debug.Log("Self Index " + playerLists.selfIndex.ToString());
         Debug.Log("Previous Player Space: " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString());
-        Debug.Log("Current Player Space: " + gameVariables.playerSpaceDataList[playerLists.selfIndex].ToString());
+        Debug.Log("Self Player Space: " + gameVariables.playerSpaceDataList[playerLists.selfIndex].ToString());
         for (int j = 0; j < gameVariables.playerSpaceDataList.Count; j++)
         {
-            Debug.Log(gameVariables.playerSpaceDataList[j]);
+            //Debug.Log(gameVariables.playerSpaceDataList[j]);
         }
         int previousPlayerSpace = (gameVariables.PreviousPlayerIndex == -1 ? 0 : Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString()));
         int selfPlayerSpace = (playerLists.selfIndex != -1 ? Convert.ToInt32(gameVariables.playerSpaceDataList[playerLists.selfIndex].ToString()) : -1);

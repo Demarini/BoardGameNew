@@ -18,7 +18,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
 
     public void StartGame()
     {
-        Debug.Log("Start Game");
+        //Debug.Log("Start Game");
         if (Networking.LocalPlayer.isMaster)
         {
             if (!gameVariables.GameStarted)
@@ -34,6 +34,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 }
                 gameVariables.ReceivedGameStartedValues = true;
                 playerLists.ReceivedGameStartedValues = true;
+                gameVariables.ReceivedAllVariables = true;
                 playerLists.Shuffled = true;
                 gameVariables.GameStarted = true;
                 gameVariables.CurrentPlayerIndex = 0;
@@ -50,22 +51,22 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (gameVariables.CurrentPlayerIndex == playerLists.playersInGameDataList.Count - 1)
         {
+            Debug.Log("Setting Index 0");
             gameVariables.CurrentPlayerIndex = 0;
         }
         else
         {
             gameVariables.CurrentPlayerIndex++;
+            Debug.Log("Setting Index: " + gameVariables.CurrentPlayerIndex.ToString());
         }
     }
     public void SamePlayerRollAgain()
     {
-        if (gameVariables.PreviousPlayerIndex == -1)
-        {
-            gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
-        }
+        Debug.Log("Roll Again");
+        gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
         if (gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex].Boolean)
         {
-            Debug.Log("Current Player Missed Turn While On Roll Again, Kind of Wild: " + gameVariables.CurrentPlayerIndex.ToString());
+            //Debug.Log("Current Player Missed Turn While On Roll Again, Kind of Wild: " + gameVariables.CurrentPlayerIndex.ToString());
             gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = false;
             NextPlayer();
         }
@@ -79,6 +80,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     public void NextPlayer()
     {
         //increment player
+        Debug.Log("Enter Next Player Function");
         gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
         DetectPlayerForIncrement();
         while (playerLists.playerStatusInGameDataList[gameVariables.CurrentPlayerIndex].Int > 0)
@@ -86,20 +88,26 @@ public class GameController_BoardGame : UdonSharpBehaviour
             Debug.Log("Current Player is Disconnected Or Left Game: " + gameVariables.CurrentPlayerIndex.ToString());
             DetectPlayerForIncrement();
         }
-        //loop until we find a player that isn't missing a turn
+        //loop until we find a player that isn't missing a turn, this also clears out missed turns in the case that there's all missed turns + disconnected or left players.
         while (gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex].Boolean)
         {
             Debug.Log("Current Player Missed Turn: " + gameVariables.CurrentPlayerIndex.ToString());
             gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = false;
             DetectPlayerForIncrement();
         }
-        if(gameVariables.CurrentPlayerIndex == gameVariables.PreviousPlayerIndex)
+        while (playerLists.playerStatusInGameDataList[gameVariables.CurrentPlayerIndex].Int > 0)
         {
-            //enough players in a row missed a turn to loop back to original roller
+            Debug.Log("Current Player is Disconnected Or Left Game: " + gameVariables.CurrentPlayerIndex.ToString());
+            DetectPlayerForIncrement();
+        }
+        if (gameVariables.CurrentPlayerIndex == gameVariables.PreviousPlayerIndex)
+        {
+            Debug.Log("Roll Again Somehow");
             SamePlayerRollAgain();
         }
         else
         {
+            Debug.Log("Incrementing Player Update Board");
             gameVariables.PlayerUpdateBoard++;
             gameVariables.RequestSerialization();
         }
@@ -108,13 +116,13 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if(Networking.LocalPlayer.playerId == playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex])
         {
-            Debug.Log("Validated User - Can Roll Dice. Sending to Master");
+            //Debug.Log("Validated User - Can Roll Dice. Sending to Master");
             SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.Owner, "RollDiceMaster");
         }
     }
     public void RollDiceMaster()
     {
-        Debug.Log("Received Roll Dice Master");
+        //Debug.Log("Received Roll Dice Master");
         rollDiceHelper.RollDiceMaster();
     }
     private DataList Shuffle(DataList list)
@@ -124,9 +132,9 @@ public class GameController_BoardGame : UdonSharpBehaviour
         for (int i = tempList.Count - 1; i >= 0; i--)
         {
             int indexToRemove = Random.Range(0, tempList.Count);
-            Debug.Log("Index to Remove: " + indexToRemove.ToString());
+            //Debug.Log("Index to Remove: " + indexToRemove.ToString());
             int value = tempList[indexToRemove].Int;
-            Debug.Log("Index Value: " + value.ToString());
+            //Debug.Log("Index Value: " + value.ToString());
             tempList.Remove(value);
             returnList.Add(value);
         }
@@ -136,10 +144,10 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (gameVariables.gameStarted && gameVariables.ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
         {
-            Debug.Log("Checking For Dice Clicker Update");
-            Debug.Log("Local Player: " + Networking.LocalPlayer.playerId.ToString());
-            Debug.Log("Current Player: " + playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex].ToString());
-            Debug.Log("Players in Game Length: " + playerLists.playersInGameDataList.Count.ToString());
+            //Debug.Log("Checking For Dice Clicker Update");
+            //Debug.Log("Local Player: " + Networking.LocalPlayer.playerId.ToString());
+            //Debug.Log("Current Player: " + playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex].ToString());
+            //Debug.Log("Players in Game Length: " + playerLists.playersInGameDataList.Count.ToString());
             if (Networking.LocalPlayer.playerId == playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex])
             {
                 Debug.Log("Found Current Player - Setting Dice Interact to Active");
@@ -148,6 +156,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
             else
             {
                 Debug.Log("Not Current Player - Setting Dice Interact to Disabled");
+                Debug.Log("Current Index: " + gameVariables.CurrentPlayerIndex.ToString());
+                Debug.Log("Current Player Number: " + playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex].ToString());
                 DisableDiceObjectInteract();
             }
         }
@@ -160,7 +170,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.RollAgain)
         {
-            Debug.Log("------------------------RollAgain------------------------");
+            //Debug.Log("------------------------RollAgain------------------------");
             return true;
         }
         else
@@ -168,20 +178,24 @@ public class GameController_BoardGame : UdonSharpBehaviour
             return false;
         }
     }
+    public bool IsEnd(int space)
+    {
+        return boardGameSpaceSettings.transform.childCount - 1 == space;
+    }
     public int CalculateLandingSpace(int roll, int space)
     {
         int totalSpaces = boardGameSpaceSettings.transform.childCount - 1;
         if (space + roll > totalSpaces)
         {
-            Debug.Log("Over Max");
-            Debug.Log("Total Spaces: " + totalSpaces.ToString());
-            Debug.Log("Current Space: " + space.ToString());
-            Debug.Log("Roll: " + roll.ToString());
+            //Debug.Log("Over Max");
+            //Debug.Log("Total Spaces: " + totalSpaces.ToString());
+            //Debug.Log("Current Space: " + space.ToString());
+            //Debug.Log("Roll: " + roll.ToString());
             return totalSpaces - (roll - (totalSpaces - space));
         }
         else if(space + roll < 0)
         {
-            Debug.Log("Under Min? Are you dumb?");
+            //Debug.Log("Under Min? Are you dumb?");
             return 0;
         }
         else
@@ -217,7 +231,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.MissTurn)
         {
-            Debug.Log("Found Miss Turn, Updating List");
+            //Debug.Log("Found Miss Turn, Updating List");
             gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = true;
         }
     }
@@ -234,7 +248,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         }
         else
         {
-            Debug.Log("------------------------Can't swap with self------------------------");
+            //Debug.Log("------------------------Can't swap with self------------------------");
             return currentPlayerIndex;
         }
     }
@@ -242,12 +256,12 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.SwapWithFirst)
         {
-            Debug.Log("------------------------SwapWithFirst------------------------");
+            //Debug.Log("------------------------SwapWithFirst------------------------");
             return SwapWithPlayer.SwapWithFirst;
         }
         if (spaceSetting.SwapWithLast)
         {
-            Debug.Log("------------------------SwapWithLast------------------------");
+            //Debug.Log("------------------------SwapWithLast------------------------");
             return SwapWithPlayer.SwapWithLast;
         }
         return SwapWithPlayer.DontSwap;
@@ -256,7 +270,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.SendBackToStart)
         {
-            Debug.Log("------------------------SendBackToStart------------------------");
+            //Debug.Log("------------------------SendBackToStart------------------------");
             return true;
         }
         else
@@ -268,61 +282,61 @@ public class GameController_BoardGame : UdonSharpBehaviour
     {
         if (spaceSetting.MoveForwardXSpaces > 0)
         {
-            Debug.Log("------------------------MoveForwardXSpaces------------------------");
-            Debug.Log(spaceSetting.MoveForwardXSpaces.ToString() + " Spaces");
+            //Debug.Log("------------------------MoveForwardXSpaces------------------------");
+            //Debug.Log(spaceSetting.MoveForwardXSpaces.ToString() + " Spaces");
             return spaceSetting.MoveForwardXSpaces;
         }
         if (spaceSetting.MoveBackXSpaces > 0)
         {
-            Debug.Log("------------------------MoveBackXSpaces------------------------");
-            Debug.Log(spaceSetting.MoveBackXSpaces.ToString() + " Spaces");
+            //Debug.Log("------------------------MoveBackXSpaces------------------------");
+            //Debug.Log(spaceSetting.MoveBackXSpaces.ToString() + " Spaces");
             return spaceSetting.MoveBackXSpaces * -1;
         }
         return 0;
         
         //if (spaceSetting.DrinkWhatYouRoll)
         //{
-        //    Debug.Log("DrinkWhatYouRoll");
+        //    //Debug.Log("DrinkWhatYouRoll");
         //}
         //spaceSetting.ImmuneFromDrinking)
         //{
-        //    Debug.Log("ImmuneFromDrinking");
+        //    //Debug.Log("ImmuneFromDrinking");
         //}
         //if (spaceSetting.MissTurn)
         //{
-        //    Debug.Log("MissTurn");
+        //    //Debug.Log("MissTurn");
         //}
         //if (spaceSetting.DrinkWithHost)
         //{
-        //    Debug.Log("DrinkWithHost");
+        //    //Debug.Log("DrinkWithHost");
         //}
         //if (spaceSetting.ChooseSomeoneToDrink)
         //{
-        //    Debug.Log("ChooseSomeoneToDrink");
+        //    //Debug.Log("ChooseSomeoneToDrink");
         //}
         //if (spaceSetting.GirlsDrink)
         //{
-        //    Debug.Log("GirlsDrink");
+        //    //Debug.Log("GirlsDrink");
         //}
         //if (spaceSetting.GuysDrink)
         //{
-        //    Debug.Log("GuysDrink");
+        //    //Debug.Log("GuysDrink");
         //}
         //if (spaceSetting.Finish)
         //{
-        //    Debug.Log("Finish");
+        //    //Debug.Log("Finish");
         //}
         //if (spaceSetting.Start)
         //{
-        //    Debug.Log("Start");
+        //    //Debug.Log("Start");
         //}
         //if (spaceSetting.DrinkXTimes > 0)
         //{
-        //    Debug.Log("DrinkXTimes");
+        //    //Debug.Log("DrinkXTimes");
         //}
         //if (spaceSetting.EveryoneDrinkXTimes > 0)
         //{
-        //    Debug.Log("EveryoneDrinkXTimes");
+        //    //Debug.Log("EveryoneDrinkXTimes");
         //}
         
         //return space;
