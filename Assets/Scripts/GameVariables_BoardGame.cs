@@ -9,6 +9,7 @@ using VRC.Udon;
 
 public class GameVariables_BoardGame : UdonSharpBehaviour
 {
+    [SerializeField] GameController_BoardGame gameController;
     [SerializeField] ToggleGameAudio_BoardGame toggleGameAudio;
     [SerializeField] HelperFunctions_BoardGame helperFunctions;
     [SerializeField] RunDiceTimer runDiceTimer;
@@ -18,6 +19,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     [SerializeField] CameraFollowHead cameraFollowHead;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
+    public GameObject winnerGameObject;
     public bool ReceivedAllVariables;
     public bool AwaitingPicture;
     public Animator rollDiceAnim;
@@ -27,6 +29,20 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     bool sameRollDelay = false;
     float sameRollDelayTimer = 0;
     public bool ReceivedGameStartedValues;
+    bool winnerCelebrationStarted = false;
+    float winnerTimer = 0;
+    public Text winnerText;
+    [UdonSynced, FieldChangeCallback(nameof(WinnerName))]
+    public string winnerName = "";
+    public string WinnerName
+    {
+        set
+        {
+            winnerName = value;
+            winnerText.text = "Winner\n" + value;
+        }
+        get => winnerName;
+    }
 
     public int tmpToggleChooseSomeoneToDrink = 0;
     [UdonSynced, FieldChangeCallback(nameof(ToggleChooseSomeoneToDrink))]
@@ -125,6 +141,19 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             //Debug.Log(gameEnded);
         }
         get => gameEnded;
+    }
+    int tmpWinnerDetected;
+    [UdonSynced, FieldChangeCallback(nameof(WinnerDetected))]
+    public int winnerDetected = 0;
+    public int WinnerDetected
+    {
+        set
+        {
+            winnerDetected = value;
+            //Debug.Log("Game Ended Updated");
+            //Debug.Log(gameEnded);
+        }
+        get => winnerDetected;
     }
     int tmpTakePicture = 0;
     [UdonSynced, FieldChangeCallback(nameof(TakePicture))]
@@ -271,6 +300,19 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
 
     public void Update()
     {
+        if (winnerCelebrationStarted)
+        {
+            if(winnerTimer > 29)
+            {
+                winnerTimer = 0;
+                winnerCelebrationStarted = false;
+                winnerGameObject.SetActive(false);
+            }
+            else
+            {
+                winnerTimer = winnerTimer + Time.deltaTime;
+            }
+        }
         if (rollAnimationStart)
         {
             if (rollTimer > 2)
@@ -307,6 +349,19 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         playerLists.UpdatePlayersInGameText();
         cameraFollowHead.TakePicture();
         toggleGameAudio.ToggleAudio();
+        if(tmpWinnerDetected != WinnerDetected && hasLoadedForFirstTime)
+        {
+            tmpWinnerDetected = WinnerDetected;
+            DoWinnerActivities();
+        }
+        else
+        {
+            tmpWinnerDetected = WinnerDetected;
+        }
+        if (gameStarted)
+        {
+            winnerGameObject.SetActive(false);
+        }
     }
     public override void OnDeserialization()
     {
@@ -341,9 +396,28 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         else
         {
-            updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
+            //updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
+            gameController.diceObjectInteract.SetActive(false);
             updateSpaces.ClearOutlineSpaces();
         }
+        if (tmpWinnerDetected != WinnerDetected && hasLoadedForFirstTime)
+        {
+            tmpWinnerDetected = WinnerDetected;
+            DoWinnerActivities();
+        }
+        else
+        {
+            tmpWinnerDetected = WinnerDetected;
+        }
+        if (gameStarted)
+        {
+            winnerGameObject.SetActive(false);
+        }
+    }
+    public void DoWinnerActivities()
+    {
+        winnerCelebrationStarted = true;
+        winnerGameObject.SetActive(true);
     }
     void RollTheDiceAnim()
     {

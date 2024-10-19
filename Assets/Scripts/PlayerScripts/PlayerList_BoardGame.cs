@@ -118,7 +118,8 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
         GetSelfIndex();
         if (gameVariables.gameEnded)
         {
-            updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
+            gameController.diceObjectInteract.SetActive(false);
+            //updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
             updateSpaces.ClearOutlineSpaces();
         }
     }

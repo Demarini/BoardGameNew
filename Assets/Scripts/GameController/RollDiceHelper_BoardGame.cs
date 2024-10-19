@@ -108,6 +108,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             {
                 gameController.SamePlayerRollAgain();
             }
+            updateSpaces.UpdateOutlineSpaces();
         }
         else if(finalLandingSpace == 0)
         {
@@ -115,17 +116,21 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             numberOfMovements = 0;
             gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
             gameController.NextPlayer();
+            updateSpaces.UpdateOutlineSpaces();
         }
         else if (gameController.IsEnd(finalLandingSpace))
         {
-            //Debug.Log("GAME OVER!!!");
+            Debug.Log("GAME OVER!!!");
+            gameVariables.WinnerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].ToString();
+            gameVariables.WinnerDetected++;
+            gameController.EndGame();
         }
-        updateSpaces.UpdateOutlineSpaces();
+        
         //possibly need to request serialization on game variables, but the roll should do it
     }
     private int GetRandomRoll()
     {
-        return Random.Range(1, 6);
+        return Random.Range(1, 7);
     }
 }
 public enum SwapWithPlayer

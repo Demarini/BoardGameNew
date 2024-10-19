@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
@@ -30,9 +31,30 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
         }
         else
         {
+            bool isPlayerInGame = false;
+            for (int i = 0; i < playerLists.playersInGameDataList.Count; i++)
+            {
+                if(Networking.LocalPlayer.playerId == Convert.ToInt32(playerLists.playersInGameDataList[i].ToString()))
+                {
+                    if(playerLists.playerStatusInGameDataList[i] == 0)
+                    {
+                        isPlayerInGame = true;
+                    }
+                }
+            }
+            if (!isPlayerInGame)
+            {
+                gameVariables.tmpToggleChooseSomeoneToDrink = gameVariables.ToggleChooseSomeoneToDrink;
+                gameVariables.tmpToggleDrink = gameVariables.ToggleDrink;
+                gameVariables.tmpToggleDrinkWithHost = gameVariables.ToggleDrinkWithHost;
+                gameVariables.tmpToggleEveryoneDrink = gameVariables.ToggleEveryoneDrink;
+                gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
+                gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
+                return;
+            }
             if (gameVariables.tmpToggleChooseSomeoneToDrink != gameVariables.ToggleChooseSomeoneToDrink)
             {
-                if(gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
+                if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
                 {
                     ToggleGameObject(ChooseSomeoneToDrink);
                 }

@@ -30,7 +30,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
         playerLists.Shuffled = false;
         gameVariables.GameStarted = false;
         gameVariables.CurrentPlayerIndex = -1;
-        updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
+        diceObjectInteract.SetActive(false);
+        //updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
         updateSpaces.ClearOutlineSpaces();
         gameVariables.RequestSerialization();
         playerLists.RequestSerialization();
