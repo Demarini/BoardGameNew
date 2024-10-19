@@ -9,6 +9,7 @@ using VRC.Udon;
 
 public class PlayerList_BoardGame : UdonSharpBehaviour
 {
+    [SerializeField] UpdateSpaces updateSpaces;
     [SerializeField] HelperFunctions_BoardGame helperFunctions;
     [SerializeField] GameVariables_BoardGame gameVariables;
     [SerializeField] GameController_BoardGame gameController;
@@ -115,6 +116,11 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
             gameVariables.AwaitingPicture = false;
         }
         GetSelfIndex();
+        if (gameVariables.gameEnded)
+        {
+            updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
+            updateSpaces.ClearOutlineSpaces();
+        }
     }
     public void GetSelfIndex()
     {
@@ -140,8 +146,11 @@ public class PlayerList_BoardGame : UdonSharpBehaviour
             if (ReceivedGameStartedValues && gameVariables.ReceivedGameStartedValues)
             {
                 //Debug.Log("Received All Variables, Ready For Dice Check");
-                updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
-                runDiceTimer.RunTimer = true;
+                if (!gameVariables.GameEnded)
+                {
+                    updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
+                    runDiceTimer.RunTimer = true;
+                }
                 gameVariables.ReceivedAllVariables = true;
             }
             else

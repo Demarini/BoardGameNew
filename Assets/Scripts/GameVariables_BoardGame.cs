@@ -114,6 +114,18 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => gameStarted;
     }
+    [UdonSynced, FieldChangeCallback(nameof(GameEnded))]
+    public bool gameEnded;
+    public bool GameEnded
+    {
+        set
+        {
+            gameEnded = value;
+            //Debug.Log("Game Ended Updated");
+            //Debug.Log(gameEnded);
+        }
+        get => gameEnded;
+    }
     int tmpTakePicture = 0;
     [UdonSynced, FieldChangeCallback(nameof(TakePicture))]
     public int takePicture = 0;
@@ -294,6 +306,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         PlayerSpaceJson = helperFunctions.SerializeDataList(playerSpaceDataList, PlayerSpaceJson);
         playerLists.UpdatePlayersInGameText();
         cameraFollowHead.TakePicture();
+        toggleGameAudio.ToggleAudio();
     }
     public override void OnDeserialization()
     {
@@ -322,7 +335,15 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             Debug.Log("Player Joined and is awaiting picture");
             AwaitingPicture = true;
         }
-        toggleGameAudio.ToggleAudio();
+        if (!gameEnded)
+        {
+            toggleGameAudio.ToggleAudio();
+        }
+        else
+        {
+            updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
+            updateSpaces.ClearOutlineSpaces();
+        }
     }
     void RollTheDiceAnim()
     {

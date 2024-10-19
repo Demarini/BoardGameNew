@@ -14,6 +14,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
     public GameObject boardGameSpacesObject;
     public int previousSpaceToDisable = 0;
     public int previousPlayerToDisable = 0;
+    bool spacesCleared = false;
     public void Start()
     {
         boardGameSpaces = new GameObject[boardGameSpacesObject.transform.childCount];
@@ -32,6 +33,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
     }
     public void UpdateCameraCountOnSpaces()
     {
+        spacesCleared = true;
         int indexToEnable = GetIndexToUpdate();
         Debug.Log("Index to enable: " + indexToEnable.ToString());
         for(int i = 0;i < boardGameSpaces.Length; i++)
@@ -50,10 +52,29 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
             }
         }
     }
+    public void ClearAllSpacesOfPictures()
+    {
+        if (!spacesCleared)
+        {
+            for (int i = 0; i < boardGameSpaces.Length; i++)
+            {
+                //Debug.Log("Updating camera object on space " + i.ToString());
+                for (int k = 0; k < 7; k++)
+                {
+                    for (int j = 0; j < boardGameSpaces[i].transform.GetChild(k).childCount; j++)
+                    {
+                        boardGameSpaces[i].transform.GetChild(k).GetChild(j).gameObject.SetActive(false);
+                    }
+                }
+            }
+            spacesCleared = true;
+        }
+        
+    }
     public void UpdatePlayerSpaces()
     {
         int indexToUpdate = GetIndexToUpdate();
-
+        spacesCleared = true;
         //if(gameVariables.PreviousPlayerIndex != -1)
         //{
         //    //Debug.Log("Disabling Previous Index of " + gameVariables.PreviousPlayerIndex.ToString() + " on space " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex]);

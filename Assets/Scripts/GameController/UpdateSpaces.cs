@@ -11,8 +11,24 @@ public class UpdateSpaces : UdonSharpBehaviour
     public GameObject spaceObjects;
     [SerializeField] GameVariables_BoardGame gameVariables;
     [SerializeField] PlayerList_BoardGame playerLists;
+    bool outlineCleared = false;
+    public void ClearOutlineSpaces()
+    {
+        if (!outlineCleared)
+        {
+            for (int i = 0; i < spaceObjects.transform.childCount; i++)
+            {
+                spaceObjects.transform.GetChild(i).GetChild(8).gameObject.SetActive(false);
+                spaceObjects.transform.GetChild(i).GetChild(9).gameObject.SetActive(false);
+                spaceObjects.transform.GetChild(i).GetChild(10).gameObject.SetActive(false);
+                spaceObjects.transform.GetChild(i).GetChild(11).gameObject.SetActive(false);
+            }
+            outlineCleared = true;
+        }
+    }
     public void UpdateOutlineSpaces()
     {
+        outlineCleared = false;
         Debug.Log("UPDATE OUTLINE SPACE");
         Debug.Log("Previous Player Index: " + gameVariables.PreviousPlayerIndex.ToString());
         Debug.Log("Self Index " + playerLists.selfIndex.ToString());

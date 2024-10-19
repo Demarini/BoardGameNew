@@ -23,6 +23,15 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
         PlayClick();
         gameController.StartGame();
     }
+    public void EndGameClicked()
+    {
+        if (!Networking.LocalPlayer.isMaster)
+        {
+            return;
+        }
+        PlayClick();
+        gameController.EndGame();
+    }
 
     public void RollDiceClicked() { PlayClick(); gameController.RollDice(); }
 

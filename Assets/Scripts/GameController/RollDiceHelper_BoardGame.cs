@@ -99,6 +99,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             numberOfMovements = 0;
             gameController.ProcessMissedTurn(spaceSetting);
             gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
+            gameController.ProcessAudio(spaceSetting);
             if (!gameController.ProcessRollAgain(spaceSetting))
             {
                 gameController.NextPlayer();
