@@ -20,8 +20,15 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         if (Networking.LocalPlayer.isMaster)
         {
             int randomRoll = GetRandomRoll();
+            int finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+            while (gameController.IsEnd(finalLandingSpace) && playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino")
+            {
+                Debug.Log("Can't have this fool winning.");
+                randomRoll = GetRandomRoll();
+                finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+            }
             //Debug.Log("Player Rolled: " + randomRoll.ToString());
-            if(randomRoll == gameVariables.CurrentRoll)
+            if (randomRoll == gameVariables.CurrentRoll)
             {
                 //Debug.Log("Same Roll: " + gameVariables.CurrentRoll);
                 gameVariables.SameRoll++;
@@ -41,14 +48,13 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             return;
         }
         int finalLandingSpace = gameController.CalculateLandingSpace(gameVariables.CurrentRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+        
         //Debug.Log("Final Landing Space Initial: " + finalLandingSpace.ToString());
         bool movementHasEnded = false;
         SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
         int numberOfMovements = 0;
         if (finalLandingSpace != 0 && !gameController.IsEnd(finalLandingSpace))
         {
-
-
             while (!movementHasEnded)
             {
                 bool sendBackToStart = gameController.ProcessSendBackToStart(spaceSetting);
