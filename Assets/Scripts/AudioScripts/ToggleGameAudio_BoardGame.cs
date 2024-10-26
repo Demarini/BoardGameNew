@@ -16,6 +16,9 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
     public GameObject EveryoneDrink;
     public GameObject GirlsDrink;
     public GameObject GuysDrink;
+    public GameObject SendBackToStart;
+
+    public GameObject idleAudio;
 
     public void ToggleAudio()
     {
@@ -28,6 +31,7 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleEveryoneDrink = gameVariables.ToggleEveryoneDrink;
             gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
             gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
+            gameVariables.tmpToggleSendBackToStart = gameVariables.ToggleSendBackToStart;
         }
         else
         {
@@ -85,17 +89,30 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             {
                 ToggleGameObject(GuysDrink);
             }
+            if (gameVariables.tmpToggleSendBackToStart != gameVariables.ToggleSendBackToStart)
+            {
+                ToggleGameObject(SendBackToStart);
+            }
             gameVariables.tmpToggleChooseSomeoneToDrink = gameVariables.ToggleChooseSomeoneToDrink;
             gameVariables.tmpToggleDrink = gameVariables.ToggleDrink;
             gameVariables.tmpToggleDrinkWithHost = gameVariables.ToggleDrinkWithHost;
             gameVariables.tmpToggleEveryoneDrink = gameVariables.ToggleEveryoneDrink;
             gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
             gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
+            gameVariables.tmpToggleSendBackToStart = gameVariables.ToggleSendBackToStart;
         }
     }
     void ToggleGameObject(GameObject objectToToggle)
     {
         objectToToggle.SetActive(false);
         objectToToggle.SetActive(true);
+    }
+    public void ToggleIdleAudioOn()
+    {
+        idleAudio.SetActive(true);
+    }
+    public void ToggleIdleAudioOff()
+    {
+        idleAudio.SetActive(false);
     }
 }

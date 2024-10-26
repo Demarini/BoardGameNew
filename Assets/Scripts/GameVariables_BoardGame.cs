@@ -32,6 +32,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     bool winnerCelebrationStarted = false;
     float winnerTimer = 0;
     public Text winnerText;
+    public Text masterText;
     [UdonSynced, FieldChangeCallback(nameof(WinnerName))]
     public string winnerName = "";
     public string WinnerName
@@ -43,7 +44,17 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => winnerName;
     }
-
+    [UdonSynced, FieldChangeCallback(nameof(MasterName))]
+    public string masterName = "";
+    public string MasterName
+    {
+        set
+        {
+            masterName = value;
+            masterText.text = "Master: " + value;
+        }
+        get => masterName;
+    }
     public int tmpToggleChooseSomeoneToDrink = 0;
     [UdonSynced, FieldChangeCallback(nameof(ToggleChooseSomeoneToDrink))]
     public int toggleChooseSomeoneToDrink = 0;
@@ -114,6 +125,18 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             toggleGuysDrink = value;
         }
         get => toggleGuysDrink;
+    }
+
+    public int tmpToggleSendBackToStart = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleSendBackToStart))]
+    public int toggleSendBackToStart = 0;
+    public int ToggleSendBackToStart
+    {
+        set
+        {
+            toggleSendBackToStart = value;
+        }
+        get => toggleSendBackToStart;
     }
 
     public bool hasLoadedForFirstTime;
@@ -300,9 +323,18 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
 
     public void Update()
     {
+        if (Networking.LocalPlayer.isMaster)
+        {
+            if(MasterName != Networking.LocalPlayer.displayName)
+            {
+                MasterName = Networking.LocalPlayer.displayName;
+                RequestSerialization();
+                Debug.Log("Update Master Name");
+            }
+        }
         if (winnerCelebrationStarted)
         {
-            if(winnerTimer > 29)
+            if(winnerTimer > 20)
             {
                 winnerTimer = 0;
                 winnerCelebrationStarted = false;

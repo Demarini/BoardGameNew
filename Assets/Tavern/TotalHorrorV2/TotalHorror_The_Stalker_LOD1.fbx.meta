@@ -1,0 +1,215 @@
+fileFormatVersion: 2
+guid: 4285a57e4a5dcc14c8df6bbe247e246f
+timeCreated: 1446404011
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Biped_Skeleton
+    100002: Biped_Skeleton_Chest
+    100004: Biped_Skeleton_Chest1
+    100006: Biped_Skeleton_ChestEffector
+    100008: Biped_Skeleton_eff
+    100010: Biped_Skeleton_eff1
+    100012: Biped_Skeleton_GlobalSRT
+    100014: Biped_Skeleton_LBicep
+    100016: Biped_Skeleton_LRoot
+    100018: Biped_Skeleton_LRoot1
+    100020: Biped_Skeleton_LShin
+    100022: Biped_Skeleton_LShoulder
+    100024: Biped_Skeleton_LShoulderRoot
+    100026: Biped_Skeleton_LThigh
+    100028: Biped_Skeleton_RBicep
+    100030: Biped_Skeleton_RRoot
+    100032: Biped_Skeleton_RRoot1
+    100034: Biped_Skeleton_RShin
+    100036: Biped_Skeleton_RShoulder
+    100038: Biped_Skeleton_RShoulderRoot
+    100040: Biped_Skeleton_RThigh
+    100042: Biped_Skeleton_Spine1
+    100044: Biped_Skeleton_Spine2
+    100046: Biped_Skeleton_Spine3
+    100048: Biped_Skeleton_Spine4
+    100050: Biped_Skeleton_Spine5
+    100052: Biped_Skeleton_Spine6
+    100054: Biped_Skeleton_Spine7
+    100056: Biped_Skeleton_SpineRoot
+    100058: Biped_Skeleton_SpineRoot1
+    100060: Biped_Skeleton_UpperBody
+    100062: Bone
+    100064: Bone1
+    100066: Bone2
+    100068: Bone3
+    100070: Bone4
+    100072: Bone5
+    100074: Bone6
+    100076: Bone7
+    100078: Bone8
+    100080: Bone9
+    100082: Camera
+    100084: LeftArmA
+    100086: LeftArmB
+    100088: LeftArmC
+    100090: LeftArmD
+    100092: LeftArmE
+    100094: LeftArmF
+    100096: LeftArmG
+    100098: MidTongueA
+    100100: MidTongueB
+    100102: MidTongueC
+    100104: MidTongueD
+    100106: MidTongueE
+    100108: mTotalHorrorV2
+    100110: RightArmA
+    100112: RightArmB
+    100114: RightArmC
+    100116: RightArmD
+    100118: RightArmE
+    100120: RightArmF
+    100122: Scene_Root
+    100124: //RootNode
+    100126: TotalHorrorV2
+    100128: TotalHorrorTeeth
+    100130: TotalhorrorTongue
+    100132: TotalHorrowWood
+    400000: Biped_Skeleton
+    400002: Biped_Skeleton_Chest
+    400004: Biped_Skeleton_Chest1
+    400006: Biped_Skeleton_ChestEffector
+    400008: Biped_Skeleton_eff
+    400010: Biped_Skeleton_eff1
+    400012: Biped_Skeleton_GlobalSRT
+    400014: Biped_Skeleton_LBicep
+    400016: Biped_Skeleton_LRoot
+    400018: Biped_Skeleton_LRoot1
+    400020: Biped_Skeleton_LShin
+    400022: Biped_Skeleton_LShoulder
+    400024: Biped_Skeleton_LShoulderRoot
+    400026: Biped_Skeleton_LThigh
+    400028: Biped_Skeleton_RBicep
+    400030: Biped_Skeleton_RRoot
+    400032: Biped_Skeleton_RRoot1
+    400034: Biped_Skeleton_RShin
+    400036: Biped_Skeleton_RShoulder
+    400038: Biped_Skeleton_RShoulderRoot
+    400040: Biped_Skeleton_RThigh
+    400042: Biped_Skeleton_Spine1
+    400044: Biped_Skeleton_Spine2
+    400046: Biped_Skeleton_Spine3
+    400048: Biped_Skeleton_Spine4
+    400050: Biped_Skeleton_Spine5
+    400052: Biped_Skeleton_Spine6
+    400054: Biped_Skeleton_Spine7
+    400056: Biped_Skeleton_SpineRoot
+    400058: Biped_Skeleton_SpineRoot1
+    400060: Biped_Skeleton_UpperBody
+    400062: Bone
+    400064: Bone1
+    400066: Bone2
+    400068: Bone3
+    400070: Bone4
+    400072: Bone5
+    400074: Bone6
+    400076: Bone7
+    400078: Bone8
+    400080: Bone9
+    400082: Camera
+    400084: LeftArmA
+    400086: LeftArmB
+    400088: LeftArmC
+    400090: LeftArmD
+    400092: LeftArmE
+    400094: LeftArmF
+    400096: LeftArmG
+    400098: MidTongueA
+    400100: MidTongueB
+    400102: MidTongueC
+    400104: MidTongueD
+    400106: MidTongueE
+    400108: mTotalHorrorV2
+    400110: RightArmA
+    400112: RightArmB
+    400114: RightArmC
+    400116: RightArmD
+    400118: RightArmE
+    400120: RightArmF
+    400122: Scene_Root
+    400124: //RootNode
+    400126: TotalHorrorV2
+    400128: TotalHorrorTeeth
+    400130: TotalhorrorTongue
+    400132: TotalHorrowWood
+    4300000: TotalHorrorV2
+    4300002: TotalHorrorTeeth
+    4300004: TotalhorrorTongue
+    4300006: TotalHorrowWood
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: TotalHorrorV2
+    13700002: TotalHorrorTeeth
+    13700004: TotalhorrorTongue
+    13700006: TotalHorrowWood
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 2
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 8
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
