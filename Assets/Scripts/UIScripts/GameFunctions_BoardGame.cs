@@ -17,6 +17,8 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
 
     public void LeaveClicked() { PlayClick(); playerFunctions.SendPlayerToMasterRemove(Networking.LocalPlayer.playerId); }
 
+    public GameObject audioSources;
+
     public void StartGameClicked()
     {
         if (!Networking.LocalPlayer.isMaster)
@@ -63,5 +65,10 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
             PlayClick();
             playerFunctions.RemovePlayer(Convert.ToInt32(playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex].ToString()), true);
         }
+    }
+    public void ToggleMusic()
+    {
+        PlayClick();
+        audioSources.SetActive(!audioSources.activeSelf);
     }
 }

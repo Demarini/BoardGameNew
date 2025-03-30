@@ -21,6 +21,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         {
             int randomRoll = GetRandomRoll();
             int finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+
             while (gameController.IsEnd(finalLandingSpace) && playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino")
             {
                 Debug.Log("Can't have this fool winning.");

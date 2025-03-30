@@ -171,8 +171,8 @@
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Utilities\Misc\EmitUtilities.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Utilities\Misc\Flags.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Formatters\StackFormatter.cs" />
-    <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Serializers\Int32Serializer.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Unity Integration\Formatters\VectorIntFormatters.cs" />
+    <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Serializers\Int32Serializer.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Unity Integration\SerializedUnityObjects\IOverridesSerializationPolicy.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Formatters\ListFormatter.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Misc\ErrorHandlingPolicy.cs" />
@@ -1284,12 +1284,12 @@
       <HintPath>A:\AppInstalls\UnityInstalls\2022.3.22f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

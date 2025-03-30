@@ -1,6 +1,7 @@
 ﻿
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.UI;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 using VRC.Udon;
@@ -12,9 +13,15 @@ public class GameController_BoardGame : UdonSharpBehaviour
     [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
     [SerializeField] UpdateSpaces updateSpaces;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
+    [SerializeField] ToggleGameAudio_BoardGame toggleGameAudio;
     public GameObject boardGameSpaceSettings;
 
     public GameObject diceObjectInteract;
+
+    public Text currentPlayerText;
+
+    bool hasNotRolled = false;
+    public float hasNotRolledTimer = 0;
     public void EndGame()
     {
         gameVariables.GameStarted = false;
@@ -35,6 +42,24 @@ public class GameController_BoardGame : UdonSharpBehaviour
         updateSpaces.ClearOutlineSpaces();
         gameVariables.RequestSerialization();
         playerLists.RequestSerialization();
+    }
+    public void Update()
+    {
+        if (hasNotRolled)
+        {
+            hasNotRolledTimer = hasNotRolledTimer + Time.deltaTime;
+            if(hasNotRolledTimer > 15)
+            {
+                toggleGameAudio.ToggleIdleAudioOn();
+                hasNotRolledTimer = 0;
+                hasNotRolled = false;
+            }
+        }
+        if(gameVariables.CurrentPlayerIndex >= 0 && gameVariables.GameStarted && playerLists.playerNamesInGameDataList.Count > 0)
+        {
+            Debug.Log("Current Player Index: " + gameVariables.CurrentPlayerIndex.ToString());
+            currentPlayerText.text = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
+        }
     }
     public void StartGame()
     {
@@ -138,6 +163,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
         if(Networking.LocalPlayer.playerId == playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex])
         {
             //Debug.Log("Validated User - Can Roll Dice. Sending to Master");
+            hasNotRolled = false;
+            hasNotRolledTimer = 0;
             SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.Owner, "RollDiceMaster");
         }
     }
@@ -173,6 +200,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
             {
                 Debug.Log("Found Current Player - Setting Dice Interact to Active");
                 diceObjectInteract.SetActive(true);
+                hasNotRolled = true;
             }
             else
             {
@@ -212,6 +240,10 @@ public class GameController_BoardGame : UdonSharpBehaviour
         else if (spaceSetting.DrinkXTimes > 0)
         {
             gameVariables.ToggleDrink++;
+        }
+        else if (spaceSetting.Start)
+        {
+            gameVariables.ToggleSendBackToStart++;
         }
     }
     public bool ProcessRollAgain(SpaceSettings spaceSetting)

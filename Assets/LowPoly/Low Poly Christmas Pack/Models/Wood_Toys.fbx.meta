@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: c4e6f2678937cf34b8cd9d9dd478645b
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Car_01
+    100002: Car_02
+    100004: CINEMA_4D_Editor
+    100006: Horse
+    100008: Plane
+    100010: propeller
+    100012: Train
+    100014: //RootNode
+    400000: Car_01
+    400002: Car_02
+    400004: CINEMA_4D_Editor
+    400006: Horse
+    400008: Plane
+    400010: propeller
+    400012: Train
+    400014: //RootNode
+    2000000: CINEMA_4D_Editor
+    2100000: Horse_MAT
+    2100002: Plane_MAT
+    2100004: Train_MAT
+    2300000: Car_01
+    2300002: Car_02
+    2300004: Horse
+    2300006: Plane
+    2300008: propeller
+    2300010: Train
+    3300000: Car_01
+    3300002: Car_02
+    3300004: Horse
+    3300006: Plane
+    3300008: propeller
+    3300010: Train
+    4300000: Horse
+    4300002: Plane
+    4300004: propeller
+    4300006: Train
+    4300008: Car_01
+    4300010: Car_02
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Horse_MAT
+    second: {fileID: 2100000, guid: 9c556bcf4d4fe4b4a98952c7e0b1a416, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plane_MAT
+    second: {fileID: 2100000, guid: 9c556bcf4d4fe4b4a98952c7e0b1a416, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Train_MAT
+    second: {fileID: 2100000, guid: 9c556bcf4d4fe4b4a98952c7e0b1a416, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 0
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
