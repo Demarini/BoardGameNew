@@ -1,6 +1,7 @@
 ﻿
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.UI;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 using VRC.Udon;
@@ -16,6 +17,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
     public GameObject boardGameSpaceSettings;
 
     public GameObject diceObjectInteract;
+
+    public Text currentPlayerText;
 
     bool hasNotRolled = false;
     public float hasNotRolledTimer = 0;
@@ -51,6 +54,11 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 hasNotRolledTimer = 0;
                 hasNotRolled = false;
             }
+        }
+        if(gameVariables.CurrentPlayerIndex >= 0 && gameVariables.GameStarted && playerLists.playerNamesInGameDataList.Count > 0)
+        {
+            Debug.Log("Current Player Index: " + gameVariables.CurrentPlayerIndex.ToString());
+            currentPlayerText.text = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
         }
     }
     public void StartGame()

@@ -1,0 +1,158 @@
+fileFormatVersion: 2
+guid: b1ae46a47e5b3074c880b1d9f80bf74a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: chest
+    100002: foot_L
+    100004: foot_L_001
+    100006: foot_R
+    100008: foot_R_001
+    100010: head
+    100012: head_end
+    100014: hips
+    100016: neck
+    100018: Reindeer
+    100020: //RootNode
+    100022: Rig
+    100024: shin_L
+    100026: shin_L_001
+    100028: shin_R
+    100030: shin_R_001
+    100032: tail
+    100034: tail_end
+    100036: thigh_L
+    100038: thigh_L_001
+    100040: thigh_R
+    100042: thigh_R_001
+    100044: toe_L
+    100046: toe_L_001
+    100048: toe_L_001_end
+    100050: toe_L_end
+    100052: toe_R
+    100054: toe_R_001
+    100056: toe_R_001_end
+    100058: toe_R_end
+    400000: chest
+    400002: foot_L
+    400004: foot_L_001
+    400006: foot_R
+    400008: foot_R_001
+    400010: head
+    400012: head_end
+    400014: hips
+    400016: neck
+    400018: Reindeer
+    400020: //RootNode
+    400022: Rig
+    400024: shin_L
+    400026: shin_L_001
+    400028: shin_R
+    400030: shin_R_001
+    400032: tail
+    400034: tail_end
+    400036: thigh_L
+    400038: thigh_L_001
+    400040: thigh_R
+    400042: thigh_R_001
+    400044: toe_L
+    400046: toe_L_001
+    400048: toe_L_001_end
+    400050: toe_L_end
+    400052: toe_R
+    400054: toe_R_001
+    400056: toe_R_001_end
+    400058: toe_R_end
+    2100000: Mat.1
+    4300000: Reindeer
+    9500000: //RootNode
+    13700000: Reindeer
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.1
+    second: {fileID: 2100000, guid: 4f96d7b06408cd845b5f29da3fcb28e9, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 0
+    tangentImportMode: 0
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

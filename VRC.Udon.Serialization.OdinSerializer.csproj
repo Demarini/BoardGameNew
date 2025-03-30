@@ -171,8 +171,8 @@
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Utilities\Misc\EmitUtilities.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Utilities\Misc\Flags.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Formatters\StackFormatter.cs" />
-    <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Serializers\Int32Serializer.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Unity Integration\Formatters\VectorIntFormatters.cs" />
+    <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Serializers\Int32Serializer.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Unity Integration\SerializedUnityObjects\IOverridesSerializationPolicy.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Formatters\ListFormatter.cs" />
     <Compile Include="Packages\com.vrchat.worlds\Runtime\Udon\Serialization\OdinSerializer\Core\Misc\ErrorHandlingPolicy.cs" />

@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 7ccdf98f2793caf4aa7db5867e233a10
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: baubles_01
+    100002: baubles_02
+    100004: baubles_03
+    100006: Bell_01
+    100008: Bell_02
+    100010: Candle_01
+    100012: Candle_02_1
+    100014: CINEMA_4D_Editor
+    100016: Moon_01
+    100018: //RootNode
+    100020: Sock_01
+    100022: Sock_02
+    100024: Star_01
+    100026: Star_02
+    400000: baubles_01
+    400002: baubles_02
+    400004: baubles_03
+    400006: Bell_01
+    400008: Bell_02
+    400010: Candle_01
+    400012: Candle_02_1
+    400014: CINEMA_4D_Editor
+    400016: Moon_01
+    400018: //RootNode
+    400020: Sock_01
+    400022: Sock_02
+    400024: Star_01
+    400026: Star_02
+    2000000: CINEMA_4D_Editor
+    2100000: Sock_MAT
+    2100002: Bell_MAT
+    2100004: baubles_03_MAT
+    2100006: baubles_02_MAT
+    2100008: baubles_01
+    2100010: Stars_MAT
+    2100012: Candle
+    2300000: baubles_01
+    2300002: baubles_02
+    2300004: baubles_03
+    2300006: Bell_01
+    2300008: Bell_02
+    2300010: Candle_01
+    2300012: Candle_02_1
+    2300014: Moon_01
+    2300016: Sock_01
+    2300018: Sock_02
+    2300020: Star_01
+    2300022: Star_02
+    3300000: baubles_01
+    3300002: baubles_02
+    3300004: baubles_03
+    3300006: Bell_01
+    3300008: Bell_02
+    3300010: Candle_01
+    3300012: Candle_02_1
+    3300014: Moon_01
+    3300016: Sock_01
+    3300018: Sock_02
+    3300020: Star_01
+    3300022: Star_02
+    4300000: Sock_02
+    4300002: Sock_01
+    4300004: Bell_02
+    4300006: Bell_01
+    4300008: baubles_03
+    4300010: baubles_02
+    4300012: baubles_01
+    4300014: Moon_01
+    4300016: Star_01
+    4300018: Star_02
+    4300020: Candle_01
+    4300022: Candle_02_1
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bell_MAT
+    second: {fileID: 2100000, guid: d84b0412c7a997647a925f6674b686f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Candle
+    second: {fileID: 2100000, guid: eea3b04025fd2654d98e63dfd282cfa8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sock_MAT
+    second: {fileID: 2100000, guid: f9c7298972cc2c64ea0cc8f287b08630, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stars_MAT
+    second: {fileID: 2100000, guid: a3449c18615b0484e9825c500ce9882f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: baubles_01
+    second: {fileID: 2100000, guid: b11087837f2364748969a9aa59a35f50, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: baubles_02_MAT
+    second: {fileID: 2100000, guid: 1c80ea804f0819e4f9ee615f34630546, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: baubles_03_MAT
+    second: {fileID: 2100000, guid: 1d21108e00649324aa6e06b89dc59a36, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 0
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

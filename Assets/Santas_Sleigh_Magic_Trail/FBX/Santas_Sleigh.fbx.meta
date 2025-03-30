@@ -1,0 +1,509 @@
+fileFormatVersion: 2
+guid: ce91c42fc1d103b409a7acad75a4ebf3
+timeCreated: 1509012250
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: mesh3ds_index_0
+    100002: mesh3ds_index_1
+    100004: mesh3ds_index_10
+    100006: mesh3ds_index_11
+    100008: mesh3ds_index_12
+    100010: mesh3ds_index_13
+    100012: mesh3ds_index_14
+    100014: mesh3ds_index_15
+    100016: mesh3ds_index_16
+    100018: mesh3ds_index_17
+    100020: mesh3ds_index_18
+    100022: mesh3ds_index_19
+    100024: mesh3ds_index_2
+    100026: mesh3ds_index_20
+    100028: mesh3ds_index_21
+    100030: mesh3ds_index_22
+    100032: mesh3ds_index_23
+    100034: mesh3ds_index_24
+    100036: mesh3ds_index_25
+    100038: mesh3ds_index_26
+    100040: mesh3ds_index_27
+    100042: mesh3ds_index_28
+    100044: mesh3ds_index_29
+    100046: mesh3ds_index_3
+    100048: mesh3ds_index_30
+    100050: mesh3ds_index_31
+    100052: mesh3ds_index_32
+    100054: mesh3ds_index_33
+    100056: mesh3ds_index_34
+    100058: mesh3ds_index_35
+    100060: mesh3ds_index_36
+    100062: mesh3ds_index_37
+    100064: mesh3ds_index_38
+    100066: mesh3ds_index_39
+    100068: mesh3ds_index_4
+    100070: mesh3ds_index_40
+    100072: mesh3ds_index_41
+    100074: mesh3ds_index_42
+    100076: mesh3ds_index_43
+    100078: mesh3ds_index_44
+    100080: mesh3ds_index_45
+    100082: mesh3ds_index_46
+    100084: mesh3ds_index_47
+    100086: mesh3ds_index_48
+    100088: mesh3ds_index_49
+    100090: mesh3ds_index_5
+    100092: mesh3ds_index_51
+    100094: mesh3ds_index_52
+    100096: mesh3ds_index_53
+    100098: mesh3ds_index_54
+    100100: mesh3ds_index_55
+    100102: mesh3ds_index_56
+    100104: mesh3ds_index_57
+    100106: mesh3ds_index_6
+    100108: mesh3ds_index_7
+    100110: mesh3ds_index_8
+    100112: mesh3ds_index_9
+    100114: //RootNode
+    400000: mesh3ds_index_0
+    400002: mesh3ds_index_1
+    400004: mesh3ds_index_10
+    400006: mesh3ds_index_11
+    400008: mesh3ds_index_12
+    400010: mesh3ds_index_13
+    400012: mesh3ds_index_14
+    400014: mesh3ds_index_15
+    400016: mesh3ds_index_16
+    400018: mesh3ds_index_17
+    400020: mesh3ds_index_18
+    400022: mesh3ds_index_19
+    400024: mesh3ds_index_2
+    400026: mesh3ds_index_20
+    400028: mesh3ds_index_21
+    400030: mesh3ds_index_22
+    400032: mesh3ds_index_23
+    400034: mesh3ds_index_24
+    400036: mesh3ds_index_25
+    400038: mesh3ds_index_26
+    400040: mesh3ds_index_27
+    400042: mesh3ds_index_28
+    400044: mesh3ds_index_29
+    400046: mesh3ds_index_3
+    400048: mesh3ds_index_30
+    400050: mesh3ds_index_31
+    400052: mesh3ds_index_32
+    400054: mesh3ds_index_33
+    400056: mesh3ds_index_34
+    400058: mesh3ds_index_35
+    400060: mesh3ds_index_36
+    400062: mesh3ds_index_37
+    400064: mesh3ds_index_38
+    400066: mesh3ds_index_39
+    400068: mesh3ds_index_4
+    400070: mesh3ds_index_40
+    400072: mesh3ds_index_41
+    400074: mesh3ds_index_42
+    400076: mesh3ds_index_43
+    400078: mesh3ds_index_44
+    400080: mesh3ds_index_45
+    400082: mesh3ds_index_46
+    400084: mesh3ds_index_47
+    400086: mesh3ds_index_48
+    400088: mesh3ds_index_49
+    400090: mesh3ds_index_5
+    400092: mesh3ds_index_51
+    400094: mesh3ds_index_52
+    400096: mesh3ds_index_53
+    400098: mesh3ds_index_54
+    400100: mesh3ds_index_55
+    400102: mesh3ds_index_56
+    400104: mesh3ds_index_57
+    400106: mesh3ds_index_6
+    400108: mesh3ds_index_7
+    400110: mesh3ds_index_8
+    400112: mesh3ds_index_9
+    400114: //RootNode
+    2300000: mesh3ds_index_0
+    2300002: mesh3ds_index_1
+    2300004: mesh3ds_index_10
+    2300006: mesh3ds_index_11
+    2300008: mesh3ds_index_12
+    2300010: mesh3ds_index_13
+    2300012: mesh3ds_index_14
+    2300014: mesh3ds_index_15
+    2300016: mesh3ds_index_16
+    2300018: mesh3ds_index_17
+    2300020: mesh3ds_index_18
+    2300022: mesh3ds_index_19
+    2300024: mesh3ds_index_2
+    2300026: mesh3ds_index_20
+    2300028: mesh3ds_index_21
+    2300030: mesh3ds_index_22
+    2300032: mesh3ds_index_23
+    2300034: mesh3ds_index_24
+    2300036: mesh3ds_index_25
+    2300038: mesh3ds_index_26
+    2300040: mesh3ds_index_27
+    2300042: mesh3ds_index_28
+    2300044: mesh3ds_index_29
+    2300046: mesh3ds_index_3
+    2300048: mesh3ds_index_30
+    2300050: mesh3ds_index_31
+    2300052: mesh3ds_index_32
+    2300054: mesh3ds_index_33
+    2300056: mesh3ds_index_34
+    2300058: mesh3ds_index_35
+    2300060: mesh3ds_index_36
+    2300062: mesh3ds_index_37
+    2300064: mesh3ds_index_38
+    2300066: mesh3ds_index_39
+    2300068: mesh3ds_index_4
+    2300070: mesh3ds_index_40
+    2300072: mesh3ds_index_41
+    2300074: mesh3ds_index_42
+    2300076: mesh3ds_index_43
+    2300078: mesh3ds_index_44
+    2300080: mesh3ds_index_45
+    2300082: mesh3ds_index_46
+    2300084: mesh3ds_index_47
+    2300086: mesh3ds_index_48
+    2300088: mesh3ds_index_49
+    2300090: mesh3ds_index_5
+    2300092: mesh3ds_index_51
+    2300094: mesh3ds_index_52
+    2300096: mesh3ds_index_53
+    2300098: mesh3ds_index_54
+    2300100: mesh3ds_index_55
+    2300102: mesh3ds_index_56
+    2300104: mesh3ds_index_57
+    2300106: mesh3ds_index_6
+    2300108: mesh3ds_index_7
+    2300110: mesh3ds_index_8
+    2300112: mesh3ds_index_9
+    3300000: mesh3ds_index_0
+    3300002: mesh3ds_index_1
+    3300004: mesh3ds_index_10
+    3300006: mesh3ds_index_11
+    3300008: mesh3ds_index_12
+    3300010: mesh3ds_index_13
+    3300012: mesh3ds_index_14
+    3300014: mesh3ds_index_15
+    3300016: mesh3ds_index_16
+    3300018: mesh3ds_index_17
+    3300020: mesh3ds_index_18
+    3300022: mesh3ds_index_19
+    3300024: mesh3ds_index_2
+    3300026: mesh3ds_index_20
+    3300028: mesh3ds_index_21
+    3300030: mesh3ds_index_22
+    3300032: mesh3ds_index_23
+    3300034: mesh3ds_index_24
+    3300036: mesh3ds_index_25
+    3300038: mesh3ds_index_26
+    3300040: mesh3ds_index_27
+    3300042: mesh3ds_index_28
+    3300044: mesh3ds_index_29
+    3300046: mesh3ds_index_3
+    3300048: mesh3ds_index_30
+    3300050: mesh3ds_index_31
+    3300052: mesh3ds_index_32
+    3300054: mesh3ds_index_33
+    3300056: mesh3ds_index_34
+    3300058: mesh3ds_index_35
+    3300060: mesh3ds_index_36
+    3300062: mesh3ds_index_37
+    3300064: mesh3ds_index_38
+    3300066: mesh3ds_index_39
+    3300068: mesh3ds_index_4
+    3300070: mesh3ds_index_40
+    3300072: mesh3ds_index_41
+    3300074: mesh3ds_index_42
+    3300076: mesh3ds_index_43
+    3300078: mesh3ds_index_44
+    3300080: mesh3ds_index_45
+    3300082: mesh3ds_index_46
+    3300084: mesh3ds_index_47
+    3300086: mesh3ds_index_48
+    3300088: mesh3ds_index_49
+    3300090: mesh3ds_index_5
+    3300092: mesh3ds_index_51
+    3300094: mesh3ds_index_52
+    3300096: mesh3ds_index_53
+    3300098: mesh3ds_index_54
+    3300100: mesh3ds_index_55
+    3300102: mesh3ds_index_56
+    3300104: mesh3ds_index_57
+    3300106: mesh3ds_index_6
+    3300108: mesh3ds_index_7
+    3300110: mesh3ds_index_8
+    3300112: mesh3ds_index_9
+    4300000: mesh3ds_index_30
+    4300002: mesh3ds_index_0
+    4300004: mesh3ds_index_1
+    4300006: mesh3ds_index_2
+    4300008: mesh3ds_index_3
+    4300010: mesh3ds_index_4
+    4300012: mesh3ds_index_5
+    4300014: mesh3ds_index_6
+    4300016: mesh3ds_index_7
+    4300018: mesh3ds_index_8
+    4300020: mesh3ds_index_9
+    4300022: mesh3ds_index_10
+    4300024: mesh3ds_index_11
+    4300026: mesh3ds_index_12
+    4300028: mesh3ds_index_13
+    4300030: mesh3ds_index_14
+    4300032: mesh3ds_index_15
+    4300034: mesh3ds_index_16
+    4300036: mesh3ds_index_17
+    4300038: mesh3ds_index_18
+    4300040: mesh3ds_index_19
+    4300042: mesh3ds_index_20
+    4300044: mesh3ds_index_21
+    4300046: mesh3ds_index_22
+    4300048: mesh3ds_index_23
+    4300050: mesh3ds_index_24
+    4300052: mesh3ds_index_25
+    4300054: mesh3ds_index_26
+    4300056: mesh3ds_index_27
+    4300058: mesh3ds_index_28
+    4300060: mesh3ds_index_29
+    4300062: mesh3ds_index_31
+    4300064: mesh3ds_index_32
+    4300066: mesh3ds_index_33
+    4300068: mesh3ds_index_34
+    4300070: mesh3ds_index_35
+    4300072: mesh3ds_index_36
+    4300074: mesh3ds_index_37
+    4300076: mesh3ds_index_38
+    4300078: mesh3ds_index_39
+    4300080: mesh3ds_index_40
+    4300082: mesh3ds_index_41
+    4300084: mesh3ds_index_42
+    4300086: mesh3ds_index_43
+    4300088: mesh3ds_index_44
+    4300090: mesh3ds_index_45
+    4300092: mesh3ds_index_46
+    4300094: mesh3ds_index_47
+    4300096: mesh3ds_index_48
+    4300098: mesh3ds_index_49
+    4300100: mesh3ds_index_51
+    4300102: mesh3ds_index_52
+    4300104: mesh3ds_index_53
+    4300106: mesh3ds_index_54
+    4300108: mesh3ds_index_55
+    4300110: mesh3ds_index_56
+    4300112: mesh3ds_index_57
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: mesh3ds_index_0
+        weight: 1
+      - path: mesh3ds_index_1
+        weight: 1
+      - path: mesh3ds_index_2
+        weight: 1
+      - path: mesh3ds_index_3
+        weight: 1
+      - path: mesh3ds_index_4
+        weight: 1
+      - path: mesh3ds_index_5
+        weight: 1
+      - path: mesh3ds_index_6
+        weight: 1
+      - path: mesh3ds_index_7
+        weight: 1
+      - path: mesh3ds_index_8
+        weight: 1
+      - path: mesh3ds_index_9
+        weight: 1
+      - path: mesh3ds_index_10
+        weight: 1
+      - path: mesh3ds_index_11
+        weight: 1
+      - path: mesh3ds_index_12
+        weight: 1
+      - path: mesh3ds_index_13
+        weight: 1
+      - path: mesh3ds_index_14
+        weight: 1
+      - path: mesh3ds_index_15
+        weight: 1
+      - path: mesh3ds_index_16
+        weight: 1
+      - path: mesh3ds_index_17
+        weight: 1
+      - path: mesh3ds_index_18
+        weight: 1
+      - path: mesh3ds_index_19
+        weight: 1
+      - path: mesh3ds_index_20
+        weight: 1
+      - path: mesh3ds_index_21
+        weight: 1
+      - path: mesh3ds_index_22
+        weight: 1
+      - path: mesh3ds_index_23
+        weight: 1
+      - path: mesh3ds_index_24
+        weight: 1
+      - path: mesh3ds_index_25
+        weight: 1
+      - path: mesh3ds_index_26
+        weight: 1
+      - path: mesh3ds_index_27
+        weight: 1
+      - path: mesh3ds_index_28
+        weight: 1
+      - path: mesh3ds_index_29
+        weight: 1
+      - path: mesh3ds_index_30
+        weight: 1
+      - path: mesh3ds_index_31
+        weight: 1
+      - path: mesh3ds_index_32
+        weight: 1
+      - path: mesh3ds_index_33
+        weight: 1
+      - path: mesh3ds_index_34
+        weight: 1
+      - path: mesh3ds_index_35
+        weight: 1
+      - path: mesh3ds_index_36
+        weight: 1
+      - path: mesh3ds_index_37
+        weight: 1
+      - path: mesh3ds_index_38
+        weight: 1
+      - path: mesh3ds_index_39
+        weight: 1
+      - path: mesh3ds_index_40
+        weight: 1
+      - path: mesh3ds_index_41
+        weight: 1
+      - path: mesh3ds_index_42
+        weight: 1
+      - path: mesh3ds_index_43
+        weight: 1
+      - path: mesh3ds_index_44
+        weight: 1
+      - path: mesh3ds_index_45
+        weight: 1
+      - path: mesh3ds_index_46
+        weight: 1
+      - path: mesh3ds_index_47
+        weight: 1
+      - path: mesh3ds_index_48
+        weight: 1
+      - path: mesh3ds_index_49
+        weight: 1
+      - path: mesh3ds_index_51
+        weight: 1
+      - path: mesh3ds_index_52
+        weight: 1
+      - path: mesh3ds_index_53
+        weight: 1
+      - path: mesh3ds_index_54
+        weight: 1
+      - path: mesh3ds_index_55
+        weight: 1
+      - path: mesh3ds_index_56
+        weight: 1
+      - path: mesh3ds_index_57
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

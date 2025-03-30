@@ -334,7 +334,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         if (winnerCelebrationStarted)
         {
-            if(winnerTimer > 20)
+            if(winnerTimer > 55.5)
             {
                 winnerTimer = 0;
                 winnerCelebrationStarted = false;
@@ -498,8 +498,11 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         updateSpaces.UpdateOutlineSpaces();
         updatePlayerCamerasOnSpace.UpdateDisplayPanelCameras();
         updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
-        updatePlayerCamerasOnSpace.previousSpaceToDisable = Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].Double);
-        updatePlayerCamerasOnSpace.previousPlayerToDisable = CurrentPlayerIndex;
+        if(CurrentPlayerIndex != -1)
+        {
+            updatePlayerCamerasOnSpace.previousSpaceToDisable = Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].Double);
+            updatePlayerCamerasOnSpace.previousPlayerToDisable = CurrentPlayerIndex;
+        }
         //Debug.Log("Previous Space to Disable: " + updatePlayerCamerasOnSpace.previousSpaceToDisable.ToString());
         //Debug.Log("Previous Player to Disable: " + updatePlayerCamerasOnSpace.previousPlayerToDisable.ToString());
         runDiceTimer.RunTimer = true;

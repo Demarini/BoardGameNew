@@ -18,30 +18,39 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
     public void Start()
     {
         boardGameSpaces = new GameObject[boardGameSpacesObject.transform.childCount];
-        for(int i = 0;i < boardGameSpacesObject.transform.childCount; i++)
+        for (int i = 0; i < boardGameSpacesObject.transform.childCount; i++)
         {
             boardGameSpaces[i] = boardGameSpacesObject.transform.GetChild(i).gameObject;
         }
     }
     public void UpdateDisplayPanelCameras()
     {
-        for(int i = 0;i < displayPanelPlayerCameras.Length; i++)
+        if (gameVariables.CurrentPlayerIndex != -1)
         {
-            displayPanelPlayerCameras[i].SetActive(false);
+            for (int i = 0; i < displayPanelPlayerCameras.Length; i++)
+            {
+                displayPanelPlayerCameras[i].SetActive(false);
+            }
+            if (displayPanelPlayerCameras.Length > 0)
+            {
+                if (gameVariables.CurrentPlayerIndex >= 0)
+                {
+                    displayPanelPlayerCameras[gameVariables.CurrentPlayerIndex].SetActive(true);
+                }   
+            }
         }
-        displayPanelPlayerCameras[gameVariables.CurrentPlayerIndex].SetActive(true);
     }
     public void UpdateCameraCountOnSpaces()
     {
         spacesCleared = true;
         int indexToEnable = GetIndexToUpdate();
         Debug.Log("Index to enable: " + indexToEnable.ToString());
-        for(int i = 0;i < boardGameSpaces.Length; i++)
+        for (int i = 0; i < boardGameSpaces.Length; i++)
         {
             //Debug.Log("Updating camera object on space " + i.ToString());
-            for(int k = 0; k < 7; k++)
+            for (int k = 0; k < 7; k++)
             {
-                if(k != indexToEnable)
+                if (k != indexToEnable)
                 {
                     boardGameSpaces[i].transform.GetChild(k).gameObject.SetActive(false);
                 }
@@ -75,31 +84,6 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
     {
         int indexToUpdate = GetIndexToUpdate();
         spacesCleared = true;
-        //if(gameVariables.PreviousPlayerIndex != -1)
-        //{
-        //    //Debug.Log("Disabling Previous Index of " + gameVariables.PreviousPlayerIndex.ToString() + " on space " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex]);
-        //    boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(gameVariables.PreviousPlayerIndex).gameObject.SetActive(false);
-        //}
-        //if (gameVariables.CurrentPlayerIndex != -1)
-        //{
-        //    //Debug.Log("Disabling Current Index of " + gameVariables.CurrentPlayerIndex.ToString() + " on space " + gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex]);
-        //    boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(gameVariables.CurrentPlayerIndex).gameObject.SetActive(false);
-        //}
-        //Debug.Log("Previous Space to Disable in Update: " + previousSpaceToDisable.ToString());
-        //Debug.Log("Previous Player to Disable in Update: " + previousPlayerToDisable.ToString());
-
-        //for(int k = 0;k < boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).childCount; k++)
-        //{
-        //    boardGameSpaces[previousSpaceToDisable].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
-        //}
-        ////Debug.Log("THIS VALUE IS BREAKING THINGS: " + gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString());
-        //if(gameVariables.PreviousPlayerIndex != -1)
-        //{
-        //    for (int k = 0; k < boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].ToString())].transform.GetChild(indexToUpdate).childCount; k++)
-        //    {
-        //        boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.PreviousPlayerIndex].Double)].transform.GetChild(indexToUpdate).GetChild(k).gameObject.SetActive(false);
-        //    }
-        //}
         for (int i = 0; i < boardGameSpaces.Length; i++)
         {
             //Debug.Log("Updating camera object on space " + i.ToString());
@@ -119,7 +103,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
                 }
             }
         }
-        for (int i = 0;i < gameVariables.playerSpaceDataList.Count; i++)
+        for (int i = 0; i < gameVariables.playerSpaceDataList.Count; i++)
         {
             boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[i].Double)].transform.GetChild(indexToUpdate).GetChild(i).gameObject.SetActive(true);
         }
