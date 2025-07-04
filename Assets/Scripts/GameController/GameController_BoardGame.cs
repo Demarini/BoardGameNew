@@ -14,6 +14,11 @@ public class GameController_BoardGame : UdonSharpBehaviour
     [SerializeField] UpdateSpaces updateSpaces;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     [SerializeField] ToggleGameAudio_BoardGame toggleGameAudio;
+    [SerializeField] GameObject musicPlayerObject;
+    [SerializeField] GameObject[] musicPlayerVolumes;
+    public Slider volumeSlider;
+    float previousVolumeValue = 0f;
+
     public GameObject boardGameSpaceSettings;
 
     public GameObject diceObjectInteract;
@@ -57,7 +62,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         }
         if(gameVariables.CurrentPlayerIndex >= 0 && gameVariables.GameStarted && playerLists.playerNamesInGameDataList.Count > 0)
         {
-            Debug.Log("Current Player Index: " + gameVariables.CurrentPlayerIndex.ToString());
+            //Debug.Log("Current Player Index: " + gameVariables.CurrentPlayerIndex.ToString());
             currentPlayerText.text = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
         }
     }
@@ -244,6 +249,30 @@ public class GameController_BoardGame : UdonSharpBehaviour
         else if (spaceSetting.Start)
         {
             gameVariables.ToggleSendBackToStart++;
+        }
+        else if (spaceSetting.SwapWithFirst)
+        {
+            gameVariables.ToggleSwapWithFirst++;
+        }
+        else if (spaceSetting.SwapWithLast)
+        {
+            gameVariables.ToggleSwapWithLast++;
+        }
+        else if (spaceSetting.RollAgain)
+        {
+            gameVariables.ToggleRollAgain++;
+        }
+        else if (spaceSetting.ImmuneFromDrinking)
+        {
+            gameVariables.ToggleImmune++;
+        }
+        else if (spaceSetting.DrinkWhatYouRoll)
+        {
+            gameVariables.ToggleDrinkWhatYouRoll++;
+        }
+        else if (spaceSetting.MissTurn)
+        {
+            gameVariables.ToggleMissTurn++;
         }
     }
     public bool ProcessRollAgain(SpaceSettings spaceSetting)
@@ -435,5 +464,30 @@ public class GameController_BoardGame : UdonSharpBehaviour
     public void DisableDiceObjectInteract()
     {
         diceObjectInteract.SetActive(false);
+    }
+    public void TurnOnMusicPlayer()
+    {
+        musicPlayerObject.SetActive(true);
+    }
+    public void TurnOffMusicPlayer()
+    {
+        musicPlayerObject.SetActive(false);
+    }
+    public void TurnOffMusicPlayerVolume()
+    {
+        previousVolumeValue = volumeSlider.value;
+        volumeSlider.value = 0;
+    }
+    public void TurnOnMusicPlayerVolume()
+    {
+        volumeSlider.value = previousVolumeValue;
+    }
+    public void ToggleLastAudio()
+    {
+        toggleGameAudio.ToggleSwapLastAudio();
+    }
+    public void ToggleFirstAudio()
+    {
+        toggleGameAudio.ToggleSwapFirstAudio();
     }
 }

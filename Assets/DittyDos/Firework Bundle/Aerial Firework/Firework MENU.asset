@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
+  m_Name: Firework MENU
+  m_EditorClassIdentifier: 
+  Parameters: {fileID: 11400000, guid: e3cb3068d29b2ee41afe290eb339f2fd, type: 2}
+  controls:
+  - name: Aerial Firework
+    icon: {fileID: 2800000, guid: 8f5255105a27a4948a4f84172df279d1, type: 3}
+    type: 102
+    parameter:
+      name: Aerial
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Aerial Firework Activate
+    icon: {fileID: 2800000, guid: 1c0fcd2fe5778db47adc8aa6fdeb01e1, type: 3}
+    type: 102
+    parameter:
+      name: AerialActivate
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Happy Birthday!
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: HappyB
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Happy New Years!
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: HappyN
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Happy 4th of July!
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: Happy4
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
