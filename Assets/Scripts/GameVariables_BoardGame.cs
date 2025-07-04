@@ -138,7 +138,72 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => toggleSendBackToStart;
     }
-
+    public int tmpToggleSwapWithFirst = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleSwapWithFirst))]
+    public int toggleSwapWithFirst = 0;
+    public int ToggleSwapWithFirst
+    {
+        set
+        {
+            toggleSwapWithFirst = value;
+        }
+        get => toggleSwapWithFirst;
+    }
+    public int tmpToggleSwapWithLast = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleSwapWithLast))]
+    public int toggleSwapWithLast = 0;
+    public int ToggleSwapWithLast
+    {
+        set
+        {
+            toggleSwapWithLast = value;
+        }
+        get => toggleSwapWithLast;
+    }
+    public int tmpToggleRollAgain = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleRollAgain))]
+    public int toggleRollAgain = 0;
+    public int ToggleRollAgain
+    {
+        set
+        {
+            toggleRollAgain = value;
+        }
+        get => toggleRollAgain;
+    }
+    public int tmpToggleImmune = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleImmune))]
+    public int toggleImmune = 0;
+    public int ToggleImmune
+    {
+        set
+        {
+            toggleImmune = value;
+        }
+        get => toggleImmune;
+    }
+    public int tmpToggleDrinkWhatYouRoll = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleDrinkWhatYouRoll))]
+    public int toggleDrinkWhatYouRoll = 0;
+    public int ToggleDrinkWhatYouRoll
+    {
+        set
+        {
+            toggleDrinkWhatYouRoll = value;
+        }
+        get => toggleDrinkWhatYouRoll;
+    }
+    public int tmpToggleMissTurn = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleMissTurn))]
+    public int toggleMissTurn = 0;
+    public int ToggleMissTurn
+    {
+        set
+        {
+            toggleMissTurn = value;
+        }
+        get => toggleMissTurn;
+    }
     public bool hasLoadedForFirstTime;
 
     [UdonSynced, FieldChangeCallback(nameof(GameStarted))]
@@ -321,8 +386,64 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     }
     public DataList playerSpaceDataList = new DataList();
 
+    bool tmpMusicPlayerEnabled = false;
+    [UdonSynced, FieldChangeCallback(nameof(MusicPlayerEnabled))]
+    public bool musicPlayerEnabled = false;
+    public bool MusicPlayerEnabled
+    {
+        set
+        {
+            musicPlayerEnabled = value;
+        }
+        get => musicPlayerEnabled;
+    }
+    string tmpSwapPlayerIndex = "";
+    [UdonSynced, FieldChangeCallback(nameof(SwapPlayerIndex))]
+    public string swapPlayerIndex = "";
+    public string SwapPlayerIndex
+    {
+        set
+        {
+            swapPlayerIndex = value;
+        }
+        get => swapPlayerIndex;
+    }
+    int tmpSwapPlayerIndexSamePlayer = 0;
+    [UdonSynced, FieldChangeCallback(nameof(SwapPlayerIndexSamePlayer))]
+    public int swapPlayerindexSamePlayer = 0;
+    public int SwapPlayerIndexSamePlayer
+    {
+        set
+        {
+            swapPlayerindexSamePlayer = value;
+        }
+        get => swapPlayerindexSamePlayer;
+    }
+    public int tmpSwapWithLastIncrement = 0;
+    [UdonSynced, FieldChangeCallback(nameof(SwapWithLastIncrement))]
+    public int swapWithLastIncrement = 0;
+    public int SwapWithLastIncrement
+    {
+        set
+        {
+            swapWithLastIncrement = value;
+        }
+        get => swapWithLastIncrement;
+    }
+    public int tmpSwapWithFirstIncrement = 0;
+    [UdonSynced, FieldChangeCallback(nameof(SwapWithFirstIncrement))]
+    public int swapWithFirstIncrement = 0;
+    public int SwapWithFirstIncrement
+    {
+        set
+        {
+            swapWithFirstIncrement = value;
+        }
+        get => swapWithFirstIncrement;
+    }
     public void Update()
     {
+
         if (Networking.LocalPlayer.isMaster)
         {
             if(MasterName != Networking.LocalPlayer.displayName)
@@ -334,11 +455,12 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         if (winnerCelebrationStarted)
         {
-            if(winnerTimer > 55.5)
+            if(winnerTimer > 87)
             {
                 winnerTimer = 0;
                 winnerCelebrationStarted = false;
                 winnerGameObject.SetActive(false);
+                gameController.TurnOnMusicPlayerVolume();
             }
             else
             {
@@ -394,6 +516,17 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         {
             winnerGameObject.SetActive(false);
         }
+        if(tmpMusicPlayerEnabled != MusicPlayerEnabled)
+        {
+            if (MusicPlayerEnabled)
+            {
+                gameController.TurnOnMusicPlayer();
+            }
+            else
+            {
+                gameController.TurnOffMusicPlayer();
+            }
+        }
     }
     public override void OnDeserialization()
     {
@@ -445,11 +578,23 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         {
             winnerGameObject.SetActive(false);
         }
+        if (tmpMusicPlayerEnabled != MusicPlayerEnabled)
+        {
+            if (MusicPlayerEnabled)
+            {
+                gameController.TurnOnMusicPlayer();
+            }
+            else
+            {
+                gameController.TurnOffMusicPlayer();
+            }
+        }
     }
     public void DoWinnerActivities()
     {
         winnerCelebrationStarted = true;
         winnerGameObject.SetActive(true);
+        gameController.TurnOffMusicPlayerVolume();
     }
     void RollTheDiceAnim()
     {
@@ -491,6 +636,17 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
                 rollDiceAnim.SetBool("RollSix", true);
                 break;
         }
+        if (tmpMusicPlayerEnabled != MusicPlayerEnabled)
+        {
+            if (MusicPlayerEnabled)
+            {
+                gameController.TurnOnMusicPlayer();
+            }
+            else
+            {
+                gameController.TurnOffMusicPlayer();
+            }
+        }
     }
     void PostRollUpdates()
     {
@@ -524,6 +680,48 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             {
                 //Debug.Log("Still Waiting For Player Variables");
             }
+        }
+    }
+    void CheckToSeeIfSwapped()
+    {
+        if(tmpSwapPlayerIndex != SwapPlayerIndex)
+        {
+            //check to see if we are the player
+            string[] playerSwapSplit = SwapPlayerIndex.Split('|');
+            if (Networking.LocalPlayer.playerId.ToString() == playerSwapSplit[0])
+            {
+                //we are the player
+                if (playerSwapSplit[1] == "Last")
+                {
+                    gameController.ToggleLastAudio();
+                }
+                else if (playerSwapSplit[1] == "First")
+                {
+                    gameController.ToggleFirstAudio();
+                }
+            }
+            tmpSwapPlayerIndex = SwapPlayerIndex;
+        }
+        if (tmpSwapPlayerIndexSamePlayer != SwapPlayerIndexSamePlayer)
+        {
+            //check to see if we are the player
+            string[] playerSwapSplit = SwapPlayerIndex.Split('|');
+            if(playerSwapSplit.Length == 2)
+            {
+                if(Networking.LocalPlayer.playerId.ToString() == playerSwapSplit[0])
+                {
+                    //we are the player
+                    if (playerSwapSplit[1] == "Last")
+                    {
+                        gameController.ToggleLastAudio();
+                    }
+                    else if(playerSwapSplit[1] == "First")
+                    {
+                        gameController.ToggleFirstAudio();
+                    }
+                }
+            }
+            tmpSwapPlayerIndexSamePlayer = SwapPlayerIndexSamePlayer;
         }
     }
 }

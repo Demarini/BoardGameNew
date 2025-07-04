@@ -17,6 +17,12 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
     public GameObject GirlsDrink;
     public GameObject GuysDrink;
     public GameObject SendBackToStart;
+    public GameObject SwapWithFirst;
+    public GameObject SwapWithLast;
+    public GameObject RollAgain;
+    public GameObject DrinkWhatYouRoll;
+    public GameObject Immune;
+    public GameObject MissTurn;
 
     public GameObject idleAudio;
 
@@ -32,6 +38,12 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
             gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
             gameVariables.tmpToggleSendBackToStart = gameVariables.ToggleSendBackToStart;
+            gameVariables.tmpToggleSwapWithFirst = gameVariables.ToggleSwapWithFirst;
+            gameVariables.tmpToggleSwapWithLast = gameVariables.ToggleSwapWithLast;
+            gameVariables.tmpToggleRollAgain = gameVariables.ToggleRollAgain;
+            gameVariables.tmpToggleImmune = gameVariables.ToggleImmune;
+            gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
+            gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
         }
         else
         {
@@ -54,44 +66,94 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
                 gameVariables.tmpToggleEveryoneDrink = gameVariables.ToggleEveryoneDrink;
                 gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
                 gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
+                gameVariables.tmpToggleSwapWithFirst = gameVariables.ToggleSwapWithFirst;
+                gameVariables.tmpToggleSwapWithLast = gameVariables.ToggleSwapWithLast;
+                gameVariables.tmpToggleRollAgain = gameVariables.ToggleRollAgain;
+                gameVariables.tmpToggleImmune = gameVariables.ToggleImmune;
+                gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
+                gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
                 return;
             }
-            if (gameVariables.tmpToggleChooseSomeoneToDrink != gameVariables.ToggleChooseSomeoneToDrink)
+            else if (gameVariables.tmpSwapWithFirstIncrement != gameVariables.SwapWithFirstIncrement)
+            {
+                ToggleGameObject(SwapWithFirst);
+            }
+            else if(gameVariables.tmpSwapWithLastIncrement != gameVariables.SwapWithLastIncrement)
+            {
+                ToggleGameObject(SwapWithLast);
+            }
+            else if (gameVariables.tmpToggleChooseSomeoneToDrink != gameVariables.ToggleChooseSomeoneToDrink)
             {
                 if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
                 {
                     ToggleGameObject(ChooseSomeoneToDrink);
                 }
             }
-            if (gameVariables.tmpToggleDrink != gameVariables.ToggleDrink)
+            else if (gameVariables.tmpToggleDrink != gameVariables.ToggleDrink)
             {
                 if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
                 {
                     ToggleGameObject(Drink);
                 }
             }
-            if (gameVariables.tmpToggleDrinkWithHost != gameVariables.ToggleDrinkWithHost)
+            else if (gameVariables.tmpToggleDrinkWithHost != gameVariables.ToggleDrinkWithHost)
             {
                 if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
                 {
                     ToggleGameObject(DrinkWithHost);
                 }
             }
-            if (gameVariables.tmpToggleEveryoneDrink != gameVariables.ToggleEveryoneDrink)
+            else if (gameVariables.tmpToggleEveryoneDrink != gameVariables.ToggleEveryoneDrink)
             {
                 ToggleGameObject(EveryoneDrink);
             }
-            if (gameVariables.tmpToggleGirlsDrink != gameVariables.ToggleGirlsDrink)
+            else if (gameVariables.tmpToggleGirlsDrink != gameVariables.ToggleGirlsDrink)
             {
                 ToggleGameObject(GirlsDrink);
             }
-            if (gameVariables.tmpToggleGuysDrink != gameVariables.ToggleGuysDrink)
+            else if (gameVariables.tmpToggleGuysDrink != gameVariables.ToggleGuysDrink)
             {
                 ToggleGameObject(GuysDrink);
             }
-            if (gameVariables.tmpToggleSendBackToStart != gameVariables.ToggleSendBackToStart)
+            else if (gameVariables.tmpToggleSendBackToStart != gameVariables.ToggleSendBackToStart)
             {
                 ToggleGameObject(SendBackToStart);
+            }
+            //if(gameVariables.tmpToggleSwapWithFirst != gameVariables.ToggleSwapWithFirst)
+            //{
+            //    ToggleGameObject(SwapWithFirst);
+            //}
+            //if (gameVariables.tmpToggleSwapWithLast != gameVariables.ToggleSwapWithLast)
+            //{
+            //    ToggleGameObject(SwapWithLast);
+            //}
+            else if (gameVariables.tmpToggleRollAgain != gameVariables.ToggleRollAgain)
+            {
+                if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
+                {
+                    ToggleGameObject(RollAgain);
+                }
+            }
+            else if (gameVariables.tmpToggleImmune != gameVariables.ToggleImmune)
+            {
+                if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
+                {
+                    ToggleGameObject(Immune);
+                }
+            }
+            else if (gameVariables.tmpToggleDrinkWhatYouRoll != gameVariables.ToggleDrinkWhatYouRoll)
+            {
+                if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
+                {
+                    ToggleGameObject(DrinkWhatYouRoll);
+                }
+            }
+            else if (gameVariables.tmpToggleMissTurn != gameVariables.ToggleMissTurn)
+            {
+                if (gameVariables.PreviousPlayerIndex == playerLists.selfIndex)
+                {
+                    ToggleGameObject(MissTurn);
+                }
             }
             gameVariables.tmpToggleChooseSomeoneToDrink = gameVariables.ToggleChooseSomeoneToDrink;
             gameVariables.tmpToggleDrink = gameVariables.ToggleDrink;
@@ -100,6 +162,14 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
             gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
             gameVariables.tmpToggleSendBackToStart = gameVariables.ToggleSendBackToStart;
+            gameVariables.tmpToggleSwapWithFirst = gameVariables.ToggleSwapWithFirst;
+            gameVariables.tmpToggleSwapWithLast = gameVariables.ToggleSwapWithLast;
+            gameVariables.tmpToggleRollAgain = gameVariables.ToggleRollAgain;
+            gameVariables.tmpToggleImmune = gameVariables.ToggleImmune;
+            gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
+            gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
+            gameVariables.tmpSwapWithFirstIncrement = gameVariables.SwapWithFirstIncrement;
+            gameVariables.tmpSwapWithLastIncrement = gameVariables.SwapWithLastIncrement;
         }
     }
     void ToggleGameObject(GameObject objectToToggle)
@@ -114,5 +184,15 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
     public void ToggleIdleAudioOff()
     {
         idleAudio.SetActive(false);
+    }
+    public void ToggleSwapLastAudio()
+    {
+        SwapWithLast.SetActive(false);
+        SwapWithLast.SetActive(true);
+    }
+    public void ToggleSwapFirstAudio()
+    {
+        SwapWithLast.SetActive(false);
+        SwapWithLast.SetActive(true);
     }
 }

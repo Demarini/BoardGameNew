@@ -13,6 +13,7 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
     [SerializeField] PlayerList_BoardGame playerLists;
     [SerializeField] CameraFollowHead cameraFollowHead;
     [SerializeField] GameObject clickAudio;
+    [SerializeField] GameObject musicPlayer;
     public void JoinClicked() { PlayClick(); playerFunctions.SendPlayerToMasterAdd(Networking.LocalPlayer.playerId); }
 
     public void LeaveClicked() { PlayClick(); playerFunctions.SendPlayerToMasterRemove(Networking.LocalPlayer.playerId); }
@@ -70,5 +71,32 @@ public class GameFunctions_BoardGame : UdonSharpBehaviour
     {
         PlayClick();
         audioSources.SetActive(!audioSources.activeSelf);
+    }
+    public void ToggleMusic2()
+    {
+        if (Networking.LocalPlayer.isMaster)
+        {
+            gameVariables.MusicPlayerEnabled = true;
+            gameVariables.RequestSerialization();
+            PlayClick();
+        }
+    }
+    public void TurnOnMusic()
+    {
+        if (Networking.LocalPlayer.isMaster)
+        {
+            gameVariables.MusicPlayerEnabled = false;
+            gameVariables.RequestSerialization();
+            PlayClick();
+        }
+    }
+    public void TurnOffMusic()
+    {
+        if (Networking.LocalPlayer.isMaster)
+        {
+            gameVariables.MusicPlayerEnabled = false;
+            gameVariables.RequestSerialization();
+            PlayClick();
+        }
     }
 }
