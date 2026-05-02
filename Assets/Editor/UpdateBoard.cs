@@ -156,16 +156,11 @@ public class UpdateBoard : MonoBehaviour
 
     static void BakeMysteryPool(GameObject board, MysteryPoolEntry[] pool)
     {
-        Transform scriptsRoot = board.transform.Find("CreateCustomBoard").Find("Scripts");
-        Transform mysteryTransform = scriptsRoot.Find("MysteryManager");
-
-        MysteryManager mm = null;
-        if (mysteryTransform != null)
-            mm = mysteryTransform.GetComponent<MysteryManager>();
+        MysteryManager mm = Object.FindObjectOfType<MysteryManager>();
 
         if (mm == null)
         {
-            Debug.LogWarning("MysteryManager not found under CreateCustomBoard/Scripts/MysteryManager. Skipping mystery pool bake. Add a GameObject with MysteryManager component to bake pool data.");
+            Debug.LogWarning("MysteryManager not found in scene. Skipping mystery pool bake. Add a GameObject with MysteryManager component somewhere in the scene to bake pool data.");
             return;
         }
 

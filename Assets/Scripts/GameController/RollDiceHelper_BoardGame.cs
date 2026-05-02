@@ -228,11 +228,19 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
 
         if (finalLandingSpace != 0 && !gameController.IsEnd(finalLandingSpace))
         {
+            Debug.Log($"[CalculateRoll] Landed on space {finalLandingSpace}, IsMystery={spaceSetting.IsMystery}, mysteryManager={(mysteryManager != null ? "assigned" : "NULL")}");
             if (spaceSetting.IsMystery && mysteryManager != null)
             {
+                Debug.Log($"[CalculateRoll] Starting mystery resolution for space {finalLandingSpace}");
+                gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
+                updateSpaces.UpdateOutlineSpaces();
                 waitingForMystery = true;
-                mysteryManager.StartMysteryAndWait(spaceSetting);
+                mysteryManager.StartMysteryAndWait(spaceSetting, finalLandingSpace);
                 return;
+            }
+            else if (spaceSetting.IsMystery && mysteryManager == null)
+            {
+                Debug.LogWarning("[CalculateRoll] Space is mystery but MysteryManager reference is NULL on RollDiceHelper! Wire it up in the inspector.");
             }
             ProcessLandingEffects(finalLandingSpace, spaceSetting);
         }
@@ -256,8 +264,9 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         if (!waitingForMystery || !Networking.LocalPlayer.isMaster) return;
         waitingForMystery = false;
 
-        int finalLandingSpace = gameController.CalculateLandingSpace(gameVariables.CurrentRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+        int finalLandingSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
         SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
+        Debug.Log($"[OnMysteryResolved] Processing effects for space {finalLandingSpace}");
         ProcessLandingEffects(finalLandingSpace, spaceSetting);
     }
 
@@ -332,8 +341,18 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                 break;
             }
         }
-        gameController.ProcessMissedTurn(spaceSetting);
         gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
+
+        if (gameController.IsEnd(finalLandingSpace))
+        {
+            Debug.Log("GAME OVER!!! (from ProcessLandingEffects)");
+            gameVariables.WinnerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].ToString();
+            gameVariables.WinnerDetected++;
+            gameController.EndGame();
+            return;
+        }
+
+        gameController.ProcessMissedTurn(spaceSetting);
         gameController.ProcessAudio(spaceSetting);
         if (!gameController.ProcessRollAgain(spaceSetting))
         {

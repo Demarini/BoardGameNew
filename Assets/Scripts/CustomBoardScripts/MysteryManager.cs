@@ -1,4 +1,4 @@
-
+﻿
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +32,7 @@ public class MysteryManager : UdonSharpBehaviour
 
     [Header("Runtime State")]
     [UdonSynced] public int mysteryResultIndex = -1;
+    [UdonSynced] public int mysteryLandingSpace;
     [UdonSynced] public int mysteryResolveIncrement;
     int localMysteryResolveIncrement;
 
@@ -47,10 +48,25 @@ public class MysteryManager : UdonSharpBehaviour
 
     SpaceSettings pendingSpaceSettings;
     bool waitingForSpinComplete;
+    GameObject previousSpaceObject;
+    Text previousSpaceText;
+    Renderer previousSpaceRenderer;
 
     public bool IsSpinning()
     {
         return isSpinning;
+    }
+
+    void ResetPreviousMysterySpace()
+    {
+        if (previousSpaceText != null)
+        {
+            previousSpaceText.text = textSettings.MysteryText;
+        }
+        if (previousSpaceRenderer != null && imageSettings.MysteryMat != null)
+        {
+            previousSpaceRenderer.material = imageSettings.MysteryMat;
+        }
     }
 
     public void ResolveMystery(int spaceIndex)
@@ -59,8 +75,12 @@ public class MysteryManager : UdonSharpBehaviour
         {
             targetIndex = PickWeightedRandom();
             mysteryResultIndex = targetIndex;
+            mysteryLandingSpace = pendingLandingSpace;
             mysteryResolveIncrement++;
+            localMysteryResolveIncrement = mysteryResolveIncrement;
+            Debug.Log($"[MysteryManager] Resolved mystery: index={targetIndex}, type={poolTypes[targetIndex]}, amount={poolAmounts[targetIndex]}, space={pendingLandingSpace}");
             RequestSerialization();
+            StartSpinAnimation();
         }
     }
 
@@ -70,26 +90,24 @@ public class MysteryManager : UdonSharpBehaviour
         {
             localMysteryResolveIncrement = mysteryResolveIncrement;
             targetIndex = mysteryResultIndex;
+            pendingLandingSpace = mysteryLandingSpace;
             StartSpinAnimation();
         }
     }
 
     void StartSpinAnimation()
     {
+        Debug.Log($"[MysteryManager] StartSpinAnimation, targetIndex={targetIndex}, boardSpacesVisual={(boardSpacesVisual != null ? "assigned" : "NULL")}");
+
+        ResetPreviousMysterySpace();
+
         isSpinning = true;
         spinTimer = 0f;
         tickInterval = minInterval;
         nextTickTime = 0f;
         displayIndex = 0;
 
-        int playerSpace = 0;
-        if (gameVariables != null && gameVariables.CurrentPlayerIndex >= 0)
-        {
-            playerSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
-        }
-
-        int currentLandingSpace = gameController.CalculateLandingSpace(gameVariables.CurrentRoll, playerSpace);
-        activeSpaceObject = boardSpacesVisual.transform.GetChild(currentLandingSpace).gameObject;
+        activeSpaceObject = boardSpacesVisual.transform.GetChild(pendingLandingSpace).gameObject;
 
         Transform canvas = activeSpaceObject.transform.Find("Canvas");
         if (canvas != null)
@@ -146,6 +164,10 @@ public class MysteryManager : UdonSharpBehaviour
             displayIndex = targetIndex;
             UpdateSpaceVisuals(targetIndex);
 
+            previousSpaceObject = activeSpaceObject;
+            previousSpaceText = activeSpaceText;
+            previousSpaceRenderer = activeSpaceRenderer;
+
             if (spinLandSound != null && spinAudioSource != null)
             {
                 spinAudioSource.pitch = 1f;
@@ -178,9 +200,18 @@ public class MysteryManager : UdonSharpBehaviour
         }
     }
 
-    public void StartMysteryAndWait(SpaceSettings spaceSettings)
+    int pendingLandingSpace;
+
+    public void StartMysteryAndWait(SpaceSettings spaceSettings, int landingSpace)
     {
+        Debug.Log($"[MysteryManager] StartMysteryAndWait called. Pool size={poolTypes.Length}, totalWeight={totalWeight}, landingSpace={landingSpace}");
+        if (poolTypes == null || poolTypes.Length == 0)
+        {
+            Debug.LogError("[MysteryManager] Pool is empty! Run BoardGame > Generate Board From JSON to bake the mystery pool.");
+            return;
+        }
         pendingSpaceSettings = spaceSettings;
+        pendingLandingSpace = landingSpace;
         waitingForSpinComplete = true;
         ResolveMystery(0);
     }
@@ -250,8 +281,8 @@ public class MysteryManager : UdonSharpBehaviour
         if (type == "drink") return textSettings.DrinkXTimesText.Replace("{x}", amount.ToString());
         if (type == "everyoneDrink") return textSettings.EveryoneDrinkXTimesText.Replace("{x}", amount.ToString());
         if (type == "rollAgain") return textSettings.RollAgainText;
-        if (type == "moveForward") return textSettings.MoveForwardXSpacesText.Replace("{x}", amount.ToString());
-        if (type == "moveBack") return textSettings.MoveBackXSpacesText.Replace("{x}", amount.ToString());
+        if (type == "moveForward") return "Move Forward " + amount.ToString();
+        if (type == "moveBack") return "Go Back " + amount.ToString() + " Spaces";
         if (type == "swapWithFirst") return textSettings.SwapWithFirstText;
         if (type == "swapWithLast") return textSettings.SwapWithLastText;
         if (type == "missTurn") return textSettings.MissTurnText;
