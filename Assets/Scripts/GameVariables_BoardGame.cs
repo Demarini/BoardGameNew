@@ -19,6 +19,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     [SerializeField] CameraFollowHead cameraFollowHead;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
+    [SerializeField] SpacePopupHUD spacePopupHUD;
     public GameObject winnerGameObject;
     public bool ReceivedAllVariables;
     public bool AwaitingPicture;
@@ -441,6 +442,37 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => swapWithFirstIncrement;
     }
+    public int tmpPopupIncrement = 0;
+    [UdonSynced, FieldChangeCallback(nameof(PopupIncrement))]
+    public int popupIncrement = 0;
+    public int PopupIncrement
+    {
+        set
+        {
+            popupIncrement = value;
+        }
+        get => popupIncrement;
+    }
+    [UdonSynced, FieldChangeCallback(nameof(PopupMessage))]
+    public string popupMessage = "";
+    public string PopupMessage
+    {
+        set
+        {
+            popupMessage = value;
+        }
+        get => popupMessage;
+    }
+    [UdonSynced, FieldChangeCallback(nameof(PopupTargetPlayerIndex))]
+    public int popupTargetPlayerIndex = -1;
+    public int PopupTargetPlayerIndex
+    {
+        set
+        {
+            popupTargetPlayerIndex = value;
+        }
+        get => popupTargetPlayerIndex;
+    }
     public void Update()
     {
 
@@ -504,6 +536,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         playerLists.UpdatePlayersInGameText();
         cameraFollowHead.TakePicture();
         toggleGameAudio.ToggleAudio();
+        if (spacePopupHUD != null) spacePopupHUD.CheckPopup();
         if(tmpWinnerDetected != WinnerDetected && hasLoadedForFirstTime)
         {
             tmpWinnerDetected = WinnerDetected;
@@ -559,6 +592,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         if (!gameEnded)
         {
             toggleGameAudio.ToggleAudio();
+            if (spacePopupHUD != null) spacePopupHUD.CheckPopup();
         }
         else
         {

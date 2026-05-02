@@ -26,6 +26,50 @@ public class UpdateSpaces : UdonSharpBehaviour
             outlineCleared = true;
         }
     }
+    public void ShowOutlineOnSpace(int spaceIndex)
+    {
+        bool isSelf = playerLists.selfIndex == gameVariables.CurrentPlayerIndex;
+
+        for (int i = 0; i < spaceObjects.transform.childCount; i++)
+        {
+            spaceObjects.transform.GetChild(i).GetChild(8).gameObject.SetActive(false);
+            spaceObjects.transform.GetChild(i).GetChild(9).gameObject.SetActive(false);
+            spaceObjects.transform.GetChild(i).GetChild(10).gameObject.SetActive(false);
+            spaceObjects.transform.GetChild(i).GetChild(11).gameObject.SetActive(false);
+        }
+
+        if (spaceIndex < 0 || spaceIndex >= spaceObjects.transform.childCount) return;
+
+        if (isSelf)
+        {
+            spaceObjects.transform.GetChild(spaceIndex).GetChild(10).gameObject.SetActive(true);
+            spaceObjects.transform.GetChild(spaceIndex).GetChild(11).gameObject.SetActive(true);
+        }
+        else
+        {
+            int selfSpace = -1;
+            if (playerLists.selfIndex >= 0 && playerLists.selfIndex < gameVariables.playerSpaceDataList.Count)
+            {
+                selfSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[playerLists.selfIndex].ToString());
+            }
+
+            if (selfSpace == spaceIndex)
+            {
+                spaceObjects.transform.GetChild(spaceIndex).GetChild(9).gameObject.SetActive(true);
+                spaceObjects.transform.GetChild(spaceIndex).GetChild(10).gameObject.SetActive(true);
+            }
+            else
+            {
+                spaceObjects.transform.GetChild(spaceIndex).GetChild(8).gameObject.SetActive(true);
+                spaceObjects.transform.GetChild(spaceIndex).GetChild(9).gameObject.SetActive(true);
+                if (selfSpace >= 0 && selfSpace < spaceObjects.transform.childCount)
+                {
+                    spaceObjects.transform.GetChild(selfSpace).GetChild(10).gameObject.SetActive(true);
+                    spaceObjects.transform.GetChild(selfSpace).GetChild(11).gameObject.SetActive(true);
+                }
+            }
+        }
+    }
     public void UpdateOutlineSpaces()
     {
         outlineCleared = false;

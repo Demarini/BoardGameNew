@@ -148,7 +148,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     }
     bool MeetsRollOffFinalConditions()
     {
-        if (playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino" || timer < 3000)
+        if (playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino" || timer < 1800)
         {
             Debug.Log("Reroll For Final Landing Space");
             return true;
@@ -233,6 +233,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             {
                 Debug.Log($"[CalculateRoll] Starting mystery resolution for space {finalLandingSpace}");
                 gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
+                gameVariables.RequestSerialization();
                 updateSpaces.UpdateOutlineSpaces();
                 waitingForMystery = true;
                 mysteryManager.StartMysteryAndWait(spaceSetting, finalLandingSpace);
@@ -274,6 +275,8 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     {
         bool movementHasEnded = false;
         int numberOfMovements = 0;
+        bool wasSentBack = false;
+        int lastSwapType = 0;
 
         while (!movementHasEnded)
         {
@@ -282,6 +285,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             int swapPlayer = (int)gameController.ProcessSwapWithPlayer(spaceSetting);
             if (sendBackToStart)
             {
+                wasSentBack = true;
                 finalLandingSpace = 0;
             }
             else if (moveForwardBackwards != 0)
@@ -290,6 +294,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             }
             else if (swapPlayer != 0)
             {
+                lastSwapType = swapPlayer;
                 gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = finalLandingSpace;
                 int playerToSwapIndex = gameController.ProcessSwapPlayer((SwapWithPlayer)swapPlayer, gameVariables.CurrentPlayerIndex);
                 if (playerToSwapIndex == gameVariables.CurrentPlayerIndex)
@@ -352,6 +357,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             return;
         }
 
+        gameController.ProcessPopup(spaceSetting, wasSentBack, lastSwapType);
         gameController.ProcessMissedTurn(spaceSetting);
         gameController.ProcessAudio(spaceSetting);
         if (!gameController.ProcessRollAgain(spaceSetting))

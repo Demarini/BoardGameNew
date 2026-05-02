@@ -12,6 +12,7 @@ public class MysteryManager : UdonSharpBehaviour
     [SerializeField] GameVariables_BoardGame gameVariables;
     [SerializeField] ImageSettings imageSettings;
     [SerializeField] TextSettings textSettings;
+    [SerializeField] UpdateSpaces updateSpaces;
 
     [Header("Mystery Pool - Baked by Editor Script")]
     public string[] poolTypes;
@@ -98,6 +99,8 @@ public class MysteryManager : UdonSharpBehaviour
     void StartSpinAnimation()
     {
         Debug.Log($"[MysteryManager] StartSpinAnimation, targetIndex={targetIndex}, boardSpacesVisual={(boardSpacesVisual != null ? "assigned" : "NULL")}");
+
+        if (updateSpaces != null) updateSpaces.ShowOutlineOnSpace(pendingLandingSpace);
 
         ResetPreviousMysterySpace();
 

@@ -14,6 +14,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     [SerializeField] UpdateSpaces updateSpaces;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     [SerializeField] ToggleGameAudio_BoardGame toggleGameAudio;
+    [SerializeField] SpacePopupHUD spacePopupHUD;
     [SerializeField] GameObject musicPlayerObject;
     [SerializeField] GameObject[] musicPlayerVolumes;
     public Slider volumeSlider;
@@ -170,6 +171,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
             //Debug.Log("Validated User - Can Roll Dice. Sending to Master");
             hasNotRolled = false;
             hasNotRolledTimer = 0;
+            if (spacePopupHUD != null) spacePopupHUD.DismissPopup();
             SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.Owner, "RollDiceMaster");
         }
     }
@@ -206,6 +208,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 Debug.Log("Found Current Player - Setting Dice Interact to Active");
                 diceObjectInteract.SetActive(true);
                 hasNotRolled = true;
+                if (spacePopupHUD != null) spacePopupHUD.ShowPersistentPopup("Roll the Dice!");
             }
             else
             {
@@ -273,6 +276,79 @@ public class GameController_BoardGame : UdonSharpBehaviour
         else if (spaceSetting.MissTurn)
         {
             gameVariables.ToggleMissTurn++;
+        }
+    }
+    public void ProcessPopup(SpaceSettings spaceSetting, bool wasSentBack, int swapType)
+    {
+        string playerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
+        string msg = "";
+        int target = gameVariables.CurrentPlayerIndex;
+
+        if (wasSentBack)
+        {
+            msg = playerName + " sent back to start!";
+            target = -1;
+        }
+        else if (swapType == (int)SwapWithPlayer.SwapWithFirst)
+        {
+            msg = playerName + " swapped with first place!";
+            target = -1;
+        }
+        else if (swapType == (int)SwapWithPlayer.SwapWithLast)
+        {
+            msg = playerName + " swapped with last place!";
+            target = -1;
+        }
+        else if (spaceSetting.EveryoneDrinkXTimes > 0)
+        {
+            msg = "Everyone drink " + spaceSetting.EveryoneDrinkXTimes + "!";
+            target = -1;
+        }
+        else if (spaceSetting.GirlsDrink)
+        {
+            msg = "Girls drink!";
+            target = -1;
+        }
+        else if (spaceSetting.GuysDrink)
+        {
+            msg = "Guys drink!";
+            target = -1;
+        }
+        else if (spaceSetting.DrinkXTimes > 0)
+        {
+            msg = "Drink " + spaceSetting.DrinkXTimes + "!";
+        }
+        else if (spaceSetting.DrinkWithHost)
+        {
+            msg = "Drink with the host!";
+        }
+        else if (spaceSetting.ChooseSomeoneToDrink)
+        {
+            msg = "Choose someone to drink!";
+        }
+        else if (spaceSetting.DrinkWhatYouRoll)
+        {
+            msg = "Drink what you roll!";
+        }
+        else if (spaceSetting.ImmuneFromDrinking)
+        {
+            msg = "Immune from drinking!";
+        }
+        else if (spaceSetting.MissTurn)
+        {
+            msg = playerName + " misses a turn!";
+            target = -1;
+        }
+        else if (spaceSetting.RollAgain)
+        {
+            msg = "Roll again!";
+        }
+
+        if (msg.Length > 0)
+        {
+            gameVariables.PopupMessage = msg;
+            gameVariables.PopupTargetPlayerIndex = target;
+            gameVariables.PopupIncrement++;
         }
     }
     public bool ProcessRollAgain(SpaceSettings spaceSetting)
