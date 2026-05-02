@@ -11,6 +11,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     [SerializeField] GameController_BoardGame gameController;
     [SerializeField] UpdateSpaces updateSpaces;
     float timer = 0;
+    bool isDebugging = false;
     
     void Update()
     {
@@ -74,16 +75,8 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             Debug.Log("Only one player.");
             return currentRoll;
         }
-        if (currentSpace > 24)
-        {
-            Debug.Log("Greater than 24");
-            return currentRoll;
-        }
-        if(currentSpace < 24 - 6)
-        {
-            Debug.Log("Less than possible send back roll");
-            return currentRoll;
-        }
+        
+        
         int max = 0;
         int maxNonPlayer = 0;
         for(int i = 0; i < gameVariables.playerSpaceDataList.Count;i++)
@@ -110,14 +103,24 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         }
         if (max - maxNonPlayer >= 10)
         {
-            Debug.Log("Too big of a lead, send back to start LOSER");
-            return 24 - gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+            if (currentSpace < 24 - 6 || currentSpace > 24)
+            {
+                Debug.Log("Less than possible send back roll");
+                return CalculateWeightedRoll(350, 250, 0, 0, 0, 0);
+            }
+            else
+            {
+                Debug.Log("Too big of a lead, send back to start LOSER");
+                return 24 - gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+            }
         }
         else
         {
             Debug.Log("Lead is fine, continue");
             return currentRoll;
         }
+        
+        
     }
     int RerollIfInLoop(int currentRoll)
     {
@@ -143,7 +146,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     }
     bool MeetsRollOffFinalConditions()
     {
-        if(playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino" || timer < 3600)
+        if (playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino" || timer < 3000)
         {
             Debug.Log("Reroll For Final Landing Space");
             return true;
@@ -214,6 +217,14 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         bool movementHasEnded = false;
         SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
         int numberOfMovements = 0;
+        if (isDebugging)
+        {
+            Debug.Log("GAME OVER!!!");
+            gameVariables.WinnerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].ToString();
+            gameVariables.WinnerDetected++;
+            gameController.EndGame();
+            return;
+        }
         if (finalLandingSpace != 0 && !gameController.IsEnd(finalLandingSpace))
         {
             while (!movementHasEnded)

@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: f5ae185d7710aed4bb91682e1917e545
+timeCreated: 1518040364
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Anker
+    100002: Beiboot
+    100004: //RootNode
+    100006: Flagge
+    100008: leiter
+    100010: leiter Halter
+    100012: leiter_MeshPart0
+    100014: leiter_MeshPart1
+    100016: rope Shape
+    100018: rope shape small
+    100020: ropes
+    100022: ropes_MeshPart0
+    100024: ropes_MeshPart1
+    100026: ropes_MeshPart2
+    100028: Rumpf
+    100030: "Schn\xF6rkel"
+    100032: "schr\xE4g-Masten"
+    100034: Segel
+    100036: Segel_MeshPart0
+    100038: Segel_MeshPart1
+    100040: Segel_MeshPart2
+    100042: Segel_MeshPart3
+    100044: Wind
+    400000: Anker
+    400002: Beiboot
+    400004: //RootNode
+    400006: Flagge
+    400008: leiter
+    400010: leiter Halter
+    400012: leiter_MeshPart0
+    400014: leiter_MeshPart1
+    400016: rope Shape
+    400018: rope shape small
+    400020: ropes
+    400022: ropes_MeshPart0
+    400024: ropes_MeshPart1
+    400026: ropes_MeshPart2
+    400028: Rumpf
+    400030: "Schn\xF6rkel"
+    400032: "schr\xE4g-Masten"
+    400034: Segel
+    400036: Segel_MeshPart0
+    400038: Segel_MeshPart1
+    400040: Segel_MeshPart2
+    400042: Segel_MeshPart3
+    400044: Wind
+    2300000: Anker
+    2300002: Beiboot
+    2300004: Flagge
+    2300006: leiter Halter
+    2300008: leiter_MeshPart0
+    2300010: leiter_MeshPart1
+    2300012: rope Shape
+    2300014: rope shape small
+    2300016: ropes_MeshPart0
+    2300018: ropes_MeshPart1
+    2300020: ropes_MeshPart2
+    2300022: Rumpf
+    2300024: "Schn\xF6rkel"
+    2300026: "schr\xE4g-Masten"
+    2300028: Segel_MeshPart0
+    2300030: Segel_MeshPart1
+    2300032: Segel_MeshPart2
+    2300034: Segel_MeshPart3
+    3300000: Anker
+    3300002: Beiboot
+    3300004: Flagge
+    3300006: leiter Halter
+    3300008: leiter_MeshPart0
+    3300010: leiter_MeshPart1
+    3300012: rope Shape
+    3300014: rope shape small
+    3300016: ropes_MeshPart0
+    3300018: ropes_MeshPart1
+    3300020: ropes_MeshPart2
+    3300022: Rumpf
+    3300024: "Schn\xF6rkel"
+    3300026: "schr\xE4g-Masten"
+    3300028: Segel_MeshPart0
+    3300030: Segel_MeshPart1
+    3300032: Segel_MeshPart2
+    3300034: Segel_MeshPart3
+    4300000: rope shape small
+    4300002: Beiboot
+    4300004: "schr\xE4g-Masten"
+    4300006: ropes_MeshPart0
+    4300008: ropes_MeshPart1
+    4300010: ropes_MeshPart2
+    4300012: Rumpf
+    4300014: Segel_MeshPart0
+    4300016: Segel_MeshPart1
+    4300018: Segel_MeshPart2
+    4300020: Segel_MeshPart3
+    4300022: Flagge
+    4300024: Anker
+    4300026: leiter Halter
+    4300028: rope Shape
+    4300030: leiter_MeshPart0
+    4300032: leiter_MeshPart1
+    4300034: "Schn\xF6rkel"
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

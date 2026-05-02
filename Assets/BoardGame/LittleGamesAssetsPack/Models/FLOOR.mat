@@ -724,7 +724,7 @@ Material:
     - _BackFacePanning: {r: 0, g: 0, b: 0, a: 0}
     - _BlueColor: {r: 1, g: 1, b: 1, a: 1}
     - _ClearCoatTint: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.51081884, g: 0, b: 0.8867924, a: 1}
+    - _Color: {r: 1, g: 0, b: 0.07883835, a: 1}
     - _DetailTexturePan: {r: 0, g: 0, b: 0, a: 0}
     - _DetailTint: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveDetailPan: {r: 0, g: 0, b: 0, a: 0}

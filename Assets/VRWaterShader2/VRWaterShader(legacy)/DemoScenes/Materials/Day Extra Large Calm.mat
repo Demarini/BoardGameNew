@@ -181,18 +181,18 @@ Material:
     - _NormalStrength: 0.214
     - _OcclusionStrength: 1
     - _OverallBlendDistance: 1.14
-    - _OverallGloss: 0.824
+    - _OverallGloss: 1
     - _OverallHeight: 4.1
-    - _OverallMetallic: 0.996
-    - _OverallNormalStrength: 0.109
-    - _OverallWaveHeight: 2.66
+    - _OverallMetallic: 1
+    - _OverallNormalStrength: 0.491
+    - _OverallWaveHeight: 1.6
     - _Parallax: 0.02
     - _PrimaryHeightStrength: 0.5
     - _SSRefractionConstantValue: 0
     - _SSRefractionDecaydistance: 25
     - _SSRefractionHeightEfficiency: 0.02
     - _SSRefractionRefractionFresnel: 0.84
-    - _SSRefractionStrength: 0.025
+    - _SSRefractionStrength: 0
     - _SecondaryEnableThis: 1
     - _SecondaryHeightStrength: 0.5
     - _Smoothness: 0.831

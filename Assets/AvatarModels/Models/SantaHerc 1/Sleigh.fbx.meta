@@ -1,0 +1,312 @@
+fileFormatVersion: 2
+guid: 6c4c177a407bd7843bab0a74cf15e34d
+timeCreated: 1543026190
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: $$$DUMMY.Group01
+    100002: $$$DUMMY.Group02
+    100004: Hedra01
+    100006: Lamp
+    100008: Line03
+    100010: Line03_MeshPart0
+    100012: Line03_MeshPart1
+    100014: Line03_MeshPart2
+    100016: Line03_MeshPart3
+    100018: //RootNode
+    100020: 07 - Default
+    100022: 19 - Default
+    100024: 19 - Default.002
+    100026: 19 - Default.003
+    100028: 19 - Default.004
+    100030: 19 - Default.005
+    100032: 19 - Default.006
+    100034: 19 - Default.007
+    100036: 19 - Default.008
+    100038: 19 - Default.009
+    100040: Concrete_Blue_St.001
+    100042: Concrete_Blue_St.009
+    100044: Concrete_Blue_St.013
+    100046: Concrete_Blue_St.017
+    100048: 'Material #13'
+    100050: 'Material #13.002'
+    100052: 'Material #13.003'
+    100054: 'Material #13.004'
+    100056: 'Material #13.005'
+    100058: 'Material #13.006'
+    100060: 'Material #13.007'
+    100062: 'Material #13.008'
+    100064: 'Material #13.009'
+    100066: 'Material #131'
+    100068: 'Material #3'
+    100070: Reflection_Lake_
+    100072: Reflection_Lake_.001
+    100074: Reflection_Lake_.002
+    100076: Reflection_Lake_.003
+    100078: Reflection_Lake_.004
+    100080: Reflection_Lake_.005
+    100082: Reflection_Lake_.006
+    100084: Reflection_Lake_.007
+    100086: Reflection_Lake_.008
+    100088: Reflection_Lake_.009
+    100090: 'Material #131_MeshPart0'
+    100092: 'Material #131_MeshPart1'
+    100094: 'Material #131_MeshPart2'
+    100096: 'Material #131_MeshPart3'
+    100098: 'Material #131_MeshPart4'
+    400000: $$$DUMMY.Group01
+    400002: $$$DUMMY.Group02
+    400004: Hedra01
+    400006: Lamp
+    400008: Line03
+    400010: Line03_MeshPart0
+    400012: Line03_MeshPart1
+    400014: Line03_MeshPart2
+    400016: Line03_MeshPart3
+    400018: //RootNode
+    400020: 07 - Default
+    400022: 19 - Default
+    400024: 19 - Default.002
+    400026: 19 - Default.003
+    400028: 19 - Default.004
+    400030: 19 - Default.005
+    400032: 19 - Default.006
+    400034: 19 - Default.007
+    400036: 19 - Default.008
+    400038: 19 - Default.009
+    400040: Concrete_Blue_St.001
+    400042: Concrete_Blue_St.009
+    400044: Concrete_Blue_St.013
+    400046: Concrete_Blue_St.017
+    400048: 'Material #13'
+    400050: 'Material #13.002'
+    400052: 'Material #13.003'
+    400054: 'Material #13.004'
+    400056: 'Material #13.005'
+    400058: 'Material #13.006'
+    400060: 'Material #13.007'
+    400062: 'Material #13.008'
+    400064: 'Material #13.009'
+    400066: 'Material #131'
+    400068: 'Material #3'
+    400070: Reflection_Lake_
+    400072: Reflection_Lake_.001
+    400074: Reflection_Lake_.002
+    400076: Reflection_Lake_.003
+    400078: Reflection_Lake_.004
+    400080: Reflection_Lake_.005
+    400082: Reflection_Lake_.006
+    400084: Reflection_Lake_.007
+    400086: Reflection_Lake_.008
+    400088: Reflection_Lake_.009
+    400090: 'Material #131_MeshPart0'
+    400092: 'Material #131_MeshPart1'
+    400094: 'Material #131_MeshPart2'
+    400096: 'Material #131_MeshPart3'
+    400098: 'Material #131_MeshPart4'
+    2300000: Hedra01
+    2300002: Line03_MeshPart0
+    2300004: Line03_MeshPart1
+    2300006: Line03_MeshPart2
+    2300008: Line03_MeshPart3
+    2300010: 07 - Default
+    2300012: 19 - Default
+    2300014: 19 - Default.002
+    2300016: 19 - Default.003
+    2300018: 19 - Default.004
+    2300020: 19 - Default.005
+    2300022: 19 - Default.006
+    2300024: 19 - Default.007
+    2300026: 19 - Default.008
+    2300028: 19 - Default.009
+    2300030: Concrete_Blue_St.001
+    2300032: Concrete_Blue_St.009
+    2300034: Concrete_Blue_St.013
+    2300036: Concrete_Blue_St.017
+    2300038: 'Material #13'
+    2300040: 'Material #13.002'
+    2300042: 'Material #13.003'
+    2300044: 'Material #13.004'
+    2300046: 'Material #13.005'
+    2300048: 'Material #13.006'
+    2300050: 'Material #13.007'
+    2300052: 'Material #13.008'
+    2300054: 'Material #13.009'
+    2300056: 'Material #131'
+    2300058: 'Material #3'
+    2300060: Reflection_Lake_
+    2300062: Reflection_Lake_.001
+    2300064: Reflection_Lake_.002
+    2300066: Reflection_Lake_.003
+    2300068: Reflection_Lake_.004
+    2300070: Reflection_Lake_.005
+    2300072: Reflection_Lake_.006
+    2300074: Reflection_Lake_.007
+    2300076: Reflection_Lake_.008
+    2300078: Reflection_Lake_.009
+    2300080: 'Material #131_MeshPart0'
+    2300082: 'Material #131_MeshPart1'
+    2300084: 'Material #131_MeshPart2'
+    2300086: 'Material #131_MeshPart3'
+    2300088: 'Material #131_MeshPart4'
+    3300000: Hedra01
+    3300002: Line03_MeshPart0
+    3300004: Line03_MeshPart1
+    3300006: Line03_MeshPart2
+    3300008: Line03_MeshPart3
+    3300010: 07 - Default
+    3300012: 19 - Default
+    3300014: 19 - Default.002
+    3300016: 19 - Default.003
+    3300018: 19 - Default.004
+    3300020: 19 - Default.005
+    3300022: 19 - Default.006
+    3300024: 19 - Default.007
+    3300026: 19 - Default.008
+    3300028: 19 - Default.009
+    3300030: Concrete_Blue_St.001
+    3300032: Concrete_Blue_St.009
+    3300034: Concrete_Blue_St.013
+    3300036: Concrete_Blue_St.017
+    3300038: 'Material #13'
+    3300040: 'Material #13.002'
+    3300042: 'Material #13.003'
+    3300044: 'Material #13.004'
+    3300046: 'Material #13.005'
+    3300048: 'Material #13.006'
+    3300050: 'Material #13.007'
+    3300052: 'Material #13.008'
+    3300054: 'Material #13.009'
+    3300056: 'Material #131'
+    3300058: 'Material #3'
+    3300060: Reflection_Lake_
+    3300062: Reflection_Lake_.001
+    3300064: Reflection_Lake_.002
+    3300066: Reflection_Lake_.003
+    3300068: Reflection_Lake_.004
+    3300070: Reflection_Lake_.005
+    3300072: Reflection_Lake_.006
+    3300074: Reflection_Lake_.007
+    3300076: Reflection_Lake_.008
+    3300078: Reflection_Lake_.009
+    3300080: 'Material #131_MeshPart0'
+    3300082: 'Material #131_MeshPart1'
+    3300084: 'Material #131_MeshPart2'
+    3300086: 'Material #131_MeshPart3'
+    3300088: 'Material #131_MeshPart4'
+    4300000: Line03_MeshPart0
+    4300002: Line03_MeshPart1
+    4300004: Line03_MeshPart2
+    4300006: Line03_MeshPart3
+    4300008: Hedra01
+    4300010: 19 - Default.009
+    4300012: 'Material #13.009'
+    4300014: Reflection_Lake_.005
+    4300016: 19 - Default.005
+    4300018: 'Material #13.005'
+    4300020: Reflection_Lake_.006
+    4300022: 19 - Default.006
+    4300024: 'Material #13.006'
+    4300026: Reflection_Lake_.007
+    4300028: 19 - Default.007
+    4300030: 'Material #13.007'
+    4300032: Reflection_Lake_.008
+    4300034: 19 - Default.008
+    4300036: 'Material #13.008'
+    4300038: Reflection_Lake_.003
+    4300040: 19 - Default.003
+    4300042: 'Material #13.003'
+    4300044: Reflection_Lake_.004
+    4300046: 19 - Default.004
+    4300048: 'Material #13.004'
+    4300050: Reflection_Lake_.002
+    4300052: 19 - Default.002
+    4300054: 'Material #13.002'
+    4300056: Reflection_Lake_
+    4300058: 19 - Default
+    4300060: 'Material #13'
+    4300062: 'Material #3'
+    4300064: 07 - Default
+    4300066: Reflection_Lake_.001
+    4300068: 'Material #131'
+    4300070: Reflection_Lake_.009
+    4300072: Concrete_Blue_St.001
+    4300074: Concrete_Blue_St.013
+    4300076: Concrete_Blue_St.017
+    4300078: Concrete_Blue_St.009
+    4300080: 'Material #131_MeshPart0'
+    4300082: 'Material #131_MeshPart1'
+    4300084: 'Material #131_MeshPart2'
+    4300086: 'Material #131_MeshPart3'
+    4300088: 'Material #131_MeshPart4'
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

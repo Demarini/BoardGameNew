@@ -10,6 +10,7 @@ public class CameraFollowHead : UdonSharpBehaviour
     [SerializeField] GameVariables_BoardGame gameVariables;
     [SerializeField] PlayerList_BoardGame playerLists;
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
+    [SerializeField] SyncedHelper syncedHelper;
     public GameObject[] cameras;
     bool takePicture;
     bool cameraSet;
@@ -34,11 +35,13 @@ public class CameraFollowHead : UdonSharpBehaviour
     }
     public void TakePicture()
     {
+        if (!syncedHelper.IsReady()) return;
         updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
         takePicture = true;
     }
     void TurnOffCamera()
     {
+        if (!syncedHelper.IsReady()) return;
         if (gameVariables.ReceivedAllVariables)
         {
             for (int i = 0; i < playerLists.playersInGameDataList.Count; i++)
@@ -49,6 +52,7 @@ public class CameraFollowHead : UdonSharpBehaviour
     }
     void SetCameraToPlayerHead()
     {
+        if (!syncedHelper.IsReady()) return;
         if (gameVariables.ReceivedAllVariables)
         {
             for (int i = 0; i < playerLists.playersInGameDataList.Count; i++)
@@ -67,7 +71,7 @@ public class CameraFollowHead : UdonSharpBehaviour
                             VRCPlayerApi.TrackingData trackingData = Networking.LocalPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head);
                             cameras[i].SetActive(true);
                             cameras[i].transform.position = trackingData.position;
-                            cameras[i].transform.rotation = player.GetRotation();
+                            cameras[i].transform.rotation = Networking.LocalPlayer.GetRotation(); 
                         }
                     }
                     else

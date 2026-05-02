@@ -1,0 +1,22 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration  Deep Exploration 6.5 x64 6.5.0.9182
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+
+newmtl fabric_t
+Ka 0.129412 0.129412 0.129412
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 61.8199
+map_Kd Santa_Claus_top.png
+map_bump Santa_Claus_top_norm.png
+bump Santa_Claus_top_norm.png
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 

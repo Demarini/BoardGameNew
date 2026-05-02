@@ -1,0 +1,11 @@
+Thank you for purchasing The Stonehenge Monument Asset Pack!
+
+This pack contains 72 rocks, and a moss shader.
+
+The pack is neatly organized in folders for ease of access.
+
+There are 3 different art styles featured in this pack, each of them having a different look form the other. The Realistic and the Stylized versions use the same models, thus you won't find any models in the stylized folder. 
+
+The moss shader is easy to set up and work with. Feel free to play around with the settings and the sliders and see what results do you get!
+
+All versions of the pack use the same colliders and you can find them here: The Stonehenge Monument\Stonehenge_Realistic\Art\Meshes\Colliders.
