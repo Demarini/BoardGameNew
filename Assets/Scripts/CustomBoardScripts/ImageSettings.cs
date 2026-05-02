@@ -24,8 +24,9 @@ public class ImageSettings : UdonSharpBehaviour
     public Material GuysDrinkMat;
     public Material FinishMat;
     public Material StartMat;
+    public Material MysteryMat;
     void Start()
     {
-        
+
     }
 }

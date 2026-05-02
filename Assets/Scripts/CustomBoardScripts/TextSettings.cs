@@ -22,8 +22,9 @@ public class TextSettings : UdonSharpBehaviour
     public string GirlsDrinkText = "Girls Drink";
     public string GuysDrinkText = "Guys Drink";
     public string FinishText = "Finish";
+    public string MysteryText = "???";
     void Start()
     {
-        
+
     }
 }

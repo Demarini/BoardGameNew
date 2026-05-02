@@ -23,4 +23,5 @@ public class SpaceSettings : UdonSharpBehaviour
     public bool GuysDrink;
     public bool Finish;
     public bool Start;
+    public bool IsMystery;
 }
