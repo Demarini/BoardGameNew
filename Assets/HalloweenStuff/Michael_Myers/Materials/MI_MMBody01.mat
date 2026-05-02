@@ -1,0 +1,4 @@
+Diffuse=T_MMBody01_BC
+Normal=T_MMBody01_N
+Other[0]=T_MMBody01_ORM
+Other[1]=T_MMBody01_HM

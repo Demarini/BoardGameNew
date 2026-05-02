@@ -9,6 +9,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
 {
     [SerializeField] PlayerList_BoardGame playerLists;
     [SerializeField] GameVariables_BoardGame gameVariables;
+    [SerializeField] SyncedHelper syncedHelper;
     GameObject[] boardGameSpaces;
     public GameObject[] displayPanelPlayerCameras;
     public GameObject boardGameSpacesObject;
@@ -25,6 +26,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
     }
     public void UpdateDisplayPanelCameras()
     {
+        if (!syncedHelper.IsReady()) return;
         if (gameVariables.CurrentPlayerIndex != -1)
         {
             for (int i = 0; i < displayPanelPlayerCameras.Length; i++)
@@ -42,6 +44,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
     }
     public void UpdateCameraCountOnSpaces()
     {
+        if (!syncedHelper.IsReady()) return;
         spacesCleared = true;
         int indexToEnable = GetIndexToUpdate();
         Debug.Log("Index to enable: " + indexToEnable.ToString());
@@ -82,6 +85,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
     }
     public void UpdatePlayerSpaces()
     {
+        if (!syncedHelper.IsReady()) return;
         int indexToUpdate = GetIndexToUpdate();
         spacesCleared = true;
         for (int i = 0; i < boardGameSpaces.Length; i++)

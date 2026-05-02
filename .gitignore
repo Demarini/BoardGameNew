@@ -1,8 +1,21 @@
-Library/Artifacts/
-Library/PackageCache/com.unity.cinemachine@2.9.7/Tests.meta
 Library/
 Temp/
 obj/
 Logs/
 UserSettings/
 .vs/
+Build/
+Builds/
+
+# Unity auto-generated project files
+*.csproj
+*.sln
+
+# VRChat UdonSharp compiled programs (regenerated on compile)
+Assets/SerializedUdonPrograms/
+
+# Large files (over 100MB, exceeds GitHub limit)
+Assets/AvatarModels/Models/Keenoo_Lasyusha_v1.1/Keenoo_Lasyusha_v1.1.unitypackage
+Assets/Fantasy Skybox FREE.zip
+Assets/HalloweenStuff/PENNYWISE/Atlas_76991.png
+Assets/The Stonehenge Monument/Stonehenge_Realistic/Art/Textures/Moss/Clouds.psd

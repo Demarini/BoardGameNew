@@ -455,8 +455,9 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         if (winnerCelebrationStarted)
         {
-            if(winnerTimer > 87)
+            if(winnerTimer > 360)
             {
+                Debug.Log("Winner timer off");
                 winnerTimer = 0;
                 winnerCelebrationStarted = false;
                 winnerGameObject.SetActive(false);
