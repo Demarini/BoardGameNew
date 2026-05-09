@@ -269,7 +269,9 @@ public class MysteryManager : UdonSharpBehaviour
 
     int PickWeightedRandom()
     {
-        int roll = Random.Range(0, totalWeight);
+        int total = 0;
+        for (int i = 0; i < poolWeights.Length; i++) total += poolWeights[i];
+        int roll = Random.Range(0, total);
         int cumulative = 0;
         for (int i = 0; i < poolWeights.Length; i++)
         {
