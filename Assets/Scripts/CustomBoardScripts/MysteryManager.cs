@@ -17,6 +17,7 @@ public class MysteryManager : UdonSharpBehaviour
     [Header("Mystery Pool - Baked by Editor Script")]
     public string[] poolTypes;
     public int[] poolAmounts;
+    public int[] poolSpaces;
     public int[] poolWeights;
     public int totalWeight;
 
@@ -242,6 +243,10 @@ public class MysteryManager : UdonSharpBehaviour
         pendingSpaceSettings.ChooseSomeoneToDrink = false;
         pendingSpaceSettings.GirlsDrink = false;
         pendingSpaceSettings.GuysDrink = false;
+        pendingSpaceSettings.LeaderMoveBackXSpaces = 0;
+        pendingSpaceSettings.LeaderDrinkXTimes = 0;
+
+        int spaces = (poolSpaces != null && targetIndex < poolSpaces.Length) ? poolSpaces[targetIndex] : 0;
 
         if (type == "drink") pendingSpaceSettings.DrinkXTimes = amount;
         else if (type == "everyoneDrink") pendingSpaceSettings.EveryoneDrinkXTimes = amount;
@@ -258,6 +263,11 @@ public class MysteryManager : UdonSharpBehaviour
         else if (type == "guysDrink") pendingSpaceSettings.GuysDrink = true;
         else if (type == "immuneFromDrinking") pendingSpaceSettings.ImmuneFromDrinking = true;
         else if (type == "sendBackToStart") pendingSpaceSettings.SendBackToStart = true;
+        else if (type == "leaderMoveBack")
+        {
+            pendingSpaceSettings.LeaderMoveBackXSpaces = spaces > 0 ? spaces : (amount > 0 ? amount : 3);
+            pendingSpaceSettings.LeaderDrinkXTimes = (spaces > 0 && amount > 0) ? amount : 0;
+        }
 
         pendingSpaceSettings = null;
     }
@@ -298,6 +308,8 @@ public class MysteryManager : UdonSharpBehaviour
         if (type == "guysDrink") return textSettings.GuysDrinkText;
         if (type == "immuneFromDrinking") return textSettings.ImmuneFromDrinkingText;
         if (type == "sendBackToStart") return textSettings.SendBackToStartText;
+        if (type == "leaderMoveBack") return textSettings.LeaderMoveBackXSpacesText.Replace("{x}", amount.ToString());
+        // Note: mystery spin animation only shows base text; combined drink amount is reflected post-resolution.
         return "???";
     }
 
@@ -318,6 +330,7 @@ public class MysteryManager : UdonSharpBehaviour
         if (type == "guysDrink") return imageSettings.GuysDrinkMat;
         if (type == "immuneFromDrinking") return imageSettings.ImmuneFromDrinkingMat;
         if (type == "sendBackToStart") return imageSettings.SendBackToStartMat;
+        if (type == "leaderMoveBack") return imageSettings.LeaderMoveBackXSpacesMat;
         return imageSettings.MysteryMat;
     }
 

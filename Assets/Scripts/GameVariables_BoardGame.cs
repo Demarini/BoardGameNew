@@ -205,6 +205,27 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => toggleMissTurn;
     }
+    public int tmpToggleLeaderDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleLeaderDrink))]
+    public int toggleLeaderDrink = 0;
+    public int ToggleLeaderDrink
+    {
+        set
+        {
+            toggleLeaderDrink = value;
+        }
+        get => toggleLeaderDrink;
+    }
+    [UdonSynced, FieldChangeCallback(nameof(LeaderDrinkPlayerIndex))]
+    public int leaderDrinkPlayerIndex = -1;
+    public int LeaderDrinkPlayerIndex
+    {
+        set
+        {
+            leaderDrinkPlayerIndex = value;
+        }
+        get => leaderDrinkPlayerIndex;
+    }
     public bool hasLoadedForFirstTime;
 
     [UdonSynced, FieldChangeCallback(nameof(GameStarted))]

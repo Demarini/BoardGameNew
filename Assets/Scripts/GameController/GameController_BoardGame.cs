@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -135,7 +136,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         Debug.Log("Enter Next Player Function");
         gameVariables.PreviousPlayerIndex = gameVariables.CurrentPlayerIndex;
         DetectPlayerForIncrement();
-        while (playerLists.playerStatusInGameDataList[gameVariables.CurrentPlayerIndex].Int > 0)
+        while (Convert.ToInt32(playerLists.playerStatusInGameDataList[gameVariables.CurrentPlayerIndex].ToString()) > 0)
         {
             Debug.Log("Current Player is Disconnected Or Left Game: " + gameVariables.CurrentPlayerIndex.ToString());
             DetectPlayerForIncrement();
@@ -147,7 +148,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
             gameVariables.missedTurnDataList[gameVariables.CurrentPlayerIndex] = false;
             DetectPlayerForIncrement();
         }
-        while (playerLists.playerStatusInGameDataList[gameVariables.CurrentPlayerIndex].Int > 0)
+        while (Convert.ToInt32(playerLists.playerStatusInGameDataList[gameVariables.CurrentPlayerIndex].ToString()) > 0)
         {
             Debug.Log("Current Player is Disconnected Or Left Game: " + gameVariables.CurrentPlayerIndex.ToString());
             DetectPlayerForIncrement();
@@ -278,7 +279,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
             gameVariables.ToggleMissTurn++;
         }
     }
-    public void ProcessPopup(SpaceSettings spaceSetting, bool wasSentBack, int swapType)
+    public void ProcessPopup(SpaceSettings spaceSetting, bool wasSentBack, int swapType, int leaderMoveBackTarget)
     {
         string playerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
         string msg = "";
@@ -297,6 +298,19 @@ public class GameController_BoardGame : UdonSharpBehaviour
         else if (swapType == (int)SwapWithPlayer.SwapWithLast)
         {
             msg = playerName + " swapped with last place!";
+            target = -1;
+        }
+        else if (leaderMoveBackTarget >= 0)
+        {
+            string leaderName = playerLists.playerNamesInGameDataList[leaderMoveBackTarget].String;
+            if (spaceSetting.LeaderDrinkXTimes > 0)
+            {
+                msg = leaderName + " got knocked back " + spaceSetting.LeaderMoveBackXSpaces + " and drinks " + spaceSetting.LeaderDrinkXTimes + "!";
+            }
+            else
+            {
+                msg = leaderName + " got knocked back " + spaceSetting.LeaderMoveBackXSpaces + "!";
+            }
             target = -1;
         }
         else if (spaceSetting.EveryoneDrinkXTimes > 0)
@@ -462,6 +476,25 @@ public class GameController_BoardGame : UdonSharpBehaviour
         {
             return false;
         }
+    }
+    public int ProcessLeaderMoveBack(SpaceSettings spaceSetting)
+    {
+        if (spaceSetting.LeaderMoveBackXSpaces > 0)
+        {
+            int leaderIndex = FindFirstPlacePlayerIndex(gameVariables.CurrentPlayerIndex);
+            int leaderSpace = gameVariables.playerSpaceDataList[leaderIndex].Int;
+            int newLeaderSpace = leaderSpace - spaceSetting.LeaderMoveBackXSpaces;
+            if (newLeaderSpace < 0) newLeaderSpace = 0;
+            if (newLeaderSpace == leaderSpace) return -1;
+            gameVariables.playerSpaceDataList[leaderIndex] = newLeaderSpace;
+            if (spaceSetting.LeaderDrinkXTimes > 0)
+            {
+                gameVariables.LeaderDrinkPlayerIndex = leaderIndex;
+                gameVariables.ToggleLeaderDrink++;
+            }
+            return leaderIndex;
+        }
+        return -1;
     }
     public int ProcessLandedSpaceMovement(SpaceSettings spaceSetting)
     {

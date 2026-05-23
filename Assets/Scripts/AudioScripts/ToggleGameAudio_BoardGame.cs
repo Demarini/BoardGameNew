@@ -44,6 +44,7 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleImmune = gameVariables.ToggleImmune;
             gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
             gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
+            gameVariables.tmpToggleLeaderDrink = gameVariables.ToggleLeaderDrink;
         }
         else
         {
@@ -72,6 +73,7 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
                 gameVariables.tmpToggleImmune = gameVariables.ToggleImmune;
                 gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
                 gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
+                gameVariables.tmpToggleLeaderDrink = gameVariables.ToggleLeaderDrink;
                 return;
             }
             else if (gameVariables.tmpSwapWithFirstIncrement != gameVariables.SwapWithFirstIncrement)
@@ -155,6 +157,13 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
                     ToggleGameObject(MissTurn);
                 }
             }
+            else if (gameVariables.tmpToggleLeaderDrink != gameVariables.ToggleLeaderDrink)
+            {
+                if (gameVariables.LeaderDrinkPlayerIndex == playerLists.selfIndex)
+                {
+                    ToggleGameObject(Drink);
+                }
+            }
             gameVariables.tmpToggleChooseSomeoneToDrink = gameVariables.ToggleChooseSomeoneToDrink;
             gameVariables.tmpToggleDrink = gameVariables.ToggleDrink;
             gameVariables.tmpToggleDrinkWithHost = gameVariables.ToggleDrinkWithHost;
@@ -168,6 +177,7 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleImmune = gameVariables.ToggleImmune;
             gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
             gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
+            gameVariables.tmpToggleLeaderDrink = gameVariables.ToggleLeaderDrink;
             gameVariables.tmpSwapWithFirstIncrement = gameVariables.SwapWithFirstIncrement;
             gameVariables.tmpSwapWithLastIncrement = gameVariables.SwapWithLastIncrement;
         }

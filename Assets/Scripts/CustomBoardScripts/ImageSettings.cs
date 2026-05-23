@@ -25,6 +25,7 @@ public class ImageSettings : UdonSharpBehaviour
     public Material FinishMat;
     public Material StartMat;
     public Material MysteryMat;
+    public Material LeaderMoveBackXSpacesMat;
     void Start()
     {
 

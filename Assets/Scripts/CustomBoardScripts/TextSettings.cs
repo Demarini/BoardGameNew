@@ -23,6 +23,7 @@ public class TextSettings : UdonSharpBehaviour
     public string GuysDrinkText = "Guy Avatars Drink";
     public string FinishText = "Finish";
     public string MysteryText = "???";
+    public string LeaderMoveBackXSpacesText = "1st Place\nMoves Back {x}";
     void Start()
     {
 

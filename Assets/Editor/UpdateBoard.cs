@@ -87,13 +87,29 @@ public class UpdateBoard : MonoBehaviour
 
             Transform descText = tempSpace.transform.Find("Canvas").Find("Text (1)");
             if (descText != null)
-                descText.GetComponent<Text>().text = !string.IsNullOrEmpty(sd.text)
+            {
+                Text descTextComp = descText.GetComponent<Text>();
+                descTextComp.text = !string.IsNullOrEmpty(sd.text)
                     ? sd.text
                     : ReturnTextBasedOffSetting(ss, textSettings, i);
+                descTextComp.resizeTextForBestFit = true;
+                descTextComp.resizeTextMaxSize = 100;
+                descTextComp.resizeTextMinSize = 20;
+            }
 
             Transform spaceImage = tempSpace.transform.Find("SpaceImage");
             if (spaceImage != null)
+            {
                 spaceImage.GetComponent<Renderer>().material = ReturnMaterialBasedOffSetting(ss, imageSettings);
+
+                bool isOddRow = (row % 2) == 1;
+                bool isDirectionalBack = ss.MoveBackXSpaces > 0 || ss.LeaderMoveBackXSpaces > 0;
+                if (isOddRow && isDirectionalBack)
+                {
+                    Vector3 s = spaceImage.localScale;
+                    spaceImage.localScale = new Vector3(-s.x, s.y, s.z);
+                }
+            }
         }
 
         if (def.mysteryPool != null && def.mysteryPool.Length > 0)
@@ -126,6 +142,8 @@ public class UpdateBoard : MonoBehaviour
         ss.Finish = false;
         ss.Start = false;
         ss.IsMystery = false;
+        ss.LeaderMoveBackXSpaces = 0;
+        ss.LeaderDrinkXTimes = 0;
 
         ApplyEffect(ss, sd.type, sd.amount, sd.spaces);
 
@@ -165,6 +183,11 @@ public class UpdateBoard : MonoBehaviour
         else if (type == "girlsDrink") ss.GirlsDrink = true;
         else if (type == "guysDrink") ss.GuysDrink = true;
         else if (type == "immuneFromDrinking") ss.ImmuneFromDrinking = true;
+        else if (type == "leaderMoveBack")
+        {
+            ss.LeaderMoveBackXSpaces = spaces > 0 ? spaces : 3;
+            ss.LeaderDrinkXTimes = amount > 0 ? amount : 0;
+        }
     }
 
     static void BakeMysteryPool(GameObject board, MysteryPoolEntry[] pool)
@@ -179,6 +202,7 @@ public class UpdateBoard : MonoBehaviour
 
         string[] types = new string[pool.Length];
         int[] amounts = new int[pool.Length];
+        int[] spacesArr = new int[pool.Length];
         int[] weights = new int[pool.Length];
         int total = 0;
 
@@ -186,12 +210,14 @@ public class UpdateBoard : MonoBehaviour
         {
             types[i] = pool[i].type;
             amounts[i] = pool[i].amount > 0 ? pool[i].amount : pool[i].spaces;
+            spacesArr[i] = pool[i].spaces;
             weights[i] = pool[i].weight > 0 ? pool[i].weight : 1;
             total += weights[i];
         }
 
         mm.poolTypes = types;
         mm.poolAmounts = amounts;
+        mm.poolSpaces = spacesArr;
         mm.poolWeights = weights;
         mm.totalWeight = total;
 
@@ -234,6 +260,16 @@ public class UpdateBoard : MonoBehaviour
         {
             string addAnd = normalText != "" ? " and " : "";
             normalText = normalText + addAnd + textSettings.MoveBackXSpacesText.Replace("{x}", spaceSettings.MoveBackXSpaces.ToString());
+        }
+        if (spaceSettings.LeaderMoveBackXSpaces > 0)
+        {
+            string addAnd = normalText != "" ? " and " : "";
+            string leaderText = textSettings.LeaderMoveBackXSpacesText.Replace("{x}", spaceSettings.LeaderMoveBackXSpaces.ToString());
+            if (spaceSettings.LeaderDrinkXTimes > 0)
+            {
+                leaderText = leaderText + " + Drinks " + spaceSettings.LeaderDrinkXTimes;
+            }
+            normalText = normalText + addAnd + leaderText;
         }
         if (spaceSettings.MoveForwardXSpaces > 0)
         {
@@ -304,6 +340,7 @@ public class UpdateBoard : MonoBehaviour
         if (spaceSettings.IsMystery) return imageSettings.MysteryMat;
         if (spaceSettings.Finish) return imageSettings.FinishMat;
         if (spaceSettings.SendBackToStart) return imageSettings.SendBackToStartMat;
+        if (spaceSettings.LeaderMoveBackXSpaces > 0) return imageSettings.LeaderMoveBackXSpacesMat;
         if (spaceSettings.RollAgain) return imageSettings.RollAgainMat;
         if (spaceSettings.EveryoneDrinkXTimes > 0) return imageSettings.EveryoneDrinkXTimesMat;
         if (spaceSettings.DrinkXTimes > 0) return imageSettings.DrinkXTimesMat;

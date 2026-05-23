@@ -17,7 +17,7 @@ public class SpacePopupHUD : UdonSharpBehaviour
     public float displayDuration = 2.5f;
     public float fadeOutDuration = 0.5f;
     public float distanceFromHead = 1.5f;
-    public float verticalOffset = -0.1f;
+    public float verticalOffset = -0.55f;
 
     bool isShowing = false;
     bool isPersistent = false;

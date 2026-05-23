@@ -357,7 +357,8 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             return;
         }
 
-        gameController.ProcessPopup(spaceSetting, wasSentBack, lastSwapType);
+        int leaderMoveBackTarget = gameController.ProcessLeaderMoveBack(spaceSetting);
+        gameController.ProcessPopup(spaceSetting, wasSentBack, lastSwapType, leaderMoveBackTarget);
         gameController.ProcessMissedTurn(spaceSetting);
         gameController.ProcessAudio(spaceSetting);
         if (!gameController.ProcessRollAgain(spaceSetting))
