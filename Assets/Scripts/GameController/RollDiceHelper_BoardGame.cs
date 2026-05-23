@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
@@ -71,7 +72,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     }
     int RerollForHugeLeader(int currentRoll)
     {
-        int currentSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+        int currentSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString());
         if(gameVariables.playerSpaceDataList.Count == 1)
         {
             Debug.Log("Only one player.");
@@ -83,14 +84,15 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         int maxNonPlayer = 0;
         for(int i = 0; i < gameVariables.playerSpaceDataList.Count;i++)
         {
-            if(gameVariables.playerSpaceDataList[i].Int > max)
+            int spaceAtI = Convert.ToInt32(gameVariables.playerSpaceDataList[i].ToString());
+            if(spaceAtI > max)
             {
-                max = gameVariables.playerSpaceDataList[i].Int;
+                max = spaceAtI;
                 Debug.Log($"New Max of {max} at {i}");
             }
-            if (gameVariables.playerSpaceDataList[i].Int > maxNonPlayer && i != gameVariables.CurrentPlayerIndex)
+            if (spaceAtI > maxNonPlayer && i != gameVariables.CurrentPlayerIndex)
             {
-                maxNonPlayer = gameVariables.playerSpaceDataList[i].Int;
+                maxNonPlayer = spaceAtI;
                 Debug.Log($"New Max Non Player of {maxNonPlayer} at {i}");
             }
         }
@@ -113,7 +115,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             else
             {
                 Debug.Log("Too big of a lead, send back to start LOSER");
-                return 24 - gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+                return 24 - Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString());
             }
         }
         else
@@ -126,7 +128,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     }
     int RerollIfInLoop(int currentRoll)
     {
-        if (gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int >= 12 && gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int < 17)
+        if (Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()) >= 12 && Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()) < 17)
         {
             return CalculateWeightedRoll(150, 150, 150, 150, 0, 0);
             //randomRoll = GetRandomRoll(1, 4);
@@ -142,7 +144,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         while (gameController.IsEnd(finalLandingSpace))
         {
             currentRoll = CalculateWeightedRoll(100, 100, 100, 100, 100, 100);
-            finalLandingSpace = gameController.CalculateLandingSpace(currentRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+            finalLandingSpace = gameController.CalculateLandingSpace(currentRoll, Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()));
         }
         return currentRoll;
     }
@@ -160,7 +162,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     }
     int RerollForFinalSpaceConditions(int currentRoll)
     {
-        int finalLandingSpace = gameController.CalculateLandingSpace(currentRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+        int finalLandingSpace = gameController.CalculateLandingSpace(currentRoll, Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()));
         if (gameController.IsEnd(finalLandingSpace) && MeetsRollOffFinalConditions())
         {
             currentRoll = RollOffFinalLandingSpace(finalLandingSpace);
@@ -177,7 +179,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             randomRoll = RerollIfInLoop(randomRoll);
             randomRoll = RerollForFinalSpaceConditions(randomRoll);
 
-            //int finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+            //int finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()));
 
             //while (gameController.IsEnd(finalLandingSpace) && ((playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino") || timer < 3600))
             //{
@@ -185,11 +187,11 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             //    Debug.Log($"Timer is {timer} seconds");
             //    //randomRoll = GetRandomRoll(1, 6);
             //    randomRoll = CalculateWeightedRoll(100, 100, 100, 100, 100, 100);
-            //    if (gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int >= 12 && gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int < 17)
+            //    if (Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()) >= 12 && Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()) < 17)
             //    {
             //        randomRoll = CalculateWeightedRoll(150, 150, 150, 150, 0, 0);
             //    }
-            //    finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+            //    finalLandingSpace = gameController.CalculateLandingSpace(randomRoll, Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()));
             //}
 
 
@@ -213,7 +215,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         {
             return;
         }
-        int finalLandingSpace = gameController.CalculateLandingSpace(gameVariables.CurrentRoll, gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int);
+        int finalLandingSpace = gameController.CalculateLandingSpace(gameVariables.CurrentRoll, Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString()));
 
         SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
 
@@ -265,7 +267,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         if (!waitingForMystery || !Networking.LocalPlayer.isMaster) return;
         waitingForMystery = false;
 
-        int finalLandingSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+        int finalLandingSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString());
         SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
         Debug.Log($"[OnMysteryResolved] Processing effects for space {finalLandingSpace}");
         ProcessLandingEffects(finalLandingSpace, spaceSetting);
@@ -303,10 +305,10 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                 }
                 else
                 {
-                    int tempCurrentIndexSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+                    int tempCurrentIndexSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString());
                     gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = gameVariables.playerSpaceDataList[playerToSwapIndex];
                     gameVariables.playerSpaceDataList[playerToSwapIndex] = tempCurrentIndexSpace;
-                    finalLandingSpace = gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].Int;
+                    finalLandingSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString());
                     if (swapPlayer == (int)SwapWithPlayer.SwapWithFirst)
                     {
                         gameVariables.SwapWithFirstIncrement++;
@@ -373,7 +375,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     }
     private int GetRandomRoll(int min, int max)
     {
-        return Random.Range(min, max + 1);
+        return UnityEngine.Random.Range(min, max + 1);
     }
 }
 public enum SwapWithPlayer

@@ -712,7 +712,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
         if(CurrentPlayerIndex != -1)
         {
-            updatePlayerCamerasOnSpace.previousSpaceToDisable = Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].Double);
+            updatePlayerCamerasOnSpace.previousSpaceToDisable = Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].ToString());
             updatePlayerCamerasOnSpace.previousPlayerToDisable = CurrentPlayerIndex;
         }
         //Debug.Log("Previous Space to Disable: " + updatePlayerCamerasOnSpace.previousSpaceToDisable.ToString());

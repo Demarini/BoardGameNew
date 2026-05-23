@@ -109,7 +109,7 @@ public class UpdatePlayerCamerasOnSpace_BoardGame : UdonSharpBehaviour
         }
         for (int i = 0; i < gameVariables.playerSpaceDataList.Count; i++)
         {
-            boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[i].Double)].transform.GetChild(indexToUpdate).GetChild(i).gameObject.SetActive(true);
+            boardGameSpaces[Convert.ToInt32(gameVariables.playerSpaceDataList[i].ToString())].transform.GetChild(indexToUpdate).GetChild(i).gameObject.SetActive(true);
         }
     }
     public int GetIndexToUpdate()

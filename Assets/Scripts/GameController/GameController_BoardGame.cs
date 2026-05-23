@@ -80,7 +80,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 for (int i = 0; i < playerLists.playersInGameDataList.Count; i++)
                 {
                     playerLists.playerStatusInGameDataList.Add((int)PlayerInGameStatus.Connected);
-                    playerLists.playerNamesInGameDataList.Add(VRCPlayerApi.GetPlayerById(playerLists.playersInGameDataList[i].Int).displayName);
+                    playerLists.playerNamesInGameDataList.Add(VRCPlayerApi.GetPlayerById(Convert.ToInt32(playerLists.playersInGameDataList[i].ToString())).displayName);
                     gameVariables.missedTurnDataList.Add(false);
                     gameVariables.playerSpaceDataList.Add(0);
                 }
@@ -187,9 +187,9 @@ public class GameController_BoardGame : UdonSharpBehaviour
         DataList returnList = new DataList();
         for (int i = tempList.Count - 1; i >= 0; i--)
         {
-            int indexToRemove = Random.Range(0, tempList.Count);
+            int indexToRemove = UnityEngine.Random.Range(0, tempList.Count);
             //Debug.Log("Index to Remove: " + indexToRemove.ToString());
-            int value = tempList[indexToRemove].Int;
+            int value = Convert.ToInt32(tempList[indexToRemove].ToString());
             //Debug.Log("Index Value: " + value.ToString());
             tempList.Remove(value);
             returnList.Add(value);
@@ -320,12 +320,12 @@ public class GameController_BoardGame : UdonSharpBehaviour
         }
         else if (spaceSetting.GirlsDrink)
         {
-            msg = "Girls drink!";
+            msg = "Girl avatars drink!";
             target = -1;
         }
         else if (spaceSetting.GuysDrink)
         {
-            msg = "Guys drink!";
+            msg = "Guy avatars drink!";
             target = -1;
         }
         else if (spaceSetting.DrinkXTimes > 0)
@@ -405,11 +405,14 @@ public class GameController_BoardGame : UdonSharpBehaviour
     private int FindFirstPlacePlayerIndex(int currentPlayerIndex)
     {
         int maxIndex = currentPlayerIndex;
+        int maxSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[maxIndex].ToString());
         for(int i = 0; i < gameVariables.playerSpaceDataList.Count; i++)
         {
-            if(gameVariables.playerSpaceDataList[maxIndex].Int < gameVariables.playerSpaceDataList[i].Int)
+            int spaceAtI = Convert.ToInt32(gameVariables.playerSpaceDataList[i].ToString());
+            if(maxSpace < spaceAtI)
             {
                 maxIndex = i;
+                maxSpace = spaceAtI;
             }
         }
         return maxIndex;
@@ -417,11 +420,14 @@ public class GameController_BoardGame : UdonSharpBehaviour
     private int FindLastPlacePlayerIndex(int currentPlayerIndex)
     {
         int minIndex = currentPlayerIndex;
+        int minSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[minIndex].ToString());
         for (int i = 0; i < gameVariables.playerSpaceDataList.Count; i++)
         {
-            if (gameVariables.playerSpaceDataList[i].Int < gameVariables.playerSpaceDataList[minIndex].Int)
+            int spaceAtI = Convert.ToInt32(gameVariables.playerSpaceDataList[i].ToString());
+            if (spaceAtI < minSpace)
             {
                 minIndex = i;
+                minSpace = spaceAtI;
             }
         }
         return minIndex;
@@ -482,7 +488,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         if (spaceSetting.LeaderMoveBackXSpaces > 0)
         {
             int leaderIndex = FindFirstPlacePlayerIndex(gameVariables.CurrentPlayerIndex);
-            int leaderSpace = gameVariables.playerSpaceDataList[leaderIndex].Int;
+            int leaderSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[leaderIndex].ToString());
             int newLeaderSpace = leaderSpace - spaceSetting.LeaderMoveBackXSpaces;
             if (newLeaderSpace < 0) newLeaderSpace = 0;
             if (newLeaderSpace == leaderSpace) return -1;
