@@ -19,8 +19,8 @@ public class TextSettings : UdonSharpBehaviour
     public string MissTurnText = "Miss a Turn";
     public string DrinkWithHostText = "Drink With the Host";
     public string ChooseSomeoneToDrinkText = "Choose Someone to Drink";
-    public string GirlsDrinkText = "Girls Drink";
-    public string GuysDrinkText = "Guys Drink";
+    public string GirlsDrinkText = "Girl Avatars Drink";
+    public string GuysDrinkText = "Guy Avatars Drink";
     public string FinishText = "Finish";
     public string MysteryText = "???";
     void Start()

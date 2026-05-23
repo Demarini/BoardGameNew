@@ -87,7 +87,9 @@ public class UpdateBoard : MonoBehaviour
 
             Transform descText = tempSpace.transform.Find("Canvas").Find("Text (1)");
             if (descText != null)
-                descText.GetComponent<Text>().text = ReturnTextBasedOffSetting(ss, textSettings, i);
+                descText.GetComponent<Text>().text = !string.IsNullOrEmpty(sd.text)
+                    ? sd.text
+                    : ReturnTextBasedOffSetting(ss, textSettings, i);
 
             Transform spaceImage = tempSpace.transform.Find("SpaceImage");
             if (spaceImage != null)
@@ -125,10 +127,26 @@ public class UpdateBoard : MonoBehaviour
         ss.Start = false;
         ss.IsMystery = false;
 
-        string type = sd.type;
-        int amount = sd.amount;
-        int spaces = sd.spaces;
+        ApplyEffect(ss, sd.type, sd.amount, sd.spaces);
 
+        if (sd.extras != null)
+        {
+            for (int i = 0; i < sd.extras.Length; i++)
+            {
+                SpaceEffect ex = sd.extras[i];
+                if (ex == null) continue;
+                ApplyEffect(ss, ex.type, ex.amount, ex.spaces);
+            }
+        }
+
+        if (index == 0) ss.Start = true;
+        if (index == totalSpaces - 1) ss.Finish = true;
+
+        EditorUtility.SetDirty(ss);
+    }
+
+    static void ApplyEffect(SpaceSettings ss, string type, int amount, int spaces)
+    {
         if (type == "start") ss.Start = true;
         else if (type == "finish") ss.Finish = true;
         else if (type == "mystery") ss.IsMystery = true;
@@ -147,11 +165,6 @@ public class UpdateBoard : MonoBehaviour
         else if (type == "girlsDrink") ss.GirlsDrink = true;
         else if (type == "guysDrink") ss.GuysDrink = true;
         else if (type == "immuneFromDrinking") ss.ImmuneFromDrinking = true;
-
-        if (index == 0) ss.Start = true;
-        if (index == totalSpaces - 1) ss.Finish = true;
-
-        EditorUtility.SetDirty(ss);
     }
 
     static void BakeMysteryPool(GameObject board, MysteryPoolEntry[] pool)
@@ -392,6 +405,16 @@ public class SpaceDefinition
     public int amount;
     public int spaces;
     public int weight;
+    public SpaceEffect[] extras;
+    public string text;
+}
+
+[System.Serializable]
+public class SpaceEffect
+{
+    public string type;
+    public int amount;
+    public int spaces;
 }
 
 [System.Serializable]
