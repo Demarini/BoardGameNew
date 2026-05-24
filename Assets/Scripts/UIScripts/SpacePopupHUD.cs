@@ -14,10 +14,10 @@ public class SpacePopupHUD : UdonSharpBehaviour
     public TextMeshProUGUI popupText;
 
     public float fadeInDuration = 0.3f;
-    public float displayDuration = 2.5f;
+    public float displayDuration = 6f;
     public float fadeOutDuration = 0.5f;
     public float distanceFromHead = 1.5f;
-    public float verticalOffset = -0.70f;
+    public float verticalOffset = -2.0f;
 
     bool isShowing = false;
     bool isPersistent = false;
@@ -26,7 +26,13 @@ public class SpacePopupHUD : UdonSharpBehaviour
 
     void Start()
     {
-        if (canvasGroup != null) canvasGroup.alpha = 0f;
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
+        }
+        if (popupText != null) popupText.raycastTarget = false;
     }
 
     void LateUpdate()

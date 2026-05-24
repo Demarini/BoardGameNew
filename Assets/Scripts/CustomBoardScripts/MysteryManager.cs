@@ -59,7 +59,7 @@ public class MysteryManager : UdonSharpBehaviour
         return isSpinning;
     }
 
-    void ResetPreviousMysterySpace()
+    public void ResetPreviousMysterySpace()
     {
         if (previousSpaceText != null)
         {
@@ -268,6 +268,9 @@ public class MysteryManager : UdonSharpBehaviour
             pendingSpaceSettings.LeaderMoveBackXSpaces = spaces > 0 ? spaces : (amount > 0 ? amount : 3);
             pendingSpaceSettings.LeaderDrinkXTimes = (spaces > 0 && amount > 0) ? amount : 0;
         }
+
+        string mysteryDesc = GetTextForType(type, amount).Replace("\n", " ");
+        if (gameVariables != null) gameVariables.LogEvent("Mystery → " + mysteryDesc);
 
         pendingSpaceSettings = null;
     }

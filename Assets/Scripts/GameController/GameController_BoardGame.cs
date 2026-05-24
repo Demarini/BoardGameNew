@@ -95,6 +95,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 gameVariables.PlayerUpdateBoard++;
                 gameVariables.TakePicture++;
                 updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
+                gameVariables.gameLogDataList.Clear();
+                gameVariables.LogEvent("Game started!");
                 playerLists.RequestSerialization();
                 gameVariables.RequestSerialization();
             }
@@ -498,9 +500,35 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 gameVariables.LeaderDrinkPlayerIndex = leaderIndex;
                 gameVariables.ToggleLeaderDrink++;
             }
+            string actorName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
+            string leaderName = playerLists.playerNamesInGameDataList[leaderIndex].String;
+            string logEntry = actorName + " bumped " + leaderName + " (1st) back " + spaceSetting.LeaderMoveBackXSpaces;
+            if (spaceSetting.LeaderDrinkXTimes > 0) logEntry = logEntry + " + drinks " + spaceSetting.LeaderDrinkXTimes;
+            gameVariables.LogEvent(logEntry);
             return leaderIndex;
         }
         return -1;
+    }
+    public void ProcessLandingLog(SpaceSettings spaceSetting, bool wasSentBack, int swapType)
+    {
+        string playerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
+        string entry = "";
+
+        if (wasSentBack) entry = playerName + " sent back to Start";
+        else if (swapType == (int)SwapWithPlayer.SwapWithFirst) entry = playerName + " swapped with 1st place";
+        else if (swapType == (int)SwapWithPlayer.SwapWithLast) entry = playerName + " swapped with last place";
+        else if (spaceSetting.EveryoneDrinkXTimes > 0) entry = "Everyone drinks " + spaceSetting.EveryoneDrinkXTimes;
+        else if (spaceSetting.GirlsDrink) entry = "Girl avatars drink";
+        else if (spaceSetting.GuysDrink) entry = "Guy avatars drink";
+        else if (spaceSetting.DrinkXTimes > 0) entry = playerName + " drinks " + spaceSetting.DrinkXTimes;
+        else if (spaceSetting.DrinkWithHost) entry = playerName + " drinks with the host";
+        else if (spaceSetting.ChooseSomeoneToDrink) entry = playerName + " chooses someone to drink";
+        else if (spaceSetting.DrinkWhatYouRoll) entry = playerName + " drinks what they rolled";
+        else if (spaceSetting.ImmuneFromDrinking) entry = playerName + " is immune from drinking";
+        else if (spaceSetting.MissTurn) entry = playerName + " misses next turn";
+        else if (spaceSetting.RollAgain) entry = playerName + " rolls again";
+
+        if (entry.Length > 0) gameVariables.LogEvent(entry);
     }
     public int ProcessLandedSpaceMovement(SpaceSettings spaceSetting)
     {

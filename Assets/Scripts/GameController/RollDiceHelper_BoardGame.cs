@@ -206,6 +206,8 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                 //Debug.Log("Random Roll: " + randomRoll.ToString());
                 gameVariables.CurrentRoll = randomRoll;
             }
+            string rollerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
+            gameVariables.LogEvent(rollerName + " rolled " + randomRoll);
             gameVariables.RequestSerialization();
         }
     }
@@ -223,6 +225,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         {
             Debug.Log("GAME OVER!!!");
             gameVariables.WinnerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].ToString();
+            gameVariables.LogEvent(playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String + " WINS!");
             gameVariables.WinnerDetected++;
             gameController.EndGame();
             return;
@@ -257,11 +260,16 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         {
             Debug.Log("GAME OVER!!!");
             gameVariables.WinnerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].ToString();
+            gameVariables.LogEvent(playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String + " WINS!");
             gameVariables.WinnerDetected++;
             gameController.EndGame();
         }
     }
 
+    public void ResetMysteryVisual()
+    {
+        if (mysteryManager != null) mysteryManager.ResetPreviousMysterySpace();
+    }
     public void OnMysteryResolved()
     {
         if (!waitingForMystery || !Networking.LocalPlayer.isMaster) return;
@@ -354,12 +362,14 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         {
             Debug.Log("GAME OVER!!! (from ProcessLandingEffects)");
             gameVariables.WinnerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].ToString();
+            gameVariables.LogEvent(playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String + " WINS!");
             gameVariables.WinnerDetected++;
             gameController.EndGame();
             return;
         }
 
         int leaderMoveBackTarget = gameController.ProcessLeaderMoveBack(spaceSetting);
+        gameController.ProcessLandingLog(spaceSetting, wasSentBack, lastSwapType);
         gameController.ProcessPopup(spaceSetting, wasSentBack, lastSwapType, leaderMoveBackTarget);
         gameController.ProcessMissedTurn(spaceSetting);
         gameController.ProcessAudio(spaceSetting);

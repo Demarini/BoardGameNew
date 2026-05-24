@@ -494,6 +494,41 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => popupTargetPlayerIndex;
     }
+
+    public DataList gameLogDataList = new DataList();
+    public int tmpGameLogIncrement = 0;
+    [UdonSynced, FieldChangeCallback(nameof(GameLogIncrement))]
+    public int gameLogIncrement = 0;
+    public int GameLogIncrement
+    {
+        set
+        {
+            gameLogIncrement = value;
+        }
+        get => gameLogIncrement;
+    }
+    [UdonSynced, FieldChangeCallback(nameof(GameLogJson))]
+    public string gameLogJson = "[]";
+    public string GameLogJson
+    {
+        set
+        {
+            gameLogJson = value;
+        }
+        get => gameLogJson;
+    }
+    public const int GameLogMaxEntries = 30;
+    public void LogEvent(string entry)
+    {
+        if (!Networking.LocalPlayer.isMaster) return;
+        gameLogDataList.Add(entry);
+        while (gameLogDataList.Count > GameLogMaxEntries)
+        {
+            gameLogDataList.RemoveAt(0);
+        }
+        GameLogJson = helperFunctions.SerializeDataList(gameLogDataList, GameLogJson);
+        GameLogIncrement++;
+    }
     public void Update()
     {
 
@@ -554,6 +589,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         //Debug.Log("Preserialization Game Variables");
         MissedTurnJson = helperFunctions.SerializeDataList(missedTurnDataList, MissedTurnJson);
         PlayerSpaceJson = helperFunctions.SerializeDataList(playerSpaceDataList, PlayerSpaceJson);
+        GameLogJson = helperFunctions.SerializeDataList(gameLogDataList, GameLogJson);
         playerLists.UpdatePlayersInGameText();
         cameraFollowHead.TakePicture();
         toggleGameAudio.ToggleAudio();
@@ -588,6 +624,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         //Debug.Log("Deserialization Game Variables");
         missedTurnDataList = helperFunctions.DeserializeDataList(MissedTurnJson, missedTurnDataList);
         playerSpaceDataList = helperFunctions.DeserializeDataList(PlayerSpaceJson, playerSpaceDataList);
+        gameLogDataList = helperFunctions.DeserializeDataList(GameLogJson, gameLogDataList);
         //Debug.Log("Current Player Index: " + currentPlayerIndex.ToString());
         //Debug.Log("Previous Player Index: " + PreviousPlayerIndex.ToString());
         if (PlayerUpdateBoard != tmpPlayerUpdateBoard)
@@ -668,6 +705,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         rollDiceAnim.SetBool("RollFive", false);
         rollDiceAnim.SetBool("RollSix", false);
         sameRollDelay = true;
+        if (rollDiceHelper != null) rollDiceHelper.ResetMysteryVisual();
     }
     void TurnCorrectAnimOn(int diceRoll)
     {

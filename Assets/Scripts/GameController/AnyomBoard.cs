@@ -14,10 +14,5 @@ public class AnyomBoard : UdonSharpBehaviour
     }
     private void Update()
     {
-        if(Networking.LocalPlayer.displayName == "Anyom" && !anyomBoard.activeSelf)
-        {
-            originalBoard.SetActive(false);
-            anyomBoard.SetActive(true);
-        }
     }
 }
