@@ -207,7 +207,10 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                 gameVariables.CurrentRoll = randomRoll;
             }
             string rollerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
-            gameVariables.LogEvent(rollerName + " rolled " + randomRoll);
+            int rollStartSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString());
+            int rollLandingSpace = gameController.CalculateLandingSpace(randomRoll, rollStartSpace);
+            gameVariables.LogEvent("────────────");
+            gameVariables.LogEvent(rollerName + " rolled " + randomRoll + ": " + rollStartSpace + " -> " + rollLandingSpace);
             gameVariables.RequestSerialization();
         }
     }
@@ -287,20 +290,31 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         int numberOfMovements = 0;
         bool wasSentBack = false;
         int lastSwapType = 0;
+        string actorName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
 
         while (!movementHasEnded)
         {
             bool sendBackToStart = gameController.ProcessSendBackToStart(spaceSetting);
             int moveForwardBackwards = gameController.ProcessLandedSpaceMovement(spaceSetting);
             int swapPlayer = (int)gameController.ProcessSwapWithPlayer(spaceSetting);
+            int preIterationSpace = finalLandingSpace;
             if (sendBackToStart)
             {
                 wasSentBack = true;
                 finalLandingSpace = 0;
+                gameVariables.LogEvent(actorName + " sent back to Start: " + preIterationSpace + " -> 0");
             }
             else if (moveForwardBackwards != 0)
             {
                 finalLandingSpace = gameController.CalculateLandingSpace(moveForwardBackwards, finalLandingSpace);
+                if (moveForwardBackwards > 0)
+                {
+                    gameVariables.LogEvent(actorName + " moved forward " + moveForwardBackwards + ": " + preIterationSpace + " -> " + finalLandingSpace);
+                }
+                else
+                {
+                    gameVariables.LogEvent(actorName + " moved back " + (-moveForwardBackwards) + ": " + preIterationSpace + " -> " + finalLandingSpace);
+                }
             }
             else if (swapPlayer != 0)
             {
@@ -317,6 +331,9 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
                     gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex] = gameVariables.playerSpaceDataList[playerToSwapIndex];
                     gameVariables.playerSpaceDataList[playerToSwapIndex] = tempCurrentIndexSpace;
                     finalLandingSpace = Convert.ToInt32(gameVariables.playerSpaceDataList[gameVariables.CurrentPlayerIndex].ToString());
+                    string targetName = playerLists.playerNamesInGameDataList[playerToSwapIndex].String;
+                    string rank = swapPlayer == (int)SwapWithPlayer.SwapWithFirst ? "1st" : "last";
+                    gameVariables.LogEvent(actorName + " swapped with " + targetName + " (" + rank + "): " + tempCurrentIndexSpace + " <-> " + finalLandingSpace);
                     if (swapPlayer == (int)SwapWithPlayer.SwapWithFirst)
                     {
                         gameVariables.SwapWithFirstIncrement++;
@@ -369,7 +386,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         }
 
         int leaderMoveBackTarget = gameController.ProcessLeaderMoveBack(spaceSetting);
-        gameController.ProcessLandingLog(spaceSetting, wasSentBack, lastSwapType);
+        gameController.ProcessLandingLog(spaceSetting, finalLandingSpace);
         gameController.ProcessPopup(spaceSetting, wasSentBack, lastSwapType, leaderMoveBackTarget);
         gameController.ProcessMissedTurn(spaceSetting);
         gameController.ProcessAudio(spaceSetting);

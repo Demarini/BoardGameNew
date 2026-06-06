@@ -270,7 +270,7 @@ public class MysteryManager : UdonSharpBehaviour
         }
 
         string mysteryDesc = GetTextForType(type, amount).Replace("\n", " ");
-        if (gameVariables != null) gameVariables.LogEvent("Mystery → " + mysteryDesc);
+        if (gameVariables != null) gameVariables.LogEvent("Mystery on " + pendingLandingSpace + " -> " + mysteryDesc);
 
         pendingSpaceSettings = null;
     }
