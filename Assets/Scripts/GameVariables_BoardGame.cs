@@ -20,6 +20,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     [SerializeField] RollDiceHelper_BoardGame rollDiceHelper;
     [SerializeField] SpacePopupHUD spacePopupHUD;
+    [SerializeField] PlayerChoiceMenu playerChoiceMenu;
     public GameObject winnerGameObject;
     public bool ReceivedAllVariables;
     public bool AwaitingPicture;
@@ -225,6 +226,77 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             leaderDrinkPlayerIndex = value;
         }
         get => leaderDrinkPlayerIndex;
+    }
+
+    // ---------------- Interactive "choose a player" support ----------------
+    // Index of the player who must make a choice this turn (-1 = nobody).
+    [UdonSynced, FieldChangeCallback(nameof(ChoosingPlayerIndex))]
+    public int choosingPlayerIndex = -1;
+    public int ChoosingPlayerIndex
+    {
+        set
+        {
+            choosingPlayerIndex = value;
+        }
+        get => choosingPlayerIndex;
+    }
+    // 0 = choose someone to drink, 1 = choose someone to swap with (future reuse).
+    [UdonSynced, FieldChangeCallback(nameof(ChooseMode))]
+    public int chooseMode = 0;
+    public int ChooseMode
+    {
+        set
+        {
+            chooseMode = value;
+        }
+        get => chooseMode;
+    }
+    // Bumped by master to show/refresh/hide the chooser menu (one-shot counter).
+    public int tmpChoosePromptIncrement = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ChoosePromptIncrement))]
+    public int choosePromptIncrement = 0;
+    public int ChoosePromptIncrement
+    {
+        set
+        {
+            choosePromptIncrement = value;
+        }
+        get => choosePromptIncrement;
+    }
+    // Player who was chosen to drink + audio toggle (mirrors LeaderDrink).
+    [UdonSynced, FieldChangeCallback(nameof(ChosenDrinkPlayerIndex))]
+    public int chosenDrinkPlayerIndex = -1;
+    public int ChosenDrinkPlayerIndex
+    {
+        set
+        {
+            chosenDrinkPlayerIndex = value;
+        }
+        get => chosenDrinkPlayerIndex;
+    }
+    public int tmpToggleChosenDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleChosenDrink))]
+    public int toggleChosenDrink = 0;
+    public int ToggleChosenDrink
+    {
+        set
+        {
+            toggleChosenDrink = value;
+        }
+        get => toggleChosenDrink;
+    }
+    // Bumped to refresh piece positions WITHOUT starting the dice timer (used to show a
+    // player on the space they landed before an interactive choice resolves).
+    public int tmpBoardVisualRefresh = 0;
+    [UdonSynced, FieldChangeCallback(nameof(BoardVisualRefresh))]
+    public int boardVisualRefresh = 0;
+    public int BoardVisualRefresh
+    {
+        set
+        {
+            boardVisualRefresh = value;
+        }
+        get => boardVisualRefresh;
     }
     public bool hasLoadedForFirstTime;
 
@@ -494,6 +566,18 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => popupTargetPlayerIndex;
     }
+    // Player index to suppress this popup for (-1 = nobody). Lets "everyone except the
+    // chooser" popups exist without the chooser seeing redundant text behind their menu.
+    [UdonSynced, FieldChangeCallback(nameof(PopupExcludePlayerIndex))]
+    public int popupExcludePlayerIndex = -1;
+    public int PopupExcludePlayerIndex
+    {
+        set
+        {
+            popupExcludePlayerIndex = value;
+        }
+        get => popupExcludePlayerIndex;
+    }
 
     public DataList gameLogDataList = new DataList();
     public int tmpGameLogIncrement = 0;
@@ -633,6 +717,11 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
             PostRollUpdates();
             tmpPlayerUpdateBoard = PlayerUpdateBoard;
         }
+        if (BoardVisualRefresh != tmpBoardVisualRefresh)
+        {
+            tmpBoardVisualRefresh = BoardVisualRefresh;
+            RefreshBoardVisualsOnly();
+        }
         CheckForGameStartedValueSync();
 
         playerLists.UpdatePlayersInGameText();
@@ -651,6 +740,7 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         {
             toggleGameAudio.ToggleAudio();
             if (spacePopupHUD != null) spacePopupHUD.CheckPopup();
+            if (playerChoiceMenu != null) playerChoiceMenu.CheckPrompt();
         }
         else
         {
@@ -756,6 +846,23 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         //Debug.Log("Previous Space to Disable: " + updatePlayerCamerasOnSpace.previousSpaceToDisable.ToString());
         //Debug.Log("Previous Player to Disable: " + updatePlayerCamerasOnSpace.previousPlayerToDisable.ToString());
         runDiceTimer.RunTimer = true;
+    }
+    // Visual-only board refresh (piece positions + outlines + display cameras), WITHOUT
+    // arming the dice timer -- so a player can be shown on the space they landed during an
+    // interactive choice without the dice clicker being enabled mid-choice.
+    //
+    // UpdateOutlineSpaces keys off PreviousPlayerIndex, which during a choice still points at
+    // the player BEFORE the roller (the turn hasn't advanced), so it would put the red outline
+    // on the wrong space. ShowOutlineOnSpace highlights the roller's actual landing space
+    // (red for everyone else, blue for the roller) -- which is what "where they landed" means.
+    public void RefreshBoardVisualsOnly()
+    {
+        int rollerSpace = (CurrentPlayerIndex >= 0 && CurrentPlayerIndex < playerSpaceDataList.Count)
+            ? Convert.ToInt32(playerSpaceDataList[CurrentPlayerIndex].ToString())
+            : -1;
+        updateSpaces.ShowOutlineOnSpace(rollerSpace);
+        updatePlayerCamerasOnSpace.UpdateDisplayPanelCameras();
+        updatePlayerCamerasOnSpace.UpdatePlayerSpaces();
     }
     void CheckForGameStartedValueSync()
     {

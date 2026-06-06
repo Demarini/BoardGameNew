@@ -45,6 +45,7 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
             gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
             gameVariables.tmpToggleLeaderDrink = gameVariables.ToggleLeaderDrink;
+            gameVariables.tmpToggleChosenDrink = gameVariables.ToggleChosenDrink;
         }
         else
         {
@@ -74,6 +75,7 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
                 gameVariables.tmpToggleDrinkWhatYouRoll = gameVariables.ToggleDrinkWhatYouRoll;
                 gameVariables.tmpToggleMissTurn = gameVariables.ToggleMissTurn;
                 gameVariables.tmpToggleLeaderDrink = gameVariables.ToggleLeaderDrink;
+                gameVariables.tmpToggleChosenDrink = gameVariables.ToggleChosenDrink;
                 return;
             }
             else if (gameVariables.tmpSwapWithFirstIncrement != gameVariables.SwapWithFirstIncrement)
@@ -164,6 +166,14 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
                     ToggleGameObject(Drink);
                 }
             }
+            else if (gameVariables.tmpToggleChosenDrink != gameVariables.ToggleChosenDrink)
+            {
+                if (gameVariables.ChosenDrinkPlayerIndex == playerLists.selfIndex)
+                {
+                    ToggleGameObject(Drink);
+                }
+            }
+            gameVariables.tmpToggleChosenDrink = gameVariables.ToggleChosenDrink;
             gameVariables.tmpToggleChooseSomeoneToDrink = gameVariables.ToggleChooseSomeoneToDrink;
             gameVariables.tmpToggleDrink = gameVariables.ToggleDrink;
             gameVariables.tmpToggleDrinkWithHost = gameVariables.ToggleDrinkWithHost;

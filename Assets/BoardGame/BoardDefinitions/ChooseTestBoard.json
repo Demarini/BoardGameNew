@@ -1,0 +1,23 @@
+{
+  "name": "Choose Test Board",
+  "columns": 4,
+  "rows": 3,
+  "spaces": [
+    { "type": "start" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "chooseSomeoneToDrink" },
+    { "type": "finish" }
+  ],
+  "mysteryPool": [
+    { "type": "chooseSomeoneToDrink", "weight": 5 },
+    { "type": "drink", "amount": 1, "weight": 5 }
+  ]
+}

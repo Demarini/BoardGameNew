@@ -91,8 +91,9 @@ public class SpacePopupHUD : UdonSharpBehaviour
             gameVariables.tmpPopupIncrement = gameVariables.PopupIncrement;
 
             int target = gameVariables.PopupTargetPlayerIndex;
-            Debug.Log($"[PopupHUD] New popup! msg='{gameVariables.PopupMessage}', target={target}, selfIndex={playerLists.selfIndex}");
-            if (target == -1 || target == playerLists.selfIndex)
+            int exclude = gameVariables.PopupExcludePlayerIndex;
+            Debug.Log($"[PopupHUD] New popup! msg='{gameVariables.PopupMessage}', target={target}, exclude={exclude}, selfIndex={playerLists.selfIndex}");
+            if ((target == -1 || target == playerLists.selfIndex) && playerLists.selfIndex != exclude)
             {
                 ShowPopup(gameVariables.PopupMessage);
             }

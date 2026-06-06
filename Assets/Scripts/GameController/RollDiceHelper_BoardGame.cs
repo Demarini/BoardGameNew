@@ -15,10 +15,26 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     float timer = 0;
     bool isDebugging = false;
     bool waitingForMystery = false;
-    
+
+    // Interactive choose-a-player pause/resume (master-side).
+    bool waitingForChoice = false;
+    float choiceTimer = 0;
+    float choiceTimeout = 30f;
+
     void Update()
     {
         timer = timer + Time.deltaTime;
+
+        // Fallback so an AFK chooser can never soft-lock the turn.
+        if (waitingForChoice && Networking.LocalPlayer.isMaster)
+        {
+            choiceTimer = choiceTimer + Time.deltaTime;
+            if (choiceTimer > choiceTimeout)
+            {
+                Debug.Log("[RollDiceHelper] Choice timed out, master auto-resolving.");
+                OnChooseResolved(-1); // -1 => ResolveChooseDrink picks a random eligible player
+            }
+        }
     }
     int CalculateWeightedRoll(int weightRoll1, int weightRoll2, int weightRoll3, int weightRoll4, int weightRoll5, int weightRoll6)
     {
@@ -385,6 +401,18 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             return;
         }
 
+        // Interactive space: pause the turn and wait for the current player to pick
+        // a target. Resume happens in OnChooseResolved when the choice reaches master.
+        if (spaceSetting.ChooseSomeoneToDrink)
+        {
+            Debug.Log("[RollDiceHelper] Choose-a-player space, pausing for input.");
+            waitingForChoice = true;
+            choiceTimer = 0;
+            gameController.StartChoosePrompt(0); // mode 0 = choose someone to drink
+            updateSpaces.UpdateOutlineSpaces();
+            return;
+        }
+
         int leaderMoveBackTarget = gameController.ProcessLeaderMoveBack(spaceSetting);
         gameController.ProcessLandingLog(spaceSetting, finalLandingSpace);
         gameController.ProcessPopup(spaceSetting, wasSentBack, lastSwapType, leaderMoveBackTarget);
@@ -398,6 +426,17 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         {
             gameController.SamePlayerRollAgain();
         }
+        updateSpaces.UpdateOutlineSpaces();
+    }
+
+    // Called by PlayerChoiceRelay (master only) once the current player's pick arrives,
+    // or by the timeout fallback above with targetIndex == -1.
+    public void OnChooseResolved(int targetIndex)
+    {
+        if (!waitingForChoice || !Networking.LocalPlayer.isMaster) return;
+        waitingForChoice = false;
+        Debug.Log($"[RollDiceHelper] Choice resolved, target={targetIndex}");
+        gameController.ResolveChooseDrink(targetIndex);
         updateSpaces.UpdateOutlineSpaces();
     }
     private int GetRandomRoll(int min, int max)

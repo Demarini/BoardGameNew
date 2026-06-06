@@ -16,6 +16,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
     [SerializeField] UpdatePlayerCamerasOnSpace_BoardGame updatePlayerCamerasOnSpace;
     [SerializeField] ToggleGameAudio_BoardGame toggleGameAudio;
     [SerializeField] SpacePopupHUD spacePopupHUD;
+    [SerializeField] PlayerChoiceMenu playerChoiceMenu;
+    [SerializeField] PlayerChoiceRelay playerChoiceRelay;
     [SerializeField] GameObject musicPlayerObject;
     [SerializeField] GameObject[] musicPlayerVolumes;
     public Slider volumeSlider;
@@ -92,6 +94,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 gameVariables.GameEnded = false;
                 gameVariables.CurrentPlayerIndex = 0;
                 playerLists.GetSelfIndex();
+                AssignChoiceRelayOwner();
                 gameVariables.PlayerUpdateBoard++;
                 gameVariables.TakePicture++;
                 updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
@@ -129,6 +132,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         {
             gameVariables.SamePlayer++;
         }
+        AssignChoiceRelayOwner();
         gameVariables.PlayerUpdateBoard++;
         gameVariables.RequestSerialization();
     }
@@ -163,6 +167,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         else
         {
             Debug.Log("Incrementing Player Update Board");
+            AssignChoiceRelayOwner();
             gameVariables.PlayerUpdateBoard++;
             gameVariables.RequestSerialization();
         }
@@ -364,9 +369,99 @@ public class GameController_BoardGame : UdonSharpBehaviour
         {
             gameVariables.PopupMessage = msg;
             gameVariables.PopupTargetPlayerIndex = target;
+            gameVariables.PopupExcludePlayerIndex = -1;
             gameVariables.PopupIncrement++;
         }
     }
+    // ---------------- Interactive "choose a player" flow ----------------
+
+    // Master broadcasts that the current player must choose, and (since master does
+    // not deserialize its own write) shows the menu locally if master is the chooser.
+    public void StartChoosePrompt(int mode)
+    {
+        gameVariables.ChooseMode = mode;
+        gameVariables.ChoosingPlayerIndex = gameVariables.CurrentPlayerIndex;
+        gameVariables.ChoosePromptIncrement++;
+
+        // Show the chooser on the space they just landed for everyone, before they pick.
+        gameVariables.BoardVisualRefresh++;
+
+        // Announce the landing (the post-choice "X chose Y" popup is separate, in ResolveChooseDrink).
+        string chooserName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
+        gameVariables.PopupMessage = mode == 1
+            ? chooserName + " landed on Swap!"
+            : chooserName + " landed on Choose Someone to Drink!";
+        gameVariables.PopupTargetPlayerIndex = -1;
+        gameVariables.PopupExcludePlayerIndex = gameVariables.CurrentPlayerIndex; // chooser has the menu, skip the redundant popup
+        gameVariables.PopupIncrement++;
+
+        gameVariables.RequestSerialization();
+        gameVariables.RefreshBoardVisualsOnly(); // master doesn't deserialize its own write
+        if (playerChoiceMenu != null) playerChoiceMenu.ShowForLocalChooser();
+    }
+
+    // Master applies the choice, broadcasts who was chosen, then advances the turn.
+    public void ResolveChooseDrink(int targetIndex)
+    {
+        int chooserIndex = gameVariables.CurrentPlayerIndex;
+        if (targetIndex < 0 || targetIndex >= playerLists.playerNamesInGameDataList.Count
+            || targetIndex == chooserIndex
+            || Convert.ToInt32(playerLists.playerStatusInGameDataList[targetIndex].ToString()) > 0)
+        {
+            targetIndex = PickRandomOtherPlayer(chooserIndex);
+        }
+
+        string chooserName = playerLists.playerNamesInGameDataList[chooserIndex].String;
+        string targetName = playerLists.playerNamesInGameDataList[targetIndex].String;
+        string msg = chooserName + " chose " + targetName + " to drink!";
+
+        gameVariables.LogEvent(msg);
+        gameVariables.PopupMessage = msg;
+        gameVariables.PopupTargetPlayerIndex = -1; // everyone sees who was chosen
+        gameVariables.PopupExcludePlayerIndex = -1;
+        gameVariables.PopupIncrement++;
+
+        gameVariables.ChosenDrinkPlayerIndex = targetIndex; // target hears the drink cue
+        gameVariables.ToggleChosenDrink++;
+
+        gameVariables.ChoosingPlayerIndex = -1; // force any open menus to hide
+        gameVariables.ChoosePromptIncrement++;
+
+        NextPlayer(); // advances, reassigns relay ownership, and serializes everything above
+    }
+
+    int PickRandomOtherPlayer(int excludeIndex)
+    {
+        int count = playerLists.playerNamesInGameDataList.Count;
+        if (count <= 1) return excludeIndex;
+        int idx = excludeIndex;
+        int guard = 0;
+        while ((idx == excludeIndex
+                || Convert.ToInt32(playerLists.playerStatusInGameDataList[idx].ToString()) > 0)
+               && guard < 100)
+        {
+            idx = UnityEngine.Random.Range(0, count);
+            guard++;
+        }
+        return idx;
+    }
+
+    // Hand the relay's write-pen to whoever's turn it now is, so their menu pick can
+    // serialize straight to master without a SetOwner round-trip at click time.
+    public void AssignChoiceRelayOwner()
+    {
+        if (!Networking.LocalPlayer.isMaster || playerChoiceRelay == null) return;
+        if (gameVariables.CurrentPlayerIndex < 0
+            || gameVariables.CurrentPlayerIndex >= playerLists.playersInGameDataList.Count) return;
+        int playerId = Convert.ToInt32(playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex].ToString());
+        if (playerId < 0) return;
+        VRCPlayerApi player = VRCPlayerApi.GetPlayerById(playerId);
+        if (player != null && !Networking.IsOwner(player, playerChoiceRelay.gameObject))
+        {
+            Networking.SetOwner(player, playerChoiceRelay.gameObject);
+        }
+    }
+
     public bool ProcessRollAgain(SpaceSettings spaceSetting)
     {
         if (spaceSetting.RollAgain)
