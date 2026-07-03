@@ -13,7 +13,19 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
     [SerializeField] UpdateSpaces updateSpaces;
     [SerializeField] MysteryManager mysteryManager;
     float timer = 0;
-    bool isDebugging = false;
+    [Tooltip("TESTING ONLY: when checked, the next roll instantly wins the game for the current player (used to test the Winner GameObject).")]
+    [SerializeField] bool winInOneRoll = false;
+
+    [Header("Winner eligibility (reroll off the finish)")]
+    [Tooltip("Players cannot win until this many seconds have elapsed. Set to 0 to allow winning immediately. (Was hardcoded to 1800 = 30 min.)")]
+    [SerializeField] float rerollOffFinishSeconds = 0f;
+    [Tooltip("These players can never land on the finish - they get rerolled off it. e.g. El Linguino.")]
+    [SerializeField] string[] playersNotAllowedToWin;
+    [Tooltip("When checked, ONLY the players in 'Players Allowed To Win' may win; everyone else gets rerolled off the finish.")]
+    [SerializeField] bool useAllowList = false;
+    [Tooltip("When 'Use Allow List' is checked, only these players may win. e.g. the American players for the 4th of July.")]
+    [SerializeField] string[] playersAllowedToWin;
+
     bool waitingForMystery = false;
 
     // Interactive choose-a-player pause/resume (master-side).
@@ -164,17 +176,41 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
         }
         return currentRoll;
     }
+    bool NameInList(string playerName, string[] list)
+    {
+        if (list == null) return false;
+        for (int i = 0; i < list.Length; i++)
+        {
+            if (list[i] == playerName) return true;
+        }
+        return false;
+    }
     bool MeetsRollOffFinalConditions()
     {
-        if (playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex] == "El Linguino" || timer < 1800)
+        string currentName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].String;
+
+        // Explicitly banned from winning.
+        if (NameInList(currentName, playersNotAllowedToWin))
         {
-            Debug.Log("Reroll For Final Landing Space");
+            Debug.Log($"Reroll For Final Landing Space ({currentName} is on the not-allowed-to-win list)");
             return true;
         }
-        else
+
+        // Allow-list mode: only listed players may win.
+        if (useAllowList && !NameInList(currentName, playersAllowedToWin))
         {
-            return false;
+            Debug.Log($"Reroll For Final Landing Space ({currentName} is not on the allowed-to-win list)");
+            return true;
         }
+
+        // Time gate: can't win before this many seconds have elapsed.
+        if (timer < rerollOffFinishSeconds)
+        {
+            Debug.Log($"Reroll For Final Landing Space (only {timer}s elapsed, need {rerollOffFinishSeconds}s)");
+            return true;
+        }
+
+        return false;
     }
     int RerollForFinalSpaceConditions(int currentRoll)
     {
@@ -240,7 +276,7 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
 
         SpaceSettings spaceSetting = gameController.GetSpace(finalLandingSpace);
 
-        if (isDebugging)
+        if (winInOneRoll)
         {
             Debug.Log("GAME OVER!!!");
             gameVariables.WinnerName = playerLists.playerNamesInGameDataList[gameVariables.CurrentPlayerIndex].ToString();
@@ -408,8 +444,10 @@ public class RollDiceHelper_BoardGame : UdonSharpBehaviour
             Debug.Log("[RollDiceHelper] Choose-a-player space, pausing for input.");
             waitingForChoice = true;
             choiceTimer = 0;
+            // StartChoosePrompt -> RefreshBoardVisualsOnly already sets the outline on the
+            // roller's landing space. Don't call UpdateOutlineSpaces here: it would overwrite
+            // that with the stale-PreviousPlayerIndex outline (master-only, hence the master bug).
             gameController.StartChoosePrompt(0); // mode 0 = choose someone to drink
-            updateSpaces.UpdateOutlineSpaces();
             return;
         }
 

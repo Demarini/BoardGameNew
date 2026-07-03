@@ -11,6 +11,8 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
     [SerializeField] PlayerList_BoardGame playerLists;
 
     public GameObject ChooseSomeoneToDrink;
+    public GameObject ChosenToDrink; // played to the player who was picked ("you've been chosen to drink")
+    public GameObject LeaderDrink;   // played to the leader knocked back on a leader-move-back-and-drink space
     public GameObject Drink;
     public GameObject DrinkWithHost;
     public GameObject EveryoneDrink;
@@ -163,14 +165,14 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             {
                 if (gameVariables.LeaderDrinkPlayerIndex == playerLists.selfIndex)
                 {
-                    ToggleGameObject(Drink);
+                    ToggleGameObject(LeaderDrink);
                 }
             }
             else if (gameVariables.tmpToggleChosenDrink != gameVariables.ToggleChosenDrink)
             {
                 if (gameVariables.ChosenDrinkPlayerIndex == playerLists.selfIndex)
                 {
-                    ToggleGameObject(Drink);
+                    ToggleGameObject(ChosenToDrink);
                 }
             }
             gameVariables.tmpToggleChosenDrink = gameVariables.ToggleChosenDrink;

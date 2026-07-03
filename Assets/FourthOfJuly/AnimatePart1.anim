@@ -2709,7 +2709,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 23.25
+  - time: 23.383333
     functionName: SendCustomEvent
     data: ToggleSound
     objectReferenceParameter: {fileID: 0}

@@ -312,6 +312,24 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         }
         get => gameStarted;
     }
+    // Master-authoritative flag for the start-of-game intro (national anthem, etc.).
+    // Master sets it true when the game starts and false when the intro window ends.
+    // Every client (including late joiners) mirrors the intro object + dice block off THIS,
+    // so a late joiner who arrives after it's already false does NOT replay the intro.
+    [UdonSynced, FieldChangeCallback(nameof(GameStartIntroPlaying))]
+    public bool gameStartIntroPlaying;
+    public bool GameStartIntroPlaying
+    {
+        set
+        {
+            bool wasPlaying = gameStartIntroPlaying;
+            gameStartIntroPlaying = value;
+            if (gameController == null) return;
+            if (value && !wasPlaying) gameController.EnableGameStartIntro();
+            else if (!value && wasPlaying) gameController.DisableGameStartIntro();
+        }
+        get => gameStartIntroPlaying;
+    }
     [UdonSynced, FieldChangeCallback(nameof(GameEnded))]
     public bool gameEnded;
     public bool GameEnded

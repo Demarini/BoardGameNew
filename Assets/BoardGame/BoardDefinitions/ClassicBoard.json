@@ -48,8 +48,8 @@
     { "type": "guysDrink" },
     { "type": "girlsDrink" },
     { "type": "mystery" },
-    { "type": "everyoneDrink", "amount": 1 },
-    { "type": "drink", "amount": 2 },
+    { "type": "everyoneDrink", "amount": 2 },
+    { "type": "chooseSomeoneToDrink" },
     { "type": "mystery" },
     { "type": "finish" }
   ],

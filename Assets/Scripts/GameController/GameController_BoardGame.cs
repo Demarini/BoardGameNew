@@ -27,6 +27,14 @@ public class GameController_BoardGame : UdonSharpBehaviour
 
     public GameObject diceObjectInteract;
 
+    [Header("Game start intro (national anthem, etc.)")]
+    [Tooltip("Optional GameObject enabled for every client when the game starts, then disabled after 'Game Start Intro Seconds'. Leave empty to skip. Handle animation/audio on the object itself.")]
+    [SerializeField] GameObject gameStartIntroObject;
+    [Tooltip("How long the intro GameObject stays enabled after the game starts, in seconds.")]
+    [SerializeField] float gameStartIntroSeconds = 10f;
+    // True while the start intro is playing; blocks dice rolling/clicking until it ends.
+    bool gameStartIntroActive = false;
+
     public Text currentPlayerText;
 
     bool hasNotRolled = false;
@@ -47,10 +55,46 @@ public class GameController_BoardGame : UdonSharpBehaviour
         gameVariables.GameStarted = false;
         gameVariables.CurrentPlayerIndex = -1;
         diceObjectInteract.SetActive(false);
+        gameVariables.GameStartIntroPlaying = false; // clear synced intro flag if the game ends early
+        DisableGameStartIntro();
         //updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
         updateSpaces.ClearOutlineSpaces();
         gameVariables.RequestSerialization();
         playerLists.RequestSerialization();
+    }
+    // Master-only: kick off the intro. Sets the synced flag true (mirrored to every client via
+    // GameVariables.GameStartIntroPlaying) and schedules master to end it after the intro length.
+    public void StartGameStartIntroMaster()
+    {
+        if (gameStartIntroObject == null) return;
+        if (!Networking.LocalPlayer.isMaster) return;
+        gameVariables.GameStartIntroPlaying = true;
+        gameVariables.RequestSerialization();
+        SendCustomEventDelayedSeconds(nameof(EndGameStartIntroMaster), gameStartIntroSeconds);
+    }
+    // Master-only: end the intro window. Flips the synced flag false so every client (and any
+    // late joiner) disables the intro and re-enables the dice.
+    public void EndGameStartIntroMaster()
+    {
+        if (!Networking.LocalPlayer.isMaster) return;
+        gameVariables.GameStartIntroPlaying = false;
+        gameVariables.RequestSerialization();
+    }
+    // View logic, runs on every client off the synced flag. Enables the intro GameObject
+    // (e.g. national anthem) and blocks the dice until the flag flips back off.
+    public void EnableGameStartIntro()
+    {
+        if (gameStartIntroObject == null) return;
+        gameStartIntroActive = true;
+        gameStartIntroObject.SetActive(true);
+        DisableDiceObjectInteract(); // no clicking the dice during the intro
+    }
+    public void DisableGameStartIntro()
+    {
+        gameStartIntroActive = false;
+        if (gameStartIntroObject != null) gameStartIntroObject.SetActive(false);
+        // Intro's over -- give the current player their dice back.
+        CheckToUpdateDiceClickerInteract();
     }
     public void Update()
     {
@@ -100,6 +144,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
                 updatePlayerCamerasOnSpace.UpdateCameraCountOnSpaces();
                 gameVariables.gameLogDataList.Clear();
                 gameVariables.LogEvent("Game started!");
+                StartGameStartIntroMaster(); // anthem + dice block, master-driven & synced
                 playerLists.RequestSerialization();
                 gameVariables.RequestSerialization();
             }
@@ -174,6 +219,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
     }
     public void RollDice()
     {
+        if (gameStartIntroActive) return; // intro (anthem) still playing -- no rolling yet
         if(Networking.LocalPlayer.playerId == playerLists.playersInGameDataList[gameVariables.CurrentPlayerIndex])
         {
             //Debug.Log("Validated User - Can Roll Dice. Sending to Master");
@@ -205,6 +251,11 @@ public class GameController_BoardGame : UdonSharpBehaviour
     }
     public void CheckToUpdateDiceClickerInteract()
     {
+        if (gameStartIntroActive)
+        {
+            DisableDiceObjectInteract(); // keep the dice off until the intro finishes
+            return;
+        }
         if (gameVariables.gameStarted && gameVariables.ReceivedGameStartedValues && playerLists.ReceivedGameStartedValues)
         {
             //Debug.Log("Checking For Dice Clicker Update");
