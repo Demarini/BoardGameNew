@@ -22,6 +22,8 @@ public class ImageSettings : UdonSharpBehaviour
     public Material ChooseSomeoneToDrinkMat;
     public Material GirlsDrinkMat;
     public Material GuysDrinkMat;
+    public Material PatriotsDrinkMat;
+    public Material CommiesDrinkMat;
     public Material FinishMat;
     public Material StartMat;
     public Material MysteryMat;

@@ -37,6 +37,11 @@ public class PlayerChoiceMenu : UdonSharpBehaviour
     public float verticalOffset = -0.2f;
     public float minHeight = 1.0f;        // floor: menu center never drops below this (small avatars)
 
+    // While the menu is hidden, the canvas (and its VRCUiShape collider) is parked here --
+    // far off-map -- so players don't run into an invisible wall left where the menu last
+    // opened. ShowMenu moves it to the head; HideMenu/Start move it back here.
+    public Vector3 parkedPosition = new Vector3(0f, -1000f, 0f);
+
     // Optional countdown bar: a Filled Image that drains 1 -> 0 over choiceTimeout. Purely
     // local/visual -- master's RollDiceHelper.choiceTimeout is what actually picks. Keep
     // choiceTimeout here matching that value.
@@ -50,6 +55,7 @@ public class PlayerChoiceMenu : UdonSharpBehaviour
     void Start()
     {
         if (menuRoot != null) menuRoot.SetActive(false);
+        ParkCanvas();
     }
 
     // While the menu is open, keep it live: rebuild the eligible-player buttons (so
@@ -194,6 +200,13 @@ public class PlayerChoiceMenu : UdonSharpBehaviour
     public void HideMenu()
     {
         if (menuRoot != null) menuRoot.SetActive(false);
+        ParkCanvas();
+    }
+
+    // Stash the canvas (and its collider) far off-map so nothing runs into it while hidden.
+    void ParkCanvas()
+    {
+        if (canvasToPosition != null) canvasToPosition.position = parkedPosition;
     }
 
     // Called by a PlayerChoiceButton's OnClick.

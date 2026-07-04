@@ -21,6 +21,8 @@ public class SpaceSettings : UdonSharpBehaviour
     public bool ChooseSomeoneToDrink;
     public bool GirlsDrink;
     public bool GuysDrink;
+    public bool PatriotsDrink;
+    public bool CommiesDrink;
     public bool Finish;
     public bool Start;
     public bool IsMystery;

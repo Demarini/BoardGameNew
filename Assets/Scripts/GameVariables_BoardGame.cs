@@ -129,6 +129,30 @@ public class GameVariables_BoardGame : UdonSharpBehaviour
         get => toggleGuysDrink;
     }
 
+    public int tmpTogglePatriotsDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(TogglePatriotsDrink))]
+    public int togglePatriotsDrink = 0;
+    public int TogglePatriotsDrink
+    {
+        set
+        {
+            togglePatriotsDrink = value;
+        }
+        get => togglePatriotsDrink;
+    }
+
+    public int tmpToggleCommiesDrink = 0;
+    [UdonSynced, FieldChangeCallback(nameof(ToggleCommiesDrink))]
+    public int toggleCommiesDrink = 0;
+    public int ToggleCommiesDrink
+    {
+        set
+        {
+            toggleCommiesDrink = value;
+        }
+        get => toggleCommiesDrink;
+    }
+
     public int tmpToggleSendBackToStart = 0;
     [UdonSynced, FieldChangeCallback(nameof(ToggleSendBackToStart))]
     public int toggleSendBackToStart = 0;

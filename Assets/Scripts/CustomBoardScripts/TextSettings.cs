@@ -21,6 +21,8 @@ public class TextSettings : UdonSharpBehaviour
     public string ChooseSomeoneToDrinkText = "Choose Someone to Drink";
     public string GirlsDrinkText = "Girl Avatars Drink";
     public string GuysDrinkText = "Guy Avatars Drink";
+    public string PatriotsDrinkText = "Patriots Drink";
+    public string CommiesDrinkText = "Commies Drink";
     public string FinishText = "Finish";
     public string MysteryText = "???";
     public string LeaderMoveBackXSpacesText = "1st Place\nMoves Back {x}";

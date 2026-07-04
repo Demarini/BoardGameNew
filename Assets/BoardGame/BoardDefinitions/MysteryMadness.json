@@ -79,6 +79,8 @@
     { "type": "drinkWithHost", "weight": 7 },
     { "type": "chooseSomeoneToDrink", "weight": 7 },
     { "type": "girlsDrink", "weight": 7 },
-    { "type": "guysDrink", "weight": 7 }
+    { "type": "guysDrink", "weight": 7 },
+    { "type": "patriotsDrink", "weight": 7 },
+    { "type": "commiesDrink", "weight": 7 }
   ]
 }

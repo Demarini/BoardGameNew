@@ -139,6 +139,8 @@ public class UpdateBoard : MonoBehaviour
         ss.ChooseSomeoneToDrink = false;
         ss.GirlsDrink = false;
         ss.GuysDrink = false;
+        ss.PatriotsDrink = false;
+        ss.CommiesDrink = false;
         ss.Finish = false;
         ss.Start = false;
         ss.IsMystery = false;
@@ -182,6 +184,8 @@ public class UpdateBoard : MonoBehaviour
         else if (type == "chooseSomeoneToDrink") ss.ChooseSomeoneToDrink = true;
         else if (type == "girlsDrink") ss.GirlsDrink = true;
         else if (type == "guysDrink") ss.GuysDrink = true;
+        else if (type == "patriotsDrink") ss.PatriotsDrink = true;
+        else if (type == "commiesDrink") ss.CommiesDrink = true;
         else if (type == "immuneFromDrinking") ss.ImmuneFromDrinking = true;
         else if (type == "leaderMoveBack")
         {
@@ -321,6 +325,16 @@ public class UpdateBoard : MonoBehaviour
             string addAnd = normalText != "" ? " and " : "";
             normalText = normalText + addAnd + textSettings.GuysDrinkText;
         }
+        if (spaceSettings.PatriotsDrink)
+        {
+            string addAnd = normalText != "" ? " and " : "";
+            normalText = normalText + addAnd + textSettings.PatriotsDrinkText;
+        }
+        if (spaceSettings.CommiesDrink)
+        {
+            string addAnd = normalText != "" ? " and " : "";
+            normalText = normalText + addAnd + textSettings.CommiesDrinkText;
+        }
         if (spaceSettings.Finish)
         {
             string addAnd = normalText != "" ? " and " : "";
@@ -355,6 +369,8 @@ public class UpdateBoard : MonoBehaviour
         if (spaceSettings.ChooseSomeoneToDrink) return imageSettings.ChooseSomeoneToDrinkMat;
         if (spaceSettings.GirlsDrink) return imageSettings.GirlsDrinkMat;
         if (spaceSettings.GuysDrink) return imageSettings.GuysDrinkMat;
+        if (spaceSettings.PatriotsDrink) return imageSettings.PatriotsDrinkMat;
+        if (spaceSettings.CommiesDrink) return imageSettings.CommiesDrinkMat;
         return imageSettings.DrinkXTimesMat;
     }
 

@@ -30,8 +30,10 @@ public class GameController_BoardGame : UdonSharpBehaviour
     [Header("Game start intro (national anthem, etc.)")]
     [Tooltip("Optional GameObject enabled for every client when the game starts, then disabled after 'Game Start Intro Seconds'. Leave empty to skip. Handle animation/audio on the object itself.")]
     [SerializeField] GameObject gameStartIntroObject;
-    [Tooltip("How long the intro GameObject stays enabled after the game starts, in seconds.")]
+    [Tooltip("How long the intro GameObject stays enabled after the game starts, in seconds. Set this longer than the anthem video so trailing effects (smoke, etc.) linger past the video.")]
     [SerializeField] float gameStartIntroSeconds = 10f;
+    [Tooltip("Optional: drives the intro animation synced to the video. Its animation is stopped by THIS timer, not by the video ending.")]
+    [SerializeField] IntroVideoSync introVideoSync;
     // True while the start intro is playing; blocks dice rolling/clicking until it ends.
     bool gameStartIntroActive = false;
 
@@ -55,6 +57,7 @@ public class GameController_BoardGame : UdonSharpBehaviour
         gameVariables.GameStarted = false;
         gameVariables.CurrentPlayerIndex = -1;
         diceObjectInteract.SetActive(false);
+        if (introVideoSync != null) introVideoSync.StopAnimationSynced(); // stop synced intro animation if game ends early
         gameVariables.GameStartIntroPlaying = false; // clear synced intro flag if the game ends early
         DisableGameStartIntro();
         //updatePlayerCamerasOnSpace.ClearAllSpacesOfPictures();
@@ -77,6 +80,9 @@ public class GameController_BoardGame : UdonSharpBehaviour
     public void EndGameStartIntroMaster()
     {
         if (!Networking.LocalPlayer.isMaster) return;
+        // Stop the video-synced animation (smoke, etc.) BEFORE tearing down the intro object,
+        // so the stop is keyed to THIS timer rather than the video's end.
+        if (introVideoSync != null) introVideoSync.StopAnimationSynced();
         gameVariables.GameStartIntroPlaying = false;
         gameVariables.RequestSerialization();
     }
@@ -296,6 +302,14 @@ public class GameController_BoardGame : UdonSharpBehaviour
         {
             gameVariables.ToggleGuysDrink++;
         }
+        else if (spaceSetting.PatriotsDrink)
+        {
+            gameVariables.TogglePatriotsDrink++;
+        }
+        else if (spaceSetting.CommiesDrink)
+        {
+            gameVariables.ToggleCommiesDrink++;
+        }
         else if (spaceSetting.DrinkWithHost)
         {
             gameVariables.ToggleDrinkWithHost++;
@@ -384,6 +398,16 @@ public class GameController_BoardGame : UdonSharpBehaviour
         else if (spaceSetting.GuysDrink)
         {
             msg = "Guy avatars drink!";
+            target = -1;
+        }
+        else if (spaceSetting.PatriotsDrink)
+        {
+            msg = "Patriots drink!";
+            target = -1;
+        }
+        else if (spaceSetting.CommiesDrink)
+        {
+            msg = "Commies drink!";
             target = -1;
         }
         else if (spaceSetting.DrinkXTimes > 0)
@@ -663,6 +687,8 @@ public class GameController_BoardGame : UdonSharpBehaviour
         if (spaceSetting.EveryoneDrinkXTimes > 0) entry = "Everyone drinks " + spaceSetting.EveryoneDrinkXTimes;
         else if (spaceSetting.GirlsDrink) entry = "Girl avatars drink";
         else if (spaceSetting.GuysDrink) entry = "Guy avatars drink";
+        else if (spaceSetting.PatriotsDrink) entry = "Patriots drink";
+        else if (spaceSetting.CommiesDrink) entry = "Commies drink";
         else if (spaceSetting.DrinkXTimes > 0) entry = playerName + " (" + finalLandingSpace + ") drinks " + spaceSetting.DrinkXTimes;
         else if (spaceSetting.DrinkWithHost) entry = playerName + " (" + finalLandingSpace + ") drinks with the host";
         else if (spaceSetting.ChooseSomeoneToDrink) entry = playerName + " (" + finalLandingSpace + ") chooses someone to drink";

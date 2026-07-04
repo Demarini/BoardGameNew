@@ -243,6 +243,8 @@ public class MysteryManager : UdonSharpBehaviour
         pendingSpaceSettings.ChooseSomeoneToDrink = false;
         pendingSpaceSettings.GirlsDrink = false;
         pendingSpaceSettings.GuysDrink = false;
+        pendingSpaceSettings.PatriotsDrink = false;
+        pendingSpaceSettings.CommiesDrink = false;
         pendingSpaceSettings.LeaderMoveBackXSpaces = 0;
         pendingSpaceSettings.LeaderDrinkXTimes = 0;
 
@@ -261,6 +263,8 @@ public class MysteryManager : UdonSharpBehaviour
         else if (type == "chooseSomeoneToDrink") pendingSpaceSettings.ChooseSomeoneToDrink = true;
         else if (type == "girlsDrink") pendingSpaceSettings.GirlsDrink = true;
         else if (type == "guysDrink") pendingSpaceSettings.GuysDrink = true;
+        else if (type == "patriotsDrink") pendingSpaceSettings.PatriotsDrink = true;
+        else if (type == "commiesDrink") pendingSpaceSettings.CommiesDrink = true;
         else if (type == "immuneFromDrinking") pendingSpaceSettings.ImmuneFromDrinking = true;
         else if (type == "sendBackToStart") pendingSpaceSettings.SendBackToStart = true;
         else if (type == "leaderMoveBack")
@@ -309,6 +313,8 @@ public class MysteryManager : UdonSharpBehaviour
         if (type == "chooseSomeoneToDrink") return textSettings.ChooseSomeoneToDrinkText;
         if (type == "girlsDrink") return textSettings.GirlsDrinkText;
         if (type == "guysDrink") return textSettings.GuysDrinkText;
+        if (type == "patriotsDrink") return textSettings.PatriotsDrinkText;
+        if (type == "commiesDrink") return textSettings.CommiesDrinkText;
         if (type == "immuneFromDrinking") return textSettings.ImmuneFromDrinkingText;
         if (type == "sendBackToStart") return textSettings.SendBackToStartText;
         if (type == "leaderMoveBack") return textSettings.LeaderMoveBackXSpacesText.Replace("{x}", amount.ToString());
@@ -331,6 +337,8 @@ public class MysteryManager : UdonSharpBehaviour
         if (type == "chooseSomeoneToDrink") return imageSettings.ChooseSomeoneToDrinkMat;
         if (type == "girlsDrink") return imageSettings.GirlsDrinkMat;
         if (type == "guysDrink") return imageSettings.GuysDrinkMat;
+        if (type == "patriotsDrink") return imageSettings.PatriotsDrinkMat;
+        if (type == "commiesDrink") return imageSettings.CommiesDrinkMat;
         if (type == "immuneFromDrinking") return imageSettings.ImmuneFromDrinkingMat;
         if (type == "sendBackToStart") return imageSettings.SendBackToStartMat;
         if (type == "leaderMoveBack") return imageSettings.LeaderMoveBackXSpacesMat;

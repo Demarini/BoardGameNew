@@ -18,6 +18,8 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
     public GameObject EveryoneDrink;
     public GameObject GirlsDrink;
     public GameObject GuysDrink;
+    public GameObject PatriotsDrink;
+    public GameObject CommiesDrink;
     public GameObject SendBackToStart;
     public GameObject SwapWithFirst;
     public GameObject SwapWithLast;
@@ -39,6 +41,8 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleEveryoneDrink = gameVariables.ToggleEveryoneDrink;
             gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
             gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
+            gameVariables.tmpTogglePatriotsDrink = gameVariables.TogglePatriotsDrink;
+            gameVariables.tmpToggleCommiesDrink = gameVariables.ToggleCommiesDrink;
             gameVariables.tmpToggleSendBackToStart = gameVariables.ToggleSendBackToStart;
             gameVariables.tmpToggleSwapWithFirst = gameVariables.ToggleSwapWithFirst;
             gameVariables.tmpToggleSwapWithLast = gameVariables.ToggleSwapWithLast;
@@ -70,6 +74,8 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
                 gameVariables.tmpToggleEveryoneDrink = gameVariables.ToggleEveryoneDrink;
                 gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
                 gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
+                gameVariables.tmpTogglePatriotsDrink = gameVariables.TogglePatriotsDrink;
+                gameVariables.tmpToggleCommiesDrink = gameVariables.ToggleCommiesDrink;
                 gameVariables.tmpToggleSwapWithFirst = gameVariables.ToggleSwapWithFirst;
                 gameVariables.tmpToggleSwapWithLast = gameVariables.ToggleSwapWithLast;
                 gameVariables.tmpToggleRollAgain = gameVariables.ToggleRollAgain;
@@ -120,6 +126,14 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             else if (gameVariables.tmpToggleGuysDrink != gameVariables.ToggleGuysDrink)
             {
                 ToggleGameObject(GuysDrink);
+            }
+            else if (gameVariables.tmpTogglePatriotsDrink != gameVariables.TogglePatriotsDrink)
+            {
+                ToggleGameObject(PatriotsDrink);
+            }
+            else if (gameVariables.tmpToggleCommiesDrink != gameVariables.ToggleCommiesDrink)
+            {
+                ToggleGameObject(CommiesDrink);
             }
             else if (gameVariables.tmpToggleSendBackToStart != gameVariables.ToggleSendBackToStart)
             {
@@ -182,6 +196,8 @@ public class ToggleGameAudio_BoardGame : UdonSharpBehaviour
             gameVariables.tmpToggleEveryoneDrink = gameVariables.ToggleEveryoneDrink;
             gameVariables.tmpToggleGirlsDrink = gameVariables.ToggleGirlsDrink;
             gameVariables.tmpToggleGuysDrink = gameVariables.ToggleGuysDrink;
+            gameVariables.tmpTogglePatriotsDrink = gameVariables.TogglePatriotsDrink;
+            gameVariables.tmpToggleCommiesDrink = gameVariables.ToggleCommiesDrink;
             gameVariables.tmpToggleSendBackToStart = gameVariables.ToggleSendBackToStart;
             gameVariables.tmpToggleSwapWithFirst = gameVariables.ToggleSwapWithFirst;
             gameVariables.tmpToggleSwapWithLast = gameVariables.ToggleSwapWithLast;
