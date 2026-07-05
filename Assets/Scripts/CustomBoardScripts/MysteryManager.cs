@@ -53,6 +53,7 @@ public class MysteryManager : UdonSharpBehaviour
     GameObject previousSpaceObject;
     Text previousSpaceText;
     Renderer previousSpaceRenderer;
+    int previousSpaceIndex = -1;
 
     public bool IsSpinning()
     {
@@ -68,6 +69,13 @@ public class MysteryManager : UdonSharpBehaviour
         if (previousSpaceRenderer != null && imageSettings.MysteryMat != null)
         {
             previousSpaceRenderer.material = imageSettings.MysteryMat;
+        }
+        // Keep the flag honest with the icon: once the space is back to "???", clear its baked
+        // effect so a player *moved* onto it can't trigger a stale result. (Dice landings already
+        // re-spin via CalculateRoll's IsMystery check; the movement loop reads flags directly.)
+        if (previousSpaceIndex >= 0 && gameController != null)
+        {
+            ClearSpaceEffectFlags(gameController.GetSpace(previousSpaceIndex));
         }
     }
 
@@ -171,6 +179,7 @@ public class MysteryManager : UdonSharpBehaviour
             previousSpaceObject = activeSpaceObject;
             previousSpaceText = activeSpaceText;
             previousSpaceRenderer = activeSpaceRenderer;
+            previousSpaceIndex = pendingLandingSpace;
 
             if (spinLandSound != null && spinAudioSource != null)
             {
@@ -228,25 +237,7 @@ public class MysteryManager : UdonSharpBehaviour
         string type = poolTypes[targetIndex];
         int amount = poolAmounts[targetIndex];
 
-        pendingSpaceSettings.RollAgain = false;
-        pendingSpaceSettings.DrinkXTimes = 0;
-        pendingSpaceSettings.SendBackToStart = false;
-        pendingSpaceSettings.EveryoneDrinkXTimes = 0;
-        pendingSpaceSettings.MoveBackXSpaces = 0;
-        pendingSpaceSettings.MoveForwardXSpaces = 0;
-        pendingSpaceSettings.DrinkWhatYouRoll = false;
-        pendingSpaceSettings.SwapWithLast = false;
-        pendingSpaceSettings.SwapWithFirst = false;
-        pendingSpaceSettings.ImmuneFromDrinking = false;
-        pendingSpaceSettings.MissTurn = false;
-        pendingSpaceSettings.DrinkWithHost = false;
-        pendingSpaceSettings.ChooseSomeoneToDrink = false;
-        pendingSpaceSettings.GirlsDrink = false;
-        pendingSpaceSettings.GuysDrink = false;
-        pendingSpaceSettings.PatriotsDrink = false;
-        pendingSpaceSettings.CommiesDrink = false;
-        pendingSpaceSettings.LeaderMoveBackXSpaces = 0;
-        pendingSpaceSettings.LeaderDrinkXTimes = 0;
+        ClearSpaceEffectFlags(pendingSpaceSettings);
 
         int spaces = (poolSpaces != null && targetIndex < poolSpaces.Length) ? poolSpaces[targetIndex] : 0;
 
@@ -277,6 +268,33 @@ public class MysteryManager : UdonSharpBehaviour
         if (gameVariables != null) gameVariables.LogEvent("Mystery on " + pendingLandingSpace + " -> " + mysteryDesc);
 
         pendingSpaceSettings = null;
+    }
+
+    // Single source of truth for "wipe this space's effects" -- keeps IsMystery intact. Used
+    // both when a mystery is freshly resolved (before applying the new result) and when a
+    // resolved mystery reverts to "???". A NEW SpaceSettings effect property must be added here.
+    void ClearSpaceEffectFlags(SpaceSettings ss)
+    {
+        if (ss == null) return;
+        ss.RollAgain = false;
+        ss.DrinkXTimes = 0;
+        ss.SendBackToStart = false;
+        ss.EveryoneDrinkXTimes = 0;
+        ss.MoveBackXSpaces = 0;
+        ss.MoveForwardXSpaces = 0;
+        ss.DrinkWhatYouRoll = false;
+        ss.SwapWithLast = false;
+        ss.SwapWithFirst = false;
+        ss.ImmuneFromDrinking = false;
+        ss.MissTurn = false;
+        ss.DrinkWithHost = false;
+        ss.ChooseSomeoneToDrink = false;
+        ss.GirlsDrink = false;
+        ss.GuysDrink = false;
+        ss.PatriotsDrink = false;
+        ss.CommiesDrink = false;
+        ss.LeaderMoveBackXSpaces = 0;
+        ss.LeaderDrinkXTimes = 0;
     }
 
     public SpaceSettings GetResolvedSpaceSettings()

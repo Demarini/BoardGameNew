@@ -501,6 +501,11 @@ public class GameController_BoardGame : UdonSharpBehaviour
 
         gameVariables.ChoosingPlayerIndex = -1; // force any open menus to hide
         gameVariables.ChoosePromptIncrement++;
+        // Remote choosers hide via CheckPrompt on deserialize, but master never deserializes its
+        // own write -- so hide master's local menu directly (symmetric to StartChoosePrompt's
+        // ShowForLocalChooser). Without this the menu lingers when master is the chooser and the
+        // pick times out. Idempotent when master isn't the chooser (menu already hidden).
+        if (playerChoiceMenu != null) playerChoiceMenu.HideMenu();
 
         NextPlayer(); // advances, reassigns relay ownership, and serializes everything above
     }

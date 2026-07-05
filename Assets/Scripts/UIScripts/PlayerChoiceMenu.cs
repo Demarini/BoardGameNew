@@ -48,6 +48,12 @@ public class PlayerChoiceMenu : UdonSharpBehaviour
     public Image timerBar;
     public float choiceTimeout = 30f;
 
+    // Audio cue toggled locally when the drink menu opens (ChooseMode 0). Assign the same object
+    // ToggleGameAudio uses for its ChooseSomeoneToDrink clip. This is how the chooser actually
+    // hears it: the normal ProcessAudio path is skipped for this space because the landing pauses
+    // for input before reaching it. Left null = no sound.
+    public GameObject chooseDrinkAudio;
+
     bool promptLoaded = false;
     int activeButtonCount = 0;
     float choiceBarTimer = 0f;
@@ -135,6 +141,15 @@ public class PlayerChoiceMenu : UdonSharpBehaviour
             titleText.text = gameVariables.ChooseMode == 1
                 ? "Choose someone to swap with"
                 : "Choose someone to drink";
+        }
+
+        // Play the "choose someone to drink" cue locally, only for the drink menu (mode 0).
+        // ShowMenu is chooser-only, so exactly the right player hears it. Toggle off->on to
+        // retrigger play-on-awake, matching ToggleGameAudio's pattern.
+        if (gameVariables.ChooseMode == 0 && chooseDrinkAudio != null)
+        {
+            chooseDrinkAudio.SetActive(false);
+            chooseDrinkAudio.SetActive(true);
         }
 
         PopulateButtons();
